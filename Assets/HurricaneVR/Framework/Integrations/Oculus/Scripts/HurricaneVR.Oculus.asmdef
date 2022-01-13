@@ -1,0 +1,27 @@
+{
+    "name": "HurricaneVR.Oculus",
+    "references": [
+        "Oculus.VR",
+        "Hurricane.Shared",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        ""
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "HVR_OCULUS"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.inputsystem",
+            "expression": "",
+            "define": "HVR_INPUT_SYSTEM"
+        }
+    ],
+    "noEngineReferences": false
+}

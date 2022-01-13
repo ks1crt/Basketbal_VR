@@ -8,7 +8,15 @@
 /[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
+/[Aa]ssets/Plugins
+/[Aa]ssets/TutorialInfo
+/[Aa]ssets/XR
+/[Aa]ssets/Resources
+/[Aa]ssets/Presets
 /[Mm]emoryCaptures/
+/[Aa]ssets/Oculus
+/[Aa]ssets/TirgamesAssets
+
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
