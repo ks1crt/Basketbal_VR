@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/SchoolGymDay.unity
     guid: e6a6468f9e0d40943bbfd83ad00172de
@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/HurricaneVR/Framework/Integrations/Oculus/OculusScene.unity
     guid: d5059be49a8988a479a6ac15f7727c78
+  - enabled: 0
+    path: Assets/HurricaneVR/Framework/Integrations/HexaBodyVR/TechDemo/HexaV4Demo.unity
+    guid: e36cca1c9a8f55a448db1706d8116d64
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: d01d268f7b9096343bbc2962fef1f3f0, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fd3dd4b7e59bf2f44908ee8cd7af0493, type: 2}
