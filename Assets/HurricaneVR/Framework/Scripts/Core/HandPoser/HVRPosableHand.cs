@@ -325,6 +325,7 @@ namespace HurricaneVR.Framework.Core.HandPoser
             if (!p) return;
             var pose = p.PrimaryPose.Pose.GetPose(IsLeft);
             Pose(pose);
+            EditorUtility.SetDirty(p);
         }
 
         private void DetectFingerAxesPrivate()

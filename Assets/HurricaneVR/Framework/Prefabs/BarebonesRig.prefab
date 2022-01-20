@@ -375,7 +375,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145657406475272650}
-  m_LocalRotation: {x: 1.4978696e-16, y: -4.047208e-17, z: -0.08394361, w: 0.9964705}
+  m_LocalRotation: {x: -0.000000075886305, y: 0.000000026905665, z: 0.0053471248,
+    w: 0.99998575}
   m_LocalPosition: {x: 0.025775291, y: 1.7763568e-17, z: 1.4210854e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1194,6 +1195,12 @@ MonoBehaviour:
   Speed: 1
   FadeInSpeed: 1
   FadeOutSpeed: 1
+  FadeStart:
+    m_PersistentCalls:
+      m_Calls: []
+  FadeEnd:
+    m_PersistentCalls:
+      m_Calls: []
   CanvasGroup: {fileID: 1227716443227434658}
 --- !u!114 &7711824421694867058
 MonoBehaviour:
@@ -1703,7 +1710,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407146773931937477}
-  m_LocalRotation: {x: 1.1443316e-16, y: 4.8088383e-17, z: -0.06577556, w: 0.99783444}
+  m_LocalRotation: {x: -0.00000002616818, y: 0.00000001304015, z: -0.00040598962,
+    w: 0.99999994}
   m_LocalPosition: {x: 0.029590597, y: -3.5527136e-17, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1826,7 +1834,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439217832635967981}
-  m_LocalRotation: {x: -2.6402464e-16, y: 2.0679773e-16, z: -0.23558192, w: 0.9718545}
+  m_LocalRotation: {x: -0.00000015599652, y: 0.00000006705522, z: -0.049264986, w: 0.99878573}
   m_LocalPosition: {x: 0.045967426, y: -1.4210854e-16, z: -7.105427e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2619,7 +2627,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2388059869707554166}
-  m_LocalRotation: {x: 8.364196e-17, y: -1.5534073e-17, z: -0.14235, w: 0.9898164}
+  m_LocalRotation: {x: 0.01721234, y: 0.007500209, z: 0.07353306, w: 0.9971161}
   m_LocalPosition: {x: 0.03258824, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2695,7 +2703,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2504697234316618265}
-  m_LocalRotation: {x: -1.7569053e-16, y: -8.32419e-17, z: -0.16458225, w: 0.98636335}
+  m_LocalRotation: {x: -0.000000058149453, y: -0.00000011007069, z: 0.033362083, w: 0.99944335}
   m_LocalPosition: {x: 0.03335595, y: -1.4210854e-16, z: 1.4210854e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2903,16 +2911,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32cc63482144afa9752d0981ca1e93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Preview: {fileID: 0}
-  DoPreview: 0
-  SelectedPose: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
   IsLeft: 0
+  PoserIndex: 0
   MirrorAxis: 0
+  MirrorSettings: {fileID: 0}
+  HandMirrorer: {fileID: 0}
   UseMatchRotation: 0
-  Forward: 1
-  Up: 2
-  OtherForward: 1
-  OtherUp: 2
+  Axis1: 1
+  Axis2: 2
+  TargetAxis1: 1
+  TargetAxis2: 2
+  Thumb:
+    Root: {fileID: 4489459348142799806}
+    Tip: {fileID: 6619635211190879069}
+    Bones:
+    - Transform: {fileID: 4489459348142799806}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 660170834924177896}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4044983052115276122}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Index:
+    Root: {fileID: 549661707450673222}
+    Tip: {fileID: 4690456972079955935}
+    Bones:
+    - Transform: {fileID: 549661707450673222}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 6591673240278054968}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 979018465946324017}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Middle:
+    Root: {fileID: 9110756373122810209}
+    Tip: {fileID: 8180506239962767925}
+    Bones:
+    - Transform: {fileID: 9110756373122810209}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 63214565381634915}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 5090668258387250243}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Ring:
+    Root: {fileID: 6609888689714256010}
+    Tip: {fileID: 2026695068662771855}
+    Bones:
+    - Transform: {fileID: 6609888689714256010}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 6470451639716922399}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7079125132786876785}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Pinky:
+    Root: {fileID: 7660356990615672785}
+    Tip: {fileID: 3839178042678021118}
+    Bones:
+    - Transform: {fileID: 7660356990615672785}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 5354314962227696137}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 6053337647064662671}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 6111319737615341976}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  _fingers: []
+  SetupFingers: 
   ThumbRoot: {fileID: 4489459348142799806}
   ThumbTip: {fileID: 6619635211190879069}
   IndexRoot: {fileID: 549661707450673222}
@@ -2923,52 +3033,18 @@ MonoBehaviour:
   RingTip: {fileID: 2026695068662771855}
   PinkyRoot: {fileID: 7660356990615672785}
   PinkyTip: {fileID: 3839178042678021118}
-  Thumb:
-    Root: {fileID: 4489459348142799806}
-    Tip: {fileID: 6619635211190879069}
-    Bones:
-    - Transform: {fileID: 4489459348142799806}
-    - Transform: {fileID: 660170834924177896}
-    - Transform: {fileID: 4044983052115276122}
-  Index:
-    Root: {fileID: 549661707450673222}
-    Tip: {fileID: 4690456972079955935}
-    Bones:
-    - Transform: {fileID: 549661707450673222}
-    - Transform: {fileID: 6591673240278054968}
-    - Transform: {fileID: 979018465946324017}
-  Middle:
-    Root: {fileID: 9110756373122810209}
-    Tip: {fileID: 8180506239962767925}
-    Bones:
-    - Transform: {fileID: 9110756373122810209}
-    - Transform: {fileID: 63214565381634915}
-    - Transform: {fileID: 5090668258387250243}
-  Ring:
-    Root: {fileID: 6609888689714256010}
-    Tip: {fileID: 2026695068662771855}
-    Bones:
-    - Transform: {fileID: 6609888689714256010}
-    - Transform: {fileID: 6470451639716922399}
-    - Transform: {fileID: 7079125132786876785}
-  Pinky:
-    Root: {fileID: 7660356990615672785}
-    Tip: {fileID: 3839178042678021118}
-    Bones:
-    - Transform: {fileID: 7660356990615672785}
-    - Transform: {fileID: 5354314962227696137}
-    - Transform: {fileID: 6053337647064662671}
-    - Transform: {fileID: 6111319737615341976}
-  MirrorSettings: {fileID: 0}
   CapsuleRadius: 0.01
   CapsuleDirection: 0
   CapsuleAddRadius: 1
-  SetupFingers: 
   AddThumbCapsules: 
   AddIndexCapsules: 
   AddMiddleCapsules: 
   AddRingCapsules: 
   AddPinkyCapsules: 
+  otherhand: {fileID: 0}
+  DetectFingerAxes: 
+  MirrorToOtherHand: 
+  ApplyPrimaryPose: 
 --- !u!114 &3859421695265591486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3026,7 +3102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebbffaca5ed8a340ae381fb8a5695d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosePosAndRot: 1
+  PoseHand: 1
+  DefaultPoseHand: 1
+  DynamicPoseSpeed: 16
   PhysicsPoser: {fileID: 0}
   Hand: {fileID: 4292150699041362323}
   DefaultPoser: {fileID: 3859421695265591486}
@@ -3168,25 +3246,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1e5b754bd6d9241a88e889575193b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 4568508496887511069}
   JointSettings: {fileID: 11400000, guid: 10b31f17bbe7be94c900be1670865136, type: 2}
-  ParentRigidBody: {fileID: 1748736663224485519}
   SolverIterations: 10
   SolverVelocityIterations: 10
-  CurrentSettings: {fileID: 0}
-  LogStrengthChanges: 0
-  AlwaysUpdateJoint: 0
+  ReturnSpeed: 5
+  MaxTargetDistance: 0.8
+  MaxDistanceBehaviour: 2
+  Anchor: {fileID: 0}
+  ArmLength: 0.75
+  Target: {fileID: 4568508496887511069}
+  ParentRigidBody: {fileID: 1748736663224485519}
+  StrengthHandler: {fileID: 0}
+  Teleporter: {fileID: 0}
   MaxDistanceReached:
     m_PersistentCalls:
       m_Calls: []
   ReturnedToController:
     m_PersistentCalls:
       m_Calls: []
-  EnableTargetAngularVelocity: 0
-  AngularVelocityScale: 1
-  HandPhysics: {fileID: 1020101184066442844}
-  MaxDistance: 0.8
-  DisablePhysicsOnReturn: 0
   IsReturningToController: 0
 --- !u!114 &5373319262703916370
 MonoBehaviour:
@@ -3222,7 +3299,6 @@ MonoBehaviour:
   GrabBags: []
   SocketBag: {fileID: 5370440659394773125}
   InverseKinematics: 0
-  PoserIndex: 0
   ApplyHandLayer: 1
   HandGrabs: 0
   HandGrabSpeed: 5
@@ -3233,8 +3309,6 @@ MonoBehaviour:
   GrabPoser: {fileID: 0}
   HoverPoser: {fileID: 0}
   CloneHandModel: 1
-  HapticsAmplitude: 0.1
-  HapticsDuration: 0.1
   IgnoreParentingDistance: 0
   IgnoreParentingAngle: 0
   ParentingMaxAngleDelta: 20
@@ -3248,16 +3322,17 @@ MonoBehaviour:
   Inputs: {fileID: 4677679463764929042}
   PhysicsPoser: {fileID: 553241542164929530}
   ForceGrabber: {fileID: 0}
-  GrabIndicator: {fileID: 0}
-  TriggerGrabIndicator: {fileID: 0}
   ControllerOffset: {fileID: 0}
   CollisionHandler: {fileID: 0}
+  GrabIndicator: {fileID: 0}
+  TriggerGrabIndicator: {fileID: 0}
+  DynamicPoseIndicator: {fileID: 0}
+  DynamicPoseIndicatorMode: 1
   FallbackPoser: {fileID: 891069640873031892}
   HandModel: {fileID: 5820902413539720563}
   JointAnchor: {fileID: 5373319261471415927}
   RaycastOrigin: {fileID: 1109757153581161873}
   TrackedController: {fileID: 8459867822776405477}
-  InvisibleHand: {fileID: 2273007110690363195}
   OverlapSizer: {fileID: 6230161356528952991}
   ReleasedVelocityFactor: 1.25
   ReleasedAngularConversionFactor: 1
@@ -3323,10 +3398,12 @@ MonoBehaviour:
   OverrideRotation: 1
   OverrideTensor: 0
   OverrideAngularSpeed: 0
+  OverrideMaxDepenetration: 0
   CenterOfMass: {x: 0, y: 0, z: 0}
   InertiaTensorRotation: {x: 0, y: 0, z: 0}
   InertiaTensor: {x: 0, y: 0, z: 0}
   MaxAngularVelocity: 0
+  MaxDepenetration: 0
   COMGizmoSize: {x: 0.02, y: 0.02, z: 0.02}
   LiveUpdate: 0
   Rigidbody: {fileID: 0}
@@ -4228,25 +4305,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1e5b754bd6d9241a88e889575193b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 7417086260810085233}
   JointSettings: {fileID: 11400000, guid: 10b31f17bbe7be94c900be1670865136, type: 2}
-  ParentRigidBody: {fileID: 7383266518221033993}
   SolverIterations: 10
   SolverVelocityIterations: 10
-  CurrentSettings: {fileID: 0}
-  LogStrengthChanges: 0
-  AlwaysUpdateJoint: 0
+  ReturnSpeed: 5
+  MaxTargetDistance: 0.8
+  MaxDistanceBehaviour: 2
+  Anchor: {fileID: 0}
+  ArmLength: 0.75
+  Target: {fileID: 7417086260810085233}
+  ParentRigidBody: {fileID: 7383266518221033993}
+  StrengthHandler: {fileID: 0}
+  Teleporter: {fileID: 0}
   MaxDistanceReached:
     m_PersistentCalls:
       m_Calls: []
   ReturnedToController:
     m_PersistentCalls:
       m_Calls: []
-  EnableTargetAngularVelocity: 0
-  AngularVelocityScale: 1
-  HandPhysics: {fileID: 7941419590273201340}
-  MaxDistance: 0.8
-  DisablePhysicsOnReturn: 0
   IsReturningToController: 0
 --- !u!114 &4469883247582555292
 MonoBehaviour:
@@ -4282,7 +4358,6 @@ MonoBehaviour:
   GrabBags: []
   SocketBag: {fileID: 1958876795468501529}
   InverseKinematics: 0
-  PoserIndex: 0
   ApplyHandLayer: 1
   HandGrabs: 0
   HandGrabSpeed: 5
@@ -4293,8 +4368,6 @@ MonoBehaviour:
   GrabPoser: {fileID: 0}
   HoverPoser: {fileID: 0}
   CloneHandModel: 1
-  HapticsAmplitude: 0.1
-  HapticsDuration: 0.1
   IgnoreParentingDistance: 0
   IgnoreParentingAngle: 0
   ParentingMaxAngleDelta: 20
@@ -4308,16 +4381,17 @@ MonoBehaviour:
   Inputs: {fileID: 4677679463764929042}
   PhysicsPoser: {fileID: 5340255814130517910}
   ForceGrabber: {fileID: 0}
-  GrabIndicator: {fileID: 0}
-  TriggerGrabIndicator: {fileID: 0}
   ControllerOffset: {fileID: 0}
   CollisionHandler: {fileID: 0}
+  GrabIndicator: {fileID: 0}
+  TriggerGrabIndicator: {fileID: 0}
+  DynamicPoseIndicator: {fileID: 0}
+  DynamicPoseIndicatorMode: 1
   FallbackPoser: {fileID: 4823236723255399824}
   HandModel: {fileID: 7563472359463199278}
   JointAnchor: {fileID: 4469883247406863758}
   RaycastOrigin: {fileID: 897689193976822418}
   TrackedController: {fileID: 8459867821994636769}
-  InvisibleHand: {fileID: 4306225124386580051}
   OverlapSizer: {fileID: 2110113858731839290}
   ReleasedVelocityFactor: 1.25
   ReleasedAngularConversionFactor: 1
@@ -4383,10 +4457,12 @@ MonoBehaviour:
   OverrideRotation: 1
   OverrideTensor: 0
   OverrideAngularSpeed: 0
+  OverrideMaxDepenetration: 0
   CenterOfMass: {x: 0, y: 0, z: 0}
   InertiaTensorRotation: {x: 0, y: 0, z: 0}
   InertiaTensor: {x: 0, y: 0, z: 0}
   MaxAngularVelocity: 0
+  MaxDepenetration: 0
   COMGizmoSize: {x: 0.02, y: 0.02, z: 0.02}
   LiveUpdate: 0
   Rigidbody: {fileID: 0}
@@ -7164,16 +7240,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32cc63482144afa9752d0981ca1e93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Preview: {fileID: 0}
-  DoPreview: 0
-  SelectedPose: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
   IsLeft: 1
+  PoserIndex: 0
   MirrorAxis: 0
+  MirrorSettings: {fileID: 0}
+  HandMirrorer: {fileID: 0}
   UseMatchRotation: 0
-  Forward: 1
-  Up: 2
-  OtherForward: 1
-  OtherUp: 2
+  Axis1: 1
+  Axis2: 2
+  TargetAxis1: 1
+  TargetAxis2: 2
+  Thumb:
+    Root: {fileID: 4306225124022917186}
+    Tip: {fileID: 9079959214051904864}
+    Bones:
+    - Transform: {fileID: 4306225124022917186}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225123120745209}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225123159547845}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Index:
+    Root: {fileID: 4306225123124888689}
+    Tip: {fileID: 6592705192499326026}
+    Bones:
+    - Transform: {fileID: 4306225123124888689}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225124135164755}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225124372546068}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Middle:
+    Root: {fileID: 4306225122793623097}
+    Tip: {fileID: 302196219865116354}
+    Bones:
+    - Transform: {fileID: 4306225122793623097}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225124383254537}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225124408152559}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Ring:
+    Root: {fileID: 4306225123291895902}
+    Tip: {fileID: 5811360740933233738}
+    Bones:
+    - Transform: {fileID: 4306225123291895902}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225123899319686}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225123837928296}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Pinky:
+    Root: {fileID: 4306225123642160940}
+    Tip: {fileID: 328588647279498484}
+    Bones:
+    - Transform: {fileID: 4306225123642160940}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225123055763447}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225124038900072}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4306225123756336901}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  _fingers: []
+  SetupFingers: 
   ThumbRoot: {fileID: 4306225124022917186}
   ThumbTip: {fileID: 9079959214051904864}
   IndexRoot: {fileID: 4306225123124888689}
@@ -7184,52 +7362,18 @@ MonoBehaviour:
   RingTip: {fileID: 5811360740933233738}
   PinkyRoot: {fileID: 4306225123642160940}
   PinkyTip: {fileID: 328588647279498484}
-  Thumb:
-    Root: {fileID: 4306225124022917186}
-    Tip: {fileID: 9079959214051904864}
-    Bones:
-    - Transform: {fileID: 4306225124022917186}
-    - Transform: {fileID: 4306225123120745209}
-    - Transform: {fileID: 4306225123159547845}
-  Index:
-    Root: {fileID: 4306225123124888689}
-    Tip: {fileID: 6592705192499326026}
-    Bones:
-    - Transform: {fileID: 4306225123124888689}
-    - Transform: {fileID: 4306225124135164755}
-    - Transform: {fileID: 4306225124372546068}
-  Middle:
-    Root: {fileID: 4306225122793623097}
-    Tip: {fileID: 302196219865116354}
-    Bones:
-    - Transform: {fileID: 4306225122793623097}
-    - Transform: {fileID: 4306225124383254537}
-    - Transform: {fileID: 4306225124408152559}
-  Ring:
-    Root: {fileID: 4306225123291895902}
-    Tip: {fileID: 5811360740933233738}
-    Bones:
-    - Transform: {fileID: 4306225123291895902}
-    - Transform: {fileID: 4306225123899319686}
-    - Transform: {fileID: 4306225123837928296}
-  Pinky:
-    Root: {fileID: 4306225123642160940}
-    Tip: {fileID: 328588647279498484}
-    Bones:
-    - Transform: {fileID: 4306225123642160940}
-    - Transform: {fileID: 4306225123055763447}
-    - Transform: {fileID: 4306225124038900072}
-    - Transform: {fileID: 4306225123756336901}
-  MirrorSettings: {fileID: 0}
   CapsuleRadius: 0.01
   CapsuleDirection: 0
   CapsuleAddRadius: 1
-  SetupFingers: 
   AddThumbCapsules: 
   AddIndexCapsules: 
   AddMiddleCapsules: 
   AddRingCapsules: 
   AddPinkyCapsules: 
+  otherhand: {fileID: 0}
+  DetectFingerAxes: 
+  MirrorToOtherHand: 
+  ApplyPrimaryPose: 
 --- !u!114 &6534232879571844576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7242,7 +7386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebbffaca5ed8a340ae381fb8a5695d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosePosAndRot: 1
+  PoseHand: 1
+  DefaultPoseHand: 1
+  DynamicPoseSpeed: 16
   PhysicsPoser: {fileID: 0}
   Hand: {fileID: 5490535498798333549}
   DefaultPoser: {fileID: 7925553499228492489}
@@ -8032,7 +8178,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4774819275814554825}
-  m_LocalRotation: {x: 2.6848176e-16, y: -4.3833895e-17, z: -0.05959589, w: 0.9982226}
+  m_LocalRotation: {x: 0.000000048039308, y: -0.00000013923727, z: 0.016457109, w: 0.99986464}
   m_LocalPosition: {x: 0.022153005, y: -7.105427e-17, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8098,7 +8244,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4926200146873582535}
-  m_LocalRotation: {x: -0.03365181, y: 0.6480088, z: 0.75659454, w: 0.08072687}
+  m_LocalRotation: {x: -0.037409768, y: 0.6478029, z: 0.7561135, w: 0.08511365}
   m_LocalPosition: {x: -0.09142233, y: 0.0095321555, z: 0.010838781}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9216,6 +9362,12 @@ MonoBehaviour:
   Speed: 1
   FadeInSpeed: 1
   FadeOutSpeed: 1
+  FadeStart:
+    m_PersistentCalls:
+      m_Calls: []
+  FadeEnd:
+    m_PersistentCalls:
+      m_Calls: []
   CanvasGroup: {fileID: 5835770336249247533}
 --- !u!1 &5717533600061074453
 GameObject:
@@ -9551,7 +9703,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5814589701071378571}
-  m_LocalRotation: {x: -3.3019005e-17, y: 6.6511964e-18, z: 0.008720745, w: 0.999962}
+  m_LocalRotation: {x: 0.027590483, y: 0.0056660534, z: 0.2010854, w: 0.9791688}
   m_LocalPosition: {x: 0.026371535, y: -1.4210854e-16, z: 1.0658141e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10138,7 +10290,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6348953184861513881}
-  m_LocalRotation: {x: -2.1295683e-16, y: 1.0081824e-16, z: -0.20290461, w: 0.9791985}
+  m_LocalRotation: {x: -0.000000054948025, y: -0.00000004470348, z: -0.08465392, w: 0.9964104}
   m_LocalPosition: {x: 0.038572025, y: -0, z: -7.105427e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10797,7 +10949,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6759290245222155135}
-  m_LocalRotation: {x: -2.7269937e-16, y: 5.169386e-17, z: -0.18624677, w: 0.982503}
+  m_LocalRotation: {x: -0.000000084750354, y: -0.000000052154064, z: -0.05996177,
+    w: 0.9982007}
   m_LocalPosition: {x: 0.04157472, y: -0, z: -7.105427e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -11853,16 +12006,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32cc63482144afa9752d0981ca1e93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Preview: {fileID: 0}
-  DoPreview: 0
-  SelectedPose: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
   IsLeft: 1
+  PoserIndex: 0
   MirrorAxis: 0
+  MirrorSettings: {fileID: 0}
+  HandMirrorer: {fileID: 0}
   UseMatchRotation: 0
-  Forward: 1
-  Up: 2
-  OtherForward: 1
-  OtherUp: 2
+  Axis1: 1
+  Axis2: 2
+  TargetAxis1: 1
+  TargetAxis2: 2
+  Thumb:
+    Root: {fileID: 7512030011528650180}
+    Tip: {fileID: 3278797952945735910}
+    Bones:
+    - Transform: {fileID: 7512030011528650180}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030011633373055}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030011739281987}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Index:
+    Root: {fileID: 7512030011637514743}
+    Tip: {fileID: 648274119481698764}
+    Bones:
+    - Transform: {fileID: 7512030011637514743}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030011574116053}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030010770982802}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Middle:
+    Root: {fileID: 7512030012379794367}
+    Tip: {fileID: 6319467602800552772}
+    Bones:
+    - Transform: {fileID: 7512030012379794367}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030010781953423}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030010739741801}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Ring:
+    Root: {fileID: 7512030011871698392}
+    Tip: {fileID: 226523980586772940}
+    Bones:
+    - Transform: {fileID: 7512030011871698392}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030011405312000}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030011310368494}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Pinky:
+    Root: {fileID: 7512030011114599082}
+    Tip: {fileID: 6272878985962623346}
+    Bones:
+    - Transform: {fileID: 7512030011114599082}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030012642130545}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030011511143662}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7512030011262067331}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  _fingers: []
+  SetupFingers: 
   ThumbRoot: {fileID: 7512030011528650180}
   ThumbTip: {fileID: 3278797952945735910}
   IndexRoot: {fileID: 7512030011637514743}
@@ -11873,52 +12128,18 @@ MonoBehaviour:
   RingTip: {fileID: 226523980586772940}
   PinkyRoot: {fileID: 7512030011114599082}
   PinkyTip: {fileID: 6272878985962623346}
-  Thumb:
-    Root: {fileID: 7512030011528650180}
-    Tip: {fileID: 3278797952945735910}
-    Bones:
-    - Transform: {fileID: 7512030011528650180}
-    - Transform: {fileID: 7512030011633373055}
-    - Transform: {fileID: 7512030011739281987}
-  Index:
-    Root: {fileID: 7512030011637514743}
-    Tip: {fileID: 648274119481698764}
-    Bones:
-    - Transform: {fileID: 7512030011637514743}
-    - Transform: {fileID: 7512030011574116053}
-    - Transform: {fileID: 7512030010770982802}
-  Middle:
-    Root: {fileID: 7512030012379794367}
-    Tip: {fileID: 6319467602800552772}
-    Bones:
-    - Transform: {fileID: 7512030012379794367}
-    - Transform: {fileID: 7512030010781953423}
-    - Transform: {fileID: 7512030010739741801}
-  Ring:
-    Root: {fileID: 7512030011871698392}
-    Tip: {fileID: 226523980586772940}
-    Bones:
-    - Transform: {fileID: 7512030011871698392}
-    - Transform: {fileID: 7512030011405312000}
-    - Transform: {fileID: 7512030011310368494}
-  Pinky:
-    Root: {fileID: 7512030011114599082}
-    Tip: {fileID: 6272878985962623346}
-    Bones:
-    - Transform: {fileID: 7512030011114599082}
-    - Transform: {fileID: 7512030012642130545}
-    - Transform: {fileID: 7512030011511143662}
-    - Transform: {fileID: 7512030011262067331}
-  MirrorSettings: {fileID: 0}
   CapsuleRadius: 0.01
   CapsuleDirection: 0
   CapsuleAddRadius: 1
-  SetupFingers: 
   AddThumbCapsules: 
   AddIndexCapsules: 
   AddMiddleCapsules: 
   AddRingCapsules: 
   AddPinkyCapsules: 
+  otherhand: {fileID: 0}
+  DetectFingerAxes: 
+  MirrorToOtherHand: 
+  ApplyPrimaryPose: 
 --- !u!114 &661076687933159526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11931,7 +12152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebbffaca5ed8a340ae381fb8a5695d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosePosAndRot: 1
+  PoseHand: 1
+  DefaultPoseHand: 1
+  DynamicPoseSpeed: 16
   PhysicsPoser: {fileID: 0}
   Hand: {fileID: 2283487068036889579}
   DefaultPoser: {fileID: 4503572669653636943}
@@ -13824,7 +14047,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472358595755284}
-  m_LocalRotation: {x: -1.7569053e-16, y: -8.32419e-17, z: -0.16458225, w: 0.98636335}
+  m_LocalRotation: {x: -0.000000058149453, y: -0.00000011007069, z: 0.033362083, w: 0.99944335}
   m_LocalPosition: {x: -0.03335595, y: 1.4210854e-16, z: -1.4210854e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -13901,7 +14124,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472358612737086}
-  m_LocalRotation: {x: 0.2459623, y: 0.945037, z: -0.031994287, w: 0.21303521}
+  m_LocalRotation: {x: 0.3069186, y: 0.9318169, z: 0.15754038, w: 0.11269181}
   m_LocalPosition: {x: 0.026298406, y: -0.041470297, z: 0.020564148}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14038,7 +14261,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472358641950509}
-  m_LocalRotation: {x: -2.7269937e-16, y: 5.169386e-17, z: -0.18624677, w: 0.982503}
+  m_LocalRotation: {x: -0.000000084750354, y: -0.000000052154064, z: -0.05996177,
+    w: 0.9982007}
   m_LocalPosition: {x: -0.04157472, y: 0, z: 7.105427e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14070,7 +14294,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472358741582330}
-  m_LocalRotation: {x: -2.1295683e-16, y: 1.0081824e-16, z: -0.20290461, w: 0.9791985}
+  m_LocalRotation: {x: -0.000000054948025, y: -0.00000004470348, z: -0.08465392, w: 0.9964104}
   m_LocalPosition: {x: -0.038572025, y: 0, z: 7.105427e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14284,7 +14508,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472358931851028}
-  m_LocalRotation: {x: 1.4978696e-16, y: -4.047208e-17, z: -0.08394361, w: 0.9964705}
+  m_LocalRotation: {x: -0.000000075886305, y: 0.000000026905665, z: 0.0053471248,
+    w: 0.99998575}
   m_LocalPosition: {x: -0.025775291, y: -1.7763568e-17, z: -1.4210854e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14588,7 +14813,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472359434442129}
-  m_LocalRotation: {x: 1.1443316e-16, y: 4.8088383e-17, z: -0.06577556, w: 0.99783444}
+  m_LocalRotation: {x: -0.00000002616818, y: 0.00000001304015, z: -0.00040598962,
+    w: 0.99999994}
   m_LocalPosition: {x: -0.029590597, y: 3.5527136e-17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14651,7 +14877,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472359460400251}
-  m_LocalRotation: {x: -2.6402464e-16, y: 2.0679773e-16, z: -0.23558192, w: 0.9718545}
+  m_LocalRotation: {x: -0.00000015599652, y: 0.00000006705522, z: -0.049264986, w: 0.99878573}
   m_LocalPosition: {x: -0.045967426, y: 1.4210854e-16, z: 7.105427e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14687,8 +14913,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472359463199277}
-  m_LocalRotation: {x: -0.14097445, y: -0.018509874, z: 0.6929114, w: 0.7068645}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalRotation: {x: -0.061628442, y: 0.06162845, z: 0.70441616, w: 0.704416}
+  m_LocalPosition: {x: 0, y: -0, z: -0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7563472360063669871}
@@ -14708,16 +14934,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32cc63482144afa9752d0981ca1e93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Preview: {fileID: 0}
-  DoPreview: 0
-  SelectedPose: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
   IsLeft: 1
+  PoserIndex: 0
   MirrorAxis: 0
+  MirrorSettings: {fileID: 0}
+  HandMirrorer: {fileID: 0}
   UseMatchRotation: 0
-  Forward: 1
-  Up: 2
-  OtherForward: 1
-  OtherUp: 2
+  Axis1: 1
+  Axis2: 2
+  TargetAxis1: 1
+  TargetAxis2: 2
+  Thumb:
+    Root: {fileID: 7563472358612737087}
+    Tip: {fileID: 3257910312174602525}
+    Bones:
+    - Transform: {fileID: 7563472358612737087}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472360597032580}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472360690359224}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Index:
+    Root: {fileID: 7563472360584396812}
+    Tip: {fileID: 597268561981679671}
+    Bones:
+    - Transform: {fileID: 7563472360584396812}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472358641950510}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472359469876841}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Middle:
+    Root: {fileID: 7563472359984499268}
+    Tip: {fileID: 6270575538576829119}
+    Bones:
+    - Transform: {fileID: 7563472359984499268}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472359460400244}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472359434442130}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Ring:
+    Root: {fileID: 7563472360549620771}
+    Tip: {fileID: 257280408215840823}
+    Bones:
+    - Transform: {fileID: 7563472360549620771}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472358741582331}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472358931851029}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Pinky:
+    Root: {fileID: 7563472358991410001}
+    Tip: {fileID: 6321773241697603721}
+    Bones:
+    - Transform: {fileID: 7563472358991410001}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472359714159498}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472358595755285}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7563472358887744376}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  _fingers: []
+  SetupFingers: 
   ThumbRoot: {fileID: 7563472358612737087}
   ThumbTip: {fileID: 3257910312174602525}
   IndexRoot: {fileID: 7563472360584396812}
@@ -14728,52 +15056,18 @@ MonoBehaviour:
   RingTip: {fileID: 257280408215840823}
   PinkyRoot: {fileID: 7563472358991410001}
   PinkyTip: {fileID: 6321773241697603721}
-  Thumb:
-    Root: {fileID: 7563472358612737087}
-    Tip: {fileID: 3257910312174602525}
-    Bones:
-    - Transform: {fileID: 7563472358612737087}
-    - Transform: {fileID: 7563472360597032580}
-    - Transform: {fileID: 7563472360690359224}
-  Index:
-    Root: {fileID: 7563472360584396812}
-    Tip: {fileID: 597268561981679671}
-    Bones:
-    - Transform: {fileID: 7563472360584396812}
-    - Transform: {fileID: 7563472358641950510}
-    - Transform: {fileID: 7563472359469876841}
-  Middle:
-    Root: {fileID: 7563472359984499268}
-    Tip: {fileID: 6270575538576829119}
-    Bones:
-    - Transform: {fileID: 7563472359984499268}
-    - Transform: {fileID: 7563472359460400244}
-    - Transform: {fileID: 7563472359434442130}
-  Ring:
-    Root: {fileID: 7563472360549620771}
-    Tip: {fileID: 257280408215840823}
-    Bones:
-    - Transform: {fileID: 7563472360549620771}
-    - Transform: {fileID: 7563472358741582331}
-    - Transform: {fileID: 7563472358931851029}
-  Pinky:
-    Root: {fileID: 7563472358991410001}
-    Tip: {fileID: 6321773241697603721}
-    Bones:
-    - Transform: {fileID: 7563472358991410001}
-    - Transform: {fileID: 7563472359714159498}
-    - Transform: {fileID: 7563472358595755285}
-    - Transform: {fileID: 7563472358887744376}
-  MirrorSettings: {fileID: 0}
   CapsuleRadius: 0.01
   CapsuleDirection: 0
   CapsuleAddRadius: 1
-  SetupFingers: 
   AddThumbCapsules: 
   AddIndexCapsules: 
   AddMiddleCapsules: 
   AddRingCapsules: 
   AddPinkyCapsules: 
+  otherhand: {fileID: 0}
+  DetectFingerAxes: 
+  MirrorToOtherHand: 
+  ApplyPrimaryPose: 
 --- !u!114 &5340255814130517910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14818,7 +15112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebbffaca5ed8a340ae381fb8a5695d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosePosAndRot: 1
+  PoseHand: 1
+  DefaultPoseHand: 1
+  DynamicPoseSpeed: 16
   PhysicsPoser: {fileID: 0}
   Hand: {fileID: 2235577708974012944}
   DefaultPoser: {fileID: 4524193533081999028}
@@ -14842,10 +15138,9 @@ MonoBehaviour:
   PreviewRight: 0
   LeftAutoPose: 0
   RightAutoPose: 0
-  SelectionIndex: 2
+  SelectionIndex: 1
   PoseNames:
   - 'Primary: OculusCustomHandOpen'
-  - OculusCustomHandFist
   - OculusCustomHandFist
   PrimaryPose:
     Pose: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
@@ -14870,39 +15165,20 @@ MonoBehaviour:
   Blends:
   - Pose: {fileID: 11400000, guid: f6a50a26271c0f44cbbcbc7307260d31, type: 2}
     Weight: 1
-    Mask: 59
-    Type: 3
+    Mask: 0
+    Type: 0
     Speed: 16
     AnimationParameter: None
-    ButtonParameter: 1
+    ButtonParameter: 0
     Button: 0
     Disabled: 0
-    ThumbType: 0
-    IndexType: 0
-    MiddleType: 0
-    RingType: 0
-    PinkyType: 0
-    ThumbStart: 0.75
-    IndexStart: 1
-    MiddleStart: 0
-    RingStart: 0
-    PinkyStart: 0
-  - Pose: {fileID: 11400000, guid: f6a50a26271c0f44cbbcbc7307260d31, type: 2}
-    Weight: 1
-    Mask: 4
-    Type: 2
-    Speed: 16
-    AnimationParameter: None
-    ButtonParameter: 1
-    Button: 1
-    Disabled: 0
-    ThumbType: 0
-    IndexType: 0
-    MiddleType: 0
-    RingType: 0
-    PinkyType: 0
-    ThumbStart: 0.75
-    IndexStart: 1
+    ThumbType: 1
+    IndexType: 1
+    MiddleType: 1
+    RingType: 1
+    PinkyType: 1
+    ThumbStart: 0
+    IndexStart: 0
     MiddleStart: 0
     RingStart: 0
     PinkyStart: 0
@@ -14931,7 +15207,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472359469876840}
-  m_LocalRotation: {x: 2.6848176e-16, y: -4.3833895e-17, z: -0.05959589, w: 0.9982226}
+  m_LocalRotation: {x: 0.000000048039308, y: -0.00000013923727, z: 0.016457109, w: 0.99986464}
   m_LocalPosition: {x: -0.022153005, y: 7.105427e-17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15143,7 +15419,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472359714159497}
-  m_LocalRotation: {x: -0.018903391, y: 0.0067427186, z: 0.9928664, w: 0.117531024}
+  m_LocalRotation: {x: -0.018676333, y: 0.007348353, z: 0.9961378, w: 0.085479185}
   m_LocalPosition: {x: 0.053570647, y: 0.0024384, z: -0.0014630399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15552,7 +15828,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472359984499275}
-  m_LocalRotation: {x: -0.03365181, y: 0.6480088, z: 0.75659454, w: 0.08072687}
+  m_LocalRotation: {x: -0.037409768, y: 0.6478029, z: 0.7561135, w: 0.08511365}
   m_LocalPosition: {x: 0.09142233, y: -0.0095321555, z: -0.010838781}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15834,7 +16110,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472360584396819}
-  m_LocalRotation: {x: 0.010945054, y: 0.7329414, z: 0.66095215, w: 0.16068448}
+  m_LocalRotation: {x: 0.055844642, y: 0.73089284, z: 0.6695575, w: 0.11987428}
   m_LocalPosition: {x: 0.087078705, y: -0.035099912, z: -0.0068139634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15911,7 +16187,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472360597032587}
-  m_LocalRotation: {x: 8.364196e-17, y: -1.5534073e-17, z: -0.14235, w: 0.9898164}
+  m_LocalRotation: {x: 0.01721234, y: 0.007500209, z: 0.07353306, w: 0.9971161}
   m_LocalPosition: {x: -0.03258824, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15943,7 +16219,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563472360690359231}
-  m_LocalRotation: {x: -3.3019005e-17, y: 6.6511964e-18, z: 0.008720745, w: 0.999962}
+  m_LocalRotation: {x: 0.027590483, y: 0.0056660534, z: 0.2010854, w: 0.9791688}
   m_LocalPosition: {x: -0.026371535, y: 1.4210854e-16, z: -1.0658141e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -16206,8 +16482,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7656276811008102106}
-  m_LocalRotation: {x: -0.14097445, y: 0.018509874, z: -0.6929114, w: 0.7068645}
-  m_LocalPosition: {x: -0, y: -0, z: 0}
+  m_LocalRotation: {x: -0.06162845, y: -0.06162845, z: -0.70441604, w: 0.70441604}
+  m_LocalPosition: {x: -0, y: -0, z: -0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6072725430697592762}
@@ -16227,16 +16503,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32cc63482144afa9752d0981ca1e93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Preview: {fileID: 0}
-  DoPreview: 0
-  SelectedPose: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
   IsLeft: 0
+  PoserIndex: 0
   MirrorAxis: 0
+  MirrorSettings: {fileID: 0}
+  HandMirrorer: {fileID: 0}
   UseMatchRotation: 0
-  Forward: 1
-  Up: 2
-  OtherForward: 1
-  OtherUp: 2
+  Axis1: 1
+  Axis2: 2
+  TargetAxis1: 1
+  TargetAxis2: 2
+  Thumb:
+    Root: {fileID: 8142907758564790774}
+    Tip: {fileID: 1481969248253126933}
+    Bones:
+    - Transform: {fileID: 8142907758564790774}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 5072686966133744544}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 8605818878331919122}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Index:
+    Root: {fileID: 5254683038962811406}
+    Tip: {fileID: 1034545646919030167}
+    Bones:
+    - Transform: {fileID: 5254683038962811406}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 1456628504453304944}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4817307958244943481}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Middle:
+    Root: {fileID: 3540744846174186281}
+    Tip: {fileID: 4524524563220236413}
+    Bones:
+    - Transform: {fileID: 3540744846174186281}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 5741030991446577451}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 714110555133715979}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Ring:
+    Root: {fileID: 1510855098561409730}
+    Tip: {fileID: 6011439526943349447}
+    Bones:
+    - Transform: {fileID: 1510855098561409730}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 1623267801474444887}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 3274876443192994617}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Pinky:
+    Root: {fileID: 2667158007918280089}
+    Tip: {fileID: 8794166805826429366}
+    Bones:
+    - Transform: {fileID: 2667158007918280089}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 361116031038093377}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 1967350175195506887}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 1982548000885978064}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  _fingers: []
+  SetupFingers: 
   ThumbRoot: {fileID: 8142907758564790774}
   ThumbTip: {fileID: 1481969248253126933}
   IndexRoot: {fileID: 5254683038962811406}
@@ -16247,52 +16625,18 @@ MonoBehaviour:
   RingTip: {fileID: 6011439526943349447}
   PinkyRoot: {fileID: 2667158007918280089}
   PinkyTip: {fileID: 8794166805826429366}
-  Thumb:
-    Root: {fileID: 8142907758564790774}
-    Tip: {fileID: 1481969248253126933}
-    Bones:
-    - Transform: {fileID: 8142907758564790774}
-    - Transform: {fileID: 5072686966133744544}
-    - Transform: {fileID: 8605818878331919122}
-  Index:
-    Root: {fileID: 5254683038962811406}
-    Tip: {fileID: 1034545646919030167}
-    Bones:
-    - Transform: {fileID: 5254683038962811406}
-    - Transform: {fileID: 1456628504453304944}
-    - Transform: {fileID: 4817307958244943481}
-  Middle:
-    Root: {fileID: 3540744846174186281}
-    Tip: {fileID: 4524524563220236413}
-    Bones:
-    - Transform: {fileID: 3540744846174186281}
-    - Transform: {fileID: 5741030991446577451}
-    - Transform: {fileID: 714110555133715979}
-  Ring:
-    Root: {fileID: 1510855098561409730}
-    Tip: {fileID: 6011439526943349447}
-    Bones:
-    - Transform: {fileID: 1510855098561409730}
-    - Transform: {fileID: 1623267801474444887}
-    - Transform: {fileID: 3274876443192994617}
-  Pinky:
-    Root: {fileID: 2667158007918280089}
-    Tip: {fileID: 8794166805826429366}
-    Bones:
-    - Transform: {fileID: 2667158007918280089}
-    - Transform: {fileID: 361116031038093377}
-    - Transform: {fileID: 1967350175195506887}
-    - Transform: {fileID: 1982548000885978064}
-  MirrorSettings: {fileID: 0}
   CapsuleRadius: 0.01
   CapsuleDirection: 0
   CapsuleAddRadius: 1
-  SetupFingers: 
   AddThumbCapsules: 
   AddIndexCapsules: 
   AddMiddleCapsules: 
   AddRingCapsules: 
   AddPinkyCapsules: 
+  otherhand: {fileID: 0}
+  DetectFingerAxes: 
+  MirrorToOtherHand: 
+  ApplyPrimaryPose: 
 --- !u!114 &553241542164929530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16344,10 +16688,9 @@ MonoBehaviour:
   PreviewRight: 0
   LeftAutoPose: 0
   RightAutoPose: 0
-  SelectionIndex: 0
+  SelectionIndex: 1
   PoseNames:
   - 'Primary: OculusCustomHandOpen'
-  - OculusCustomHandFist
   - OculusCustomHandFist
   PrimaryPose:
     Pose: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
@@ -16364,47 +16707,28 @@ MonoBehaviour:
     MiddleType: 0
     RingType: 0
     PinkyType: 0
-    ThumbStart: 0.75
-    IndexStart: 1
+    ThumbStart: 0
+    IndexStart: 0
     MiddleStart: 0
     RingStart: 0
     PinkyStart: 0
   Blends:
   - Pose: {fileID: 11400000, guid: f6a50a26271c0f44cbbcbc7307260d31, type: 2}
     Weight: 1
-    Mask: 59
-    Type: 3
+    Mask: 0
+    Type: 0
     Speed: 16
     AnimationParameter: None
-    ButtonParameter: 1
+    ButtonParameter: 0
     Button: 0
     Disabled: 0
-    ThumbType: 0
-    IndexType: 0
-    MiddleType: 0
-    RingType: 0
-    PinkyType: 0
-    ThumbStart: 0.75
-    IndexStart: 1
-    MiddleStart: 0
-    RingStart: 0
-    PinkyStart: 0
-  - Pose: {fileID: 11400000, guid: f6a50a26271c0f44cbbcbc7307260d31, type: 2}
-    Weight: 1
-    Mask: 4
-    Type: 2
-    Speed: 16
-    AnimationParameter: None
-    ButtonParameter: 1
-    Button: 1
-    Disabled: 0
-    ThumbType: 0
-    IndexType: 0
-    MiddleType: 0
-    RingType: 0
-    PinkyType: 0
-    ThumbStart: 0.75
-    IndexStart: 1
+    ThumbType: 1
+    IndexType: 1
+    MiddleType: 1
+    RingType: 1
+    PinkyType: 1
+    ThumbStart: 0
+    IndexStart: 0
     MiddleStart: 0
     RingStart: 0
     PinkyStart: 0
@@ -16422,7 +16746,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebbffaca5ed8a340ae381fb8a5695d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosePosAndRot: 1
+  PoseHand: 1
+  DefaultPoseHand: 1
+  DynamicPoseSpeed: 16
   PhysicsPoser: {fileID: 0}
   Hand: {fileID: 8420711346719652827}
   DefaultPoser: {fileID: 8846129178523777782}
@@ -16619,7 +16945,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7836785244065004857}
-  m_LocalRotation: {x: -0.018903391, y: 0.0067427186, z: 0.9928664, w: 0.117531024}
+  m_LocalRotation: {x: -0.018676333, y: 0.007348353, z: 0.9961378, w: 0.085479185}
   m_LocalPosition: {x: -0.053570647, y: -0.0024384, z: 0.0014630399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -16996,7 +17322,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8149404654543873459}
-  m_LocalRotation: {x: 0.2459623, y: 0.945037, z: -0.031994287, w: 0.21303521}
+  m_LocalRotation: {x: 0.3069186, y: 0.9318169, z: 0.15754038, w: 0.11269181}
   m_LocalPosition: {x: -0.026298406, y: 0.041470297, z: -0.020564148}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -17360,6 +17686,7 @@ MonoBehaviour:
   GroundedLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  GroundedDistance: 0.02
   MinHeight: 0.3
   InstantAcceleration: 1
   Acceleration: 15
@@ -17386,7 +17713,6 @@ MonoBehaviour:
   FloorOffset: {fileID: 8459867821598189869}
   LeftControllerTransform: {fileID: 8459867821994636769}
   RightControllerTransform: {fileID: 8459867822776405477}
-  CameraScale: {fileID: 0}
   CameraRig: {fileID: 8509741859440758885}
   LeftHand: {fileID: 4469883247582555292}
   RightHand: {fileID: 5373319262703916370}
@@ -17401,6 +17727,7 @@ MonoBehaviour:
   FadeFromLean: 1
   MouseTurning: 0
   MouseSensitivityX: 1
+  IsGrounded: 0
   _actualVelocity: 0
 --- !u!114 &8509741859260308671
 MonoBehaviour:
@@ -17533,11 +17860,14 @@ MonoBehaviour:
   FloorOffset: {fileID: 8459867821598189869}
   CameraScale: {fileID: 689452659729336399}
   CameraYOffset: 0
-  PlayerHeight: 1.66
+  EyeHeight: 1.66
   SitStanding: 2
   DebugKeyboardOffset: 1
-  CalibrateOnHMDDetected: 0
-  CalibrateImmediately: 0
+  DebugKeyboardRecalibrate: 0
+  DebugCalibMode: 0
+  DebugCalibMovedThreshold: 0.05
+  RecalibrateKey: 114
+  SaveCalibrationHeight: 0
   PlayerControllerYOffset: 0
   AdjustedCameraHeight: 0
   SittingOffset: 0
@@ -18159,16 +18489,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32cc63482144afa9752d0981ca1e93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Preview: {fileID: 0}
-  DoPreview: 0
-  SelectedPose: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
   IsLeft: 0
+  PoserIndex: 0
   MirrorAxis: 0
+  MirrorSettings: {fileID: 0}
+  HandMirrorer: {fileID: 0}
   UseMatchRotation: 0
-  Forward: 1
-  Up: 2
-  OtherForward: 1
-  OtherUp: 2
+  Axis1: 1
+  Axis2: 2
+  TargetAxis1: 1
+  TargetAxis2: 2
+  Thumb:
+    Root: {fileID: 7113140312767022658}
+    Tip: {fileID: 515269864648457889}
+    Bones:
+    - Transform: {fileID: 7113140312767022658}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 6184099730547307540}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 7267009585912253606}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Index:
+    Root: {fileID: 6583130681811768762}
+    Tip: {fileID: 2156355414377267747}
+    Bones:
+    - Transform: {fileID: 6583130681811768762}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 540823327977915844}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 5867376724565668301}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Middle:
+    Root: {fileID: 2491854771170475165}
+    Tip: {fileID: 3278003726454759369}
+    Bones:
+    - Transform: {fileID: 2491854771170475165}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 6637080304212575903}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 1900131877199655359}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Ring:
+    Root: {fileID: 522482079517943158}
+    Tip: {fileID: 4673457121093274995}
+    Bones:
+    - Transform: {fileID: 522482079517943158}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 373967461525830115}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 4523068533334850701}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  Pinky:
+    Root: {fileID: 3941843779986991661}
+    Tip: {fileID: 7619158209473508866}
+    Bones:
+    - Transform: {fileID: 3941843779986991661}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 1636329515171114997}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 647100613518114675}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+    - Transform: {fileID: 591366817767990372}
+      Forward: {x: 0, y: 0, z: 0}
+      Up: {x: 0, y: 0, z: 0}
+      OtherForward: {x: 0, y: 0, z: 0}
+      OtherUp: {x: 0, y: 0, z: 0}
+  _fingers: []
+  SetupFingers: 
   ThumbRoot: {fileID: 7113140312767022658}
   ThumbTip: {fileID: 515269864648457889}
   IndexRoot: {fileID: 6583130681811768762}
@@ -18179,52 +18611,18 @@ MonoBehaviour:
   RingTip: {fileID: 4673457121093274995}
   PinkyRoot: {fileID: 3941843779986991661}
   PinkyTip: {fileID: 7619158209473508866}
-  Thumb:
-    Root: {fileID: 7113140312767022658}
-    Tip: {fileID: 515269864648457889}
-    Bones:
-    - Transform: {fileID: 7113140312767022658}
-    - Transform: {fileID: 6184099730547307540}
-    - Transform: {fileID: 7267009585912253606}
-  Index:
-    Root: {fileID: 6583130681811768762}
-    Tip: {fileID: 2156355414377267747}
-    Bones:
-    - Transform: {fileID: 6583130681811768762}
-    - Transform: {fileID: 540823327977915844}
-    - Transform: {fileID: 5867376724565668301}
-  Middle:
-    Root: {fileID: 2491854771170475165}
-    Tip: {fileID: 3278003726454759369}
-    Bones:
-    - Transform: {fileID: 2491854771170475165}
-    - Transform: {fileID: 6637080304212575903}
-    - Transform: {fileID: 1900131877199655359}
-  Ring:
-    Root: {fileID: 522482079517943158}
-    Tip: {fileID: 4673457121093274995}
-    Bones:
-    - Transform: {fileID: 522482079517943158}
-    - Transform: {fileID: 373967461525830115}
-    - Transform: {fileID: 4523068533334850701}
-  Pinky:
-    Root: {fileID: 3941843779986991661}
-    Tip: {fileID: 7619158209473508866}
-    Bones:
-    - Transform: {fileID: 3941843779986991661}
-    - Transform: {fileID: 1636329515171114997}
-    - Transform: {fileID: 647100613518114675}
-    - Transform: {fileID: 591366817767990372}
-  MirrorSettings: {fileID: 0}
   CapsuleRadius: 0.01
   CapsuleDirection: 0
   CapsuleAddRadius: 1
-  SetupFingers: 
   AddThumbCapsules: 
   AddIndexCapsules: 
   AddMiddleCapsules: 
   AddRingCapsules: 
   AddPinkyCapsules: 
+  otherhand: {fileID: 0}
+  DetectFingerAxes: 
+  MirrorToOtherHand: 
+  ApplyPrimaryPose: 
 --- !u!114 &7598799101103910210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18322,7 +18720,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebbffaca5ed8a340ae381fb8a5695d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosePosAndRot: 1
+  PoseHand: 1
+  DefaultPoseHand: 1
+  DynamicPoseSpeed: 16
   PhysicsPoser: {fileID: 0}
   Hand: {fileID: 7452322967254002799}
   DefaultPoser: {fileID: 7598799101103910210}
@@ -18411,7 +18811,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8960370609660284885}
-  m_LocalRotation: {x: 0.010945054, y: 0.7329414, z: 0.66095215, w: 0.16068448}
+  m_LocalRotation: {x: 0.055844642, y: 0.73089284, z: 0.6695575, w: 0.11987428}
   m_LocalPosition: {x: -0.087078705, y: 0.035099912, z: 0.0068139634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

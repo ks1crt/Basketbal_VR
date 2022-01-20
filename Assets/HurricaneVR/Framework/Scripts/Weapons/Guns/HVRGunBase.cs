@@ -629,7 +629,7 @@ namespace HurricaneVR.Framework.Weapons.Guns
                         }
                         else
                         {
-                            bullet.transform.position += tracker.Direction * distance * .95f;
+                            bullet.transform.position += .95f * distance * tracker.Direction;
                         }
                     }
                 }

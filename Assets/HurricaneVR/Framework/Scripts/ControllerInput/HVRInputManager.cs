@@ -213,7 +213,6 @@ namespace HurricaneVR.Framework.ControllerInput
         private readonly List<XRDisplaySubsystem> _displaySubsystems = new List<XRDisplaySubsystem>();
         private bool _applicationExiting;
         private InputDevice _hmdDevice;
-        private TrackingOriginModeFlags _previousTrackingSpace;
 
         public InputDevice HMDDevice
         {

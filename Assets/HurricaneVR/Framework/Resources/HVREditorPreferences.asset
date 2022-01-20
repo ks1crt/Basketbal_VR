@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3adfb6cabe631f40a72c285abbb95d8, type: 3}
   m_Name: HVREditorPreferences
   m_EditorClassIdentifier: 
-  _updatedDisplayedVersion: 2.7.1
+  _updatedDisplayedVersion: 2.7.1.1

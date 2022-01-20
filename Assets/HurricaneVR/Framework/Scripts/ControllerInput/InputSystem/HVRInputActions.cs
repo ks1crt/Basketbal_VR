@@ -1,5 +1,6 @@
 // GENERATED AUTOMATICALLY FROM 'Assets/HurricaneVR/Framework/Scripts/ControllerInput/InputSystem/HVRInputActions.inputactions'
 
+#if ENABLE_INPUT_SYSTEM
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1640,3 +1641,4 @@ public class @HVRInputActions : IInputActionCollection, IDisposable
         void OnPointerRotation(InputAction.CallbackContext context);
     }
 }
+#endif

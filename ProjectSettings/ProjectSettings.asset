@@ -136,6 +136,7 @@ PlayerSettings:
     Others: 1
   bundleVersion: 0.1
   preloadedAssets:
+  - {fileID: 0}
   - {fileID: 2376852647280566643, guid: fd3dd4b7e59bf2f44908ee8cd7af0493, type: 2}
   - {fileID: 11400000, guid: d01d268f7b9096343bbc2962fef1f3f0, type: 2}
   metroInputSource: 0
@@ -782,7 +783,7 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 1
+  activeInputHandler: 2
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []

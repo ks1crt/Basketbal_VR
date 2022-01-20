@@ -10,7 +10,7 @@ namespace HurricaneVR.Editor
     public class HVREditorManager
     {
         private const string HurricaneVRUploader = "HurricaneVRUploader";
-        public const string Version = "2.7.1";
+        public const string Version = "2.7.1.1";
 
 
         static HVREditorManager()

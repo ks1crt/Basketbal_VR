@@ -49,6 +49,8 @@ namespace HurricaneVR.Framework.Core.Player
 
         private Vector3 _previousControllerPosition;
         private Quaternion _previousRotation;
+        private float _timer = 0f;
+        private bool _hasTeleporter;
 
         protected virtual void Awake()
         {
@@ -67,6 +69,8 @@ namespace HurricaneVR.Framework.Core.Player
             {
                 Teleporter = transform.root.GetComponentInChildren<HVRTeleporter>();
             }
+
+            _hasTeleporter = Teleporter;
 
             if (!JointSettings)
                 Debug.LogError("JointSettings field is empty, must be populated with HVRJointSettings scriptable object.");
@@ -163,12 +167,20 @@ namespace HurricaneVR.Framework.Core.Player
             }
         }
 
-        private float _timer = 0f;
+
+
         protected virtual void UpdateDistanceCheck()
         {
-            if (Teleporter.TeleportState == TeleportState.None) _timer += Time.deltaTime;
-            else _timer = 0f;
-            if (!IsReturningToController && _timer > .5f)
+            if (_hasTeleporter)
+            {
+                if (Teleporter.TeleportState == TeleportState.None) _timer += Time.deltaTime;
+                else _timer = 0f;
+
+                if (_timer < .5f)
+                    return;
+            }
+
+            if (!IsReturningToController)
             {
                 var reached = false;
                 if (Anchor)
@@ -176,7 +188,11 @@ namespace HurricaneVR.Framework.Core.Player
                 if (!reached)
                     reached = Vector3.Distance(transform.position, Target.position) > MaxTargetDistance;
 
-                if (reached) OnMaxDistanceReached();
+                if (reached)
+                {
+                    IsReturningToController = true;
+                    OnMaxDistanceReached();
+                }
             }
             else if (IsReturningToController)
             {
@@ -184,21 +200,21 @@ namespace HurricaneVR.Framework.Core.Player
 
                 if (Vector3.Distance(transform.position, Target.position) < .05f)
                 {
+                    IsReturningToController = false;
                     OnReturned();
                 }
             }
         }
 
-        private void OnReturned()
+        protected virtual void OnReturned()
         {
             RigidBody.detectCollisions = true;
-            IsReturningToController = false;
             if (Grabber.CollisionHandler)
                 Grabber.CollisionHandler.SweepHand(Grabber);
             ReturnedToController.Invoke();
         }
 
-        private void OnMaxDistanceReached()
+        protected virtual void OnMaxDistanceReached()
         {
             if (MaxDistanceBehaviour == MaxDistanceBehaviour.GrabbablePrevents && Grabber.IsGrabbing)
                 return;
@@ -215,7 +231,6 @@ namespace HurricaneVR.Framework.Core.Player
                 return;
             }
 
-            IsReturningToController = true;
             MaxDistanceReached.Invoke();
             RigidBody.detectCollisions = false;
         }

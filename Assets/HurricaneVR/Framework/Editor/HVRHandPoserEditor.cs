@@ -38,8 +38,6 @@ namespace HurricaneVR.Editor
         private VisualTreeAsset _tree;
         private HVRHandPoser Poser;
 
-        private int _previousIndex;
-
         private IntegerField _selectionIndexField;
         private string _leftInstanceId;
         private string _rightInstanceId;
@@ -222,7 +220,7 @@ namespace HurricaneVR.Editor
                 }
                 else
                 {
-                    if(!Application.isPlaying) cleanup.Add(kvp.Key);
+                    if (!Application.isPlaying) cleanup.Add(kvp.Key);
                 }
             }
 
@@ -522,8 +520,6 @@ namespace HurricaneVR.Editor
             ToggleLeftAutoPose.RegisterValueChangedCallback(OnLeftAutoPoseChanged);
             ToggleRightAutoPose.RegisterValueChangedCallback(OnRightAutoPoseChanged);
 
-            _previousIndex = SelectedIndex;
-
             if (SelectedIndex >= PosesListView.itemsSource.Count + PrimaryIndex)
             {
                 Debug.Log($"Stored SelectedIndex is higher than pose count.");
@@ -544,7 +540,7 @@ namespace HurricaneVR.Editor
                     SP_BodyPreview.objectReferenceValue = body;
                 }
 
-                UpdateBodyPreview(SelectedPose?.LeftHand, SelectedPose?.RightHand, PreviewLeft, PreviewRight);
+                UpdateBodyPreview(SelectedPose != null ? SelectedPose.LeftHand : null, SelectedPose != null ? SelectedPose.RightHand : null, PreviewLeft, PreviewRight);
             }
             else
             {
@@ -571,8 +567,8 @@ namespace HurricaneVR.Editor
                     }
                 }
 
-                UpdatePreview(false, SP_PreviewRight.boolValue, SelectedPose?.LeftHand);
-                UpdatePreview(true, SP_PreviewLeft.boolValue, SelectedPose?.RightHand);
+                UpdatePreview(false, SP_PreviewRight.boolValue, SelectedPose != null ? SelectedPose.LeftHand : null);
+                UpdatePreview(true, SP_PreviewLeft.boolValue, SelectedPose != null ? SelectedPose.RightHand : null);
             }
 
             if (_leftPhysicsPoser)
@@ -677,7 +673,9 @@ namespace HurricaneVR.Editor
 
             if (FullBody)
             {
-                UpdateBodyPreview(SelectedPose?.LeftHand, SelectedPose?.RightHand, PreviewLeft, evt.newValue);
+                UpdateBodyPreview(SelectedPose != null ? SelectedPose.LeftHand : null, SelectedPose != null ? SelectedPose.RightHand : null, PreviewLeft, evt.newValue);
+                if (BodyPreview) RightPosableHand = BodyPreview.GetComponentsInChildren<HVRPosableHand>().FirstOrDefault(e => !e.IsLeft);
+                else RightPosableHand = null;
             }
             else
             {
@@ -695,7 +693,7 @@ namespace HurricaneVR.Editor
                 }
                 else
                 {
-                    UpdatePreview(false, evt.newValue, SelectedPose?.RightHand);
+                    UpdatePreview(false, evt.newValue, SelectedPose != null ? SelectedPose.RightHand : null);
                 }
 
                 if (RightHandPreview)
@@ -721,7 +719,9 @@ namespace HurricaneVR.Editor
 
             if (FullBody)
             {
-                UpdateBodyPreview(SelectedPose?.LeftHand, SelectedPose?.RightHand, evt.newValue, PreviewRight);
+                UpdateBodyPreview(SelectedPose != null ? SelectedPose.LeftHand : null, SelectedPose != null ? SelectedPose.RightHand : null, evt.newValue, PreviewRight);
+                if (BodyPreview) LeftPosableHand = BodyPreview.GetComponentsInChildren<HVRPosableHand>().FirstOrDefault(e => e.IsLeft);
+                else LeftPosableHand = null;
             }
             else
             {
@@ -739,7 +739,7 @@ namespace HurricaneVR.Editor
                 }
                 else
                 {
-                    UpdatePreview(true, evt.newValue, SelectedPose?.LeftHand);
+                    UpdatePreview(true, evt.newValue, SelectedPose != null ? SelectedPose.LeftHand : null);
                 }
 
                 if (LeftHandPreview)
@@ -1356,7 +1356,7 @@ namespace HurricaneVR.Editor
             leftExpand.clickable.clicked += () =>
             {
                 if (LeftHandPreview) LeftHandPreview.SetExpandedRecursive(true);
-                else if (BodyPreview) BodyPreview.GetComponentsInChildren<HVRPosableHand>().FirstOrDefault(e => e.IsLeft)?.gameObject.SetExpandedRecursive(true);
+                else if (LeftPosableHand) LeftPosableHand.gameObject.SetExpandedRecursive(true);
             };
 
             var leftCollapse = _root.Q<Button>("LeftCollapse");
@@ -1364,7 +1364,7 @@ namespace HurricaneVR.Editor
             leftCollapse.clickable.clicked += () =>
             {
                 if (LeftHandPreview) LeftHandPreview.SetExpandedRecursive(false);
-                else if (BodyPreview) BodyPreview.GetComponentsInChildren<HVRPosableHand>().FirstOrDefault(e => e.IsLeft)?.gameObject.SetExpandedRecursive(false);
+                else if (LeftPosableHand) LeftPosableHand.gameObject.SetExpandedRecursive(false);
             };
 
             var rightExpand = _root.Q<Button>("RightExpand");
@@ -1372,7 +1372,7 @@ namespace HurricaneVR.Editor
             rightExpand.clickable.clicked += () =>
             {
                 if (RightHandPreview) RightHandPreview.SetExpandedRecursive(true);
-                else if (BodyPreview) BodyPreview.GetComponentsInChildren<HVRPosableHand>().FirstOrDefault(e => e.IsRight)?.gameObject.SetExpandedRecursive(true);
+                else if (RightPosableHand) RightPosableHand.gameObject.SetExpandedRecursive(true);
             };
 
             var rightCollapse = _root.Q<Button>("RightCollapse");
@@ -1380,7 +1380,7 @@ namespace HurricaneVR.Editor
             rightCollapse.clickable.clicked += () =>
             {
                 if (RightHandPreview) RightHandPreview.SetExpandedRecursive(false);
-                else if (BodyPreview) BodyPreview.GetComponentsInChildren<HVRPosableHand>().FirstOrDefault(e => e.IsRight)?.gameObject.SetExpandedRecursive(false);
+                else if (RightPosableHand) RightPosableHand.gameObject.SetExpandedRecursive(false);
             };
         }
 
@@ -1449,7 +1449,6 @@ namespace HurricaneVR.Editor
             }
 
             SelectedIndex = PosesListView.selectedIndex;
-            _previousIndex = CurrentPoseIndex;
 
             BindBlendContainer();
         }

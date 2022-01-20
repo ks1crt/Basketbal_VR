@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using Assets.HurricaneVR.Framework.Shared.Utilities;
+﻿using Assets.HurricaneVR.Framework.Shared.Utilities;
 using HurricaneVR.Framework.Core;
 using HurricaneVR.Framework.Core.Grabbers;
 using HurricaneVR.Framework.Core.Utils;
-using HurricaneVR.Framework.Shared;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace HurricaneVR.Framework.Weapons.Bow
 {
@@ -13,9 +10,12 @@ namespace HurricaneVR.Framework.Weapons.Bow
     [RequireComponent(typeof(Rigidbody))]
     public class HVRPhysicsBow : HVRBowBase
     {
-        [Header("String Joint Settings")]
+        [Header("Physics Bow Settings")]
         public float StringSpring = 10000f;
         public float StringHeldSpring = 100f;
+
+        [Tooltip("If true the nock joint will be freed on the forward axis which will allow the hand to rotate while holding the nock")]
+        public bool CanNockRotate;
 
 
         public Rigidbody NockRigidbody => NockGrabbable.Rigidbody;
@@ -110,12 +110,11 @@ namespace HurricaneVR.Framework.Weapons.Bow
         {
             var pos = Arrow.transform.position;
             var rot = Arrow.transform.rotation;
-            
+
             //the joints are preventing the arrow from shooting in the same frame perhaps???
             this.ExecuteNextFixedUpdate(() =>
             {
-                Arrow.transform.position = pos;
-                Arrow.transform.rotation = rot;
+                Arrow.transform.SetPositionAndRotation(pos, rot);
                 base.ShootArrow(direction);
             });
         }
@@ -132,13 +131,26 @@ namespace HurricaneVR.Framework.Weapons.Bow
             _stringJoint.LimitXMotion();
             _stringJoint.LockYMotion();
             _stringJoint.LockZMotion();
-            _stringJoint.LockAllAngularMotion();
+
+            if (CanNockRotate)
+            {
+                _stringJoint.LockAngularYMotion();
+                _stringJoint.LockAngularZMotion();
+            }
+            else
+            {
+                _stringJoint.LockAllAngularMotion();
+            }
+
             _stringJoint.SetXDrive(StringSpring, 0, StringSpring);
             _stringJoint.anchor = transform.InverseTransformPoint(NockRigidbody.position) - axis * StringLimit;
             _stringJoint.targetPosition = Vector3.right * StringLimit;
             _stringJoint.autoConfigureConnectedAnchor = false;
             _stringJoint.connectedBody = NockRigidbody;
             _stringJoint.connectedAnchor = Vector3.zero;
+            _stringJoint.projectionMode = JointProjectionMode.PositionAndRotation;
+            _stringJoint.projectionDistance = .001f;
+
             _stringJoint.linearLimit = new SoftJointLimit()
             {
                 limit = StringLimit
@@ -154,12 +166,24 @@ namespace HurricaneVR.Framework.Weapons.Bow
                 _stringLimitJoint.LimitXMotion();
                 _stringLimitJoint.LockYMotion();
                 _stringLimitJoint.LockZMotion();
-                _stringLimitJoint.LockAllAngularMotion();
+
+                if (CanNockRotate)
+                {
+                    _stringLimitJoint.LockAngularYMotion();
+                    _stringLimitJoint.LockAngularZMotion();
+                }
+                else
+                {
+                    _stringLimitJoint.LockAllAngularMotion();
+                }
 
                 _stringLimitJoint.anchor = transform.InverseTransformPoint(NockRigidbody.position);
                 _stringLimitJoint.autoConfigureConnectedAnchor = false;
                 _stringLimitJoint.connectedBody = NockRigidbody;
                 _stringLimitJoint.connectedAnchor = Vector3.zero;
+                _stringLimitJoint.projectionMode = JointProjectionMode.PositionAndRotation;
+                _stringLimitJoint.projectionDistance = .001f;
+
                 _stringLimitJoint.linearLimit = new SoftJointLimit()
                 {
                     limit = StringLimit
@@ -200,15 +224,5 @@ namespace HurricaneVR.Framework.Weapons.Bow
             _restJoint.connectedBody = arrow.Rigidbody;
             _restJoint.connectedAnchor = arrow.transform.InverseTransformPoint(Rest.transform.position);
         }
-
-
-
-        void OnJointBreak(float breakForce)
-        {
-            //Debug.Log("Joint Broke!, force: " + breakForce);
-        }
     }
-
-
-
 }

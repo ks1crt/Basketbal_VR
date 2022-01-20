@@ -16,7 +16,8 @@
 /[Mm]emoryCaptures/
 /[Aa]ssets/Oculus
 /[Aa]ssets/TirgamesAssets
-
+/[Aa]ssets/Basketball Essentials
+/[Aa]ssets/PlayerPrefsEditor
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
@@ -69,3 +70,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+
+Assets/Basketball Essentials.meta
+
+Assets/PlayerPrefsEditor.meta

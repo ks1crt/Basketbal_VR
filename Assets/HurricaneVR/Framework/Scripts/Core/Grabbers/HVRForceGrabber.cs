@@ -569,6 +569,26 @@ namespace HurricaneVR.Framework.Core.Grabbers
 
                 var elapsed = 0f;
 
+                _forceAnchor.transform.position = grabbable.transform.position;
+                _forceAnchor.transform.rotation = grabbable.transform.rotation;
+
+                if (posableGrabPoint)
+                {
+                    _forceAnchor.transform.rotation = posableGrabPoint.GetPoseWorldRotation(HandSide);
+                }
+
+                var joint = _forceAnchor.AddComponent<ConfigurableJoint>();
+                joint.autoConfigureConnectedAnchor = false;
+                joint.rotationDriveMode = RotationDriveMode.Slerp;
+                joint.SetLinearDrive(0f, 0f, 0f);
+                joint.SetSlerpDrive(10000f, 100f, 10000f);
+                joint.connectedBody = rb;
+                joint.connectedAnchor = rb.transform.InverseTransformPoint(grabPoint.position);
+
+                var rotating = false;
+                var rotateSpeed = 0f;
+                var needsRotating = posableGrabPoint;
+
                 while (GrabbedTarget)
                 {
                     if (elapsed > ForceTime)
@@ -579,6 +599,7 @@ namespace HurricaneVR.Framework.Core.Grabbers
                     var currentVector = JointAnchorWorldPosition - grabPoint.position;
 
                     currentVector.y = 0;
+                    var distance = currentVector.magnitude;
 
                     var percentTime = elapsed / ForceTime;
                     var yExtra = YOffset * (1 - percentTime);
@@ -622,39 +643,33 @@ namespace HurricaneVR.Framework.Core.Grabbers
                         }
                     }
 
-                    if (currentVector.magnitude < .1f)
+                    if (distance < .1f)
                     {
                         //Debug.Log($"<.1f");
                         break;
                     }
 
-                    if (posableGrabPoint)
+                    if (needsRotating)
                     {
-                        var delta = HandGrabber.CachedWorldRotation * Quaternion.Inverse(posableGrabPoint.GetPoseWorldRotation(HandGrabber.HandSide));
-
-                        delta.ToAngleAxis(out var angle, out var axis);
-
-                        if (angle > 180.0f) angle -= 360.0f;
-
-                        var remaining = ForceTime - elapsed;
-
-                        if (percentTime > .3f && Mathf.Abs(angle) > 1 && remaining > .01)
+                        if (!rotating && percentTime > .3f)
                         {
-                            grabbable.Rigidbody.angularVelocity = axis * (angle * Mathf.Deg2Rad) / ForceTime;
+                            var time = distance / velocity.magnitude;
+                            rotateSpeed = Quaternion.Angle(joint.transform.rotation, HandGrabber.CachedWorldRotation) / time;
+                            rotating = true;
                         }
-                        else
+
+                        if (rotating)
                         {
-                            grabbable.Rigidbody.angularVelocity = Vector3.zero;
+                            joint.transform.rotation = Quaternion.RotateTowards(joint.transform.rotation, HandGrabber.CachedWorldRotation, rotateSpeed * Time.fixedDeltaTime);
                         }
-                    }
-                    else
-                    {
-                        grabbable.Rigidbody.angularVelocity = Vector3.zero;
                     }
 
                     elapsed += Time.fixedDeltaTime;
                     yield return new WaitForFixedUpdate();
                 }
+
+                joint.connectedBody = null;
+                Destroy(joint);
 
                 ResetAnimator();
             }

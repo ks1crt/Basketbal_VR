@@ -40,7 +40,6 @@ namespace HurricaneVR.Framework.Core
         public bool RequireLineOfSight = true;
 
 
-
         [FormerlySerializedAs("ParentHandModelImmediately")]
         [Tooltip("Should the hand model pose immediately to this upon grabbing.")]
         public bool PoseImmediately;
@@ -86,7 +85,7 @@ namespace HurricaneVR.Framework.Core
 
         [Header("Configurable Joint Override")]
 
-        [Tooltip("If set it will override the default joint settings - recommended to override the hand settings instead.")]
+        [Tooltip("If set it will override the default joint settings.")]
         public HVRJointSettings JointOverride;
 
         [Header("Hand Joint Overrides")]
