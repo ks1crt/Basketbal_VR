@@ -35,7 +35,7 @@ namespace HurricaneVR.Framework.Core
         public bool OverrideGrabTrigger;
         [DrawIf("OverrideGrabTrigger", true)]
         public HVRGrabTrigger GrabTrigger = HVRGrabTrigger.Active;
-
+        
         [Tooltip("Does this grabbable require line of sight to the hand grabber to be grabbed?")]
         public bool RequireLineOfSight = true;
 

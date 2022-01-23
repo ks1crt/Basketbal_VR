@@ -82,6 +82,7 @@ namespace HurricaneVR.Framework.ControllerInput
         {
             UpdateInput();
             AfterInputUpdate();
+            
         }
 
         protected virtual void UpdateInput()
@@ -295,6 +296,7 @@ namespace HurricaneVR.Framework.ControllerInput
             {
                 if (RightController.ControllerType == HVRControllerType.Vive)
                 {
+                    
                     if (RightController.TrackpadButtonState.Active)
                         return RightController.TrackpadAxis;
                     return Vector2.zero;
