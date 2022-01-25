@@ -25,7 +25,7 @@ namespace HurricaneVR.Framework.Core
     public class Bounch_Ball : MonoBehaviour
     {
         protected Rigidbody ballRigidBody;
-
+        
 
     }
 }

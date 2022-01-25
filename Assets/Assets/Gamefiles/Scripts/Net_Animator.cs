@@ -22,8 +22,8 @@ public class Net_Animator : MonoBehaviour
             var colliders = new ClothSphereColliderPair[1];
             colliders[0] = new ClothSphereColliderPair(currentCollidingBall.GetComponent<SphereCollider>());
             netcloth.sphereColliders = colliders;
-            currentBallRigi = currentCollidingBall.gameObject.GetComponent<Rigidbody>();
-            currentBallRigi.drag = 0.8f;
+            //currentBallRigi = currentCollidingBall.gameObject.GetComponent<Rigidbody>();
+            //currentBallRigi.drag = 0.2f;
         }
     }
 
@@ -31,7 +31,7 @@ public class Net_Animator : MonoBehaviour
     {
         previousCollidingBall = collider.gameObject;
         previousballRigi = previousCollidingBall.gameObject.GetComponent<Rigidbody>();
-        previousballRigi.drag = 0.4f;
+        //previousballRigi.drag = 0.4f;
     }
 
 }
