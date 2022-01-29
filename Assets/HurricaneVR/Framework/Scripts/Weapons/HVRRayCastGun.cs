@@ -128,7 +128,7 @@ namespace HurricaneVR.Framework.Weapons
 
             Grabbable.Grabbed.AddListener(OnGrabbed);
             Grabbable.Released.AddListener(OnReleased);
-
+           
             if (StabilizerGrabbable)
             {
                 StabilizerGrabbable.Grabbed.AddListener(OnStabilizerGrabbed);

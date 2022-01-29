@@ -19,9 +19,8 @@ using HurricaneVR.Framework.Shared;
 using HurricaneVR.Framework.Shared.Utilities;
 using UnityEngine.Events;
 
-namespace HurricaneVR.Framework.Core
+namespace VR.Basketball.Core
 {
-
     public class Bounch_Ball : MonoBehaviour
     {
         protected Rigidbody ballRigidBody;

@@ -17,7 +17,6 @@ namespace HurricaneVR.Framework.Core.Player
         private Material CylinderMaterial;
 
 
-
         public Color Color
         {
             get
@@ -58,7 +57,6 @@ namespace HurricaneVR.Framework.Core.Player
         public override void OnValidTeleportChanged(bool isTeleportValid)
         {
             base.OnValidTeleportChanged(isTeleportValid);
-
             UpdateMaterials();
         }
 

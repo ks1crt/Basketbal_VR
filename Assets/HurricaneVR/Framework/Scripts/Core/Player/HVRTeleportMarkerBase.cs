@@ -13,7 +13,7 @@ namespace HurricaneVR.Framework.Core.Player
         public bool Deactivated { get; internal set; }
         
         public HVRTeleporter Teleporter { get; internal set; }
-
+            
         public virtual void Awake()
         {
 

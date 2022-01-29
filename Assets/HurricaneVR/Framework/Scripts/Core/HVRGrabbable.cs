@@ -34,7 +34,7 @@ namespace HurricaneVR.Framework.Core
         public HVRGrabControls GrabControl = HVRGrabControls.GripOrTrigger;
         public bool OverrideGrabTrigger;
         [DrawIf("OverrideGrabTrigger", true)]
-        public HVRGrabTrigger GrabTrigger = HVRGrabTrigger.Active;
+         public HVRGrabTrigger GrabTrigger = HVRGrabTrigger.Active;
         
         [Tooltip("Does this grabbable require line of sight to the hand grabber to be grabbed?")]
         public bool RequireLineOfSight = true;
@@ -188,7 +188,6 @@ namespace HurricaneVR.Framework.Core
         #endregion
 
         #region Events
-
         public VRGrabberEvent Deactivated = new VRGrabberEvent();
         public VRGrabberEvent Activated = new VRGrabberEvent();
         public VRGrabberEvent Grabbed = new VRGrabberEvent();
@@ -202,6 +201,7 @@ namespace HurricaneVR.Framework.Core
         public VRHandGrabberEvent HandFullReleased = new VRHandGrabberEvent();
         public VRSocketEvent Socketed = new VRSocketEvent();
         public VRSocketEvent UnSocketed = new VRSocketEvent();
+        
 
 
         #endregion
@@ -401,6 +401,7 @@ namespace HurricaneVR.Framework.Core
             {
                 transform.SetLayerRecursiveEx<HVRGrabbable>(HVRLayers.Grabbable, this);
             }
+          
         }
 
         protected virtual void Update()
@@ -459,7 +460,9 @@ namespace HurricaneVR.Framework.Core
         protected virtual void OnCollisionEnter(Collision other)
         {
             Collided.Invoke(this);
+           
         }
+         
 
         private void OnJointBreak(float breakForce)
         {

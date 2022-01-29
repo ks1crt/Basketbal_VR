@@ -7,6 +7,7 @@ TagManager:
   - projectile
   - Rim
   - Glass
+  - Ball
   layers:
   - Default
   - TransparentFX

@@ -21,7 +21,6 @@ namespace HurricaneVR.Framework.Core.Player
         public bool CanSprint = true;
         public bool CanCrouch = true;
         public PlayerDirectionMode DirectionStyle = PlayerDirectionMode.Camera;
-
         [Tooltip("If true the player will ignore the first HMD movement on detection. " +
                  "If the HMD is not centered the player would move away from it's placed position to where the HMD is.")]
         public bool InitialHMDAdjustment = true;
@@ -98,9 +97,6 @@ namespace HurricaneVR.Framework.Core.Player
         public float MaxLean = .5f;
         [Tooltip("Screen fades when leaning to far into something.")]
         public bool FadeFromLean = true;
-
-
-
 
         [Header("Debugging")]
         public bool MouseTurning;

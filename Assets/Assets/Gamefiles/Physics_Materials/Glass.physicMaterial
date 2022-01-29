@@ -9,6 +9,6 @@ PhysicMaterial:
   m_Name: Glass
   dynamicFriction: 0.3
   staticFriction: 0.4
-  bounciness: 0.8
+  bounciness: 0.33
   frictionCombine: 0
   bounceCombine: 1
