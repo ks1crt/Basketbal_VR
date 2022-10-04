@@ -17,8 +17,6 @@ MonoBehaviour:
   BodyPreview: {fileID: 0}
   PreviewLeft: 0
   PreviewRight: 0
-  LeftAutoPose: 0
-  RightAutoPose: 0
   SelectionIndex: 0
   PoseNames:
   - 'Primary: OculusCustomHandOpen'
@@ -27,12 +25,12 @@ MonoBehaviour:
     Pose: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
     Weight: 1
     Mask: 0
+    Disabled: 0
     Type: 0
     Speed: 16
     AnimationParameter: None
     ButtonParameter: 0
     Button: 0
-    Disabled: 0
     ThumbType: 1
     IndexType: 1
     MiddleType: 1
@@ -47,12 +45,12 @@ MonoBehaviour:
   - Pose: {fileID: 11400000, guid: f6a50a26271c0f44cbbcbc7307260d31, type: 2}
     Weight: 1
     Mask: 0
+    Disabled: 0
     Type: 0
     Speed: 16
     AnimationParameter: None
     ButtonParameter: 0
     Button: 0
-    Disabled: 0
     ThumbType: 1
     IndexType: 1
     MiddleType: 1
@@ -77,9 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebbffaca5ed8a340ae381fb8a5695d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PoseHand: 1
-  DefaultPoseHand: 1
-  DynamicPoseSpeed: 16
+  PosePosAndRot: 1
+  FingerCurlSpeed: 16
   PhysicsPoser: {fileID: 0}
   Hand: {fileID: 2237063672852083314}
   DefaultPoser: {fileID: 1230615514187084639}
@@ -91,27 +88,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 811485385608274674, guid: d9420cd6b732c874e805d2daa66f8409, type: 3}
+    - target: {fileID: 811485385608274674, guid: d9420cd6b732c874e805d2daa66f8409,
+        type: 3}
       propertyPath: SelectedPose
       value: 
-      objectReference: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898, type: 2}
-    - target: {fileID: 1575721949135083507, guid: d9420cd6b732c874e805d2daa66f8409, type: 3}
+      objectReference: {fileID: 11400000, guid: 3195f5271090d494f8a7cc10c2e5c898,
+        type: 2}
+    - target: {fileID: 1575721949135083507, guid: d9420cd6b732c874e805d2daa66f8409,
+        type: 3}
       propertyPath: m_Name
       value: HVR_CustomHandRight Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 3411870436646380634, guid: d9420cd6b732c874e805d2daa66f8409, type: 3}
+    - target: {fileID: 3411870436646380634, guid: d9420cd6b732c874e805d2daa66f8409,
+        type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3411870436646380634, guid: d9420cd6b732c874e805d2daa66f8409, type: 3}
+    - target: {fileID: 3411870436646380634, guid: d9420cd6b732c874e805d2daa66f8409,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3411870436646380634, guid: d9420cd6b732c874e805d2daa66f8409, type: 3}
+    - target: {fileID: 3411870436646380634, guid: d9420cd6b732c874e805d2daa66f8409,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 13
       objectReference: {fileID: 0}
-    - target: {fileID: 3411870436646380634, guid: d9420cd6b732c874e805d2daa66f8409, type: 3}
+    - target: {fileID: 3411870436646380634, guid: d9420cd6b732c874e805d2daa66f8409,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90.00001
       objectReference: {fileID: 0}
@@ -119,12 +123,14 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: d9420cd6b732c874e805d2daa66f8409, type: 3}
 --- !u!1 &114642666673063795 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1575721949135083507, guid: d9420cd6b732c874e805d2daa66f8409, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1575721949135083507, guid: d9420cd6b732c874e805d2daa66f8409,
+    type: 3}
   m_PrefabInstance: {fileID: 1461800874448605312}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2237063672852083314 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 811485385608274674, guid: d9420cd6b732c874e805d2daa66f8409, type: 3}
+  m_CorrespondingSourceObject: {fileID: 811485385608274674, guid: d9420cd6b732c874e805d2daa66f8409,
+    type: 3}
   m_PrefabInstance: {fileID: 1461800874448605312}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114642666673063795}

@@ -12,20 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd9d00baedc13ac4c8dd0471f8368b59, type: 3}
   m_Name: HVR_ForcePullSettings
   m_EditorClassIdentifier: 
-  DistanceThreshold: 0.1
+  DistanceThreshold: 0.05
   DynamicGrabThreshold: 0.1
-  Speed: 10
+  MaxSpeed: 15
+  CounterGravityFactor: 1
+  DampDistance: 1
+  DampSpeed: 20
+  MaxAccelerationForce: 300
   MaxMissSpeed: 1
-  MaxMissAngularSpeed: 1
+  MaxMissAngularSpeed: 5
   RotationTrigger: 2
-  RotateTriggerDistance: 1.5
+  RotateTriggerDistance: 1
   RotateTriggerTime: 0.35
   RotateTriggerPercent: 40
   RotationStyle: 1
-  RotateOverDistance: 0.25
-  Spring: 3000
-  Damper: 100
-  MaxForce: 1000
-  SlerpSpring: 100
-  SlerpDamper: 5
-  SlerpMaxForce: 1000
+  RotateOverDistance: 1
+  SlerpSpring: 10000
+  SlerpDamper: 500
+  SlerpMaxForce: 250

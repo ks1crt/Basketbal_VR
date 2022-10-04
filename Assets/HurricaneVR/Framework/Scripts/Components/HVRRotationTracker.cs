@@ -7,6 +7,10 @@ using UnityEngine.Events;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Used to track the rotation in degrees about a defined axis of rotation.
+    /// Degrees are reported from the starting rotation of the transform.
+    /// </summary>
     public class HVRRotationTracker : MonoBehaviour
     {
         [Tooltip("Local axis of rotation")]

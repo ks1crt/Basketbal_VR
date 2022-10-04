@@ -198,11 +198,11 @@ namespace HurricaneVR.Framework.Core.Utils
                 return;
             }
 
-            if (posableHand.Pinky != null)
+            if (posableHand.Pinky != null && posableHand.Pinky.Bones.Count > 0)
                 lastFinger = posableHand.Pinky;
-            else if (posableHand.Ring != null)
+            else if (posableHand.Ring != null && posableHand.Ring.Bones.Count > 0)
                 lastFinger = posableHand.Ring;
-            else if (posableHand.Middle != null)
+            else if (posableHand.Middle != null && posableHand.Middle.Bones.Count > 0)
                 lastFinger = posableHand.Middle;
             else
             {

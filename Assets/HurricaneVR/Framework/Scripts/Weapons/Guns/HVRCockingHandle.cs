@@ -160,27 +160,27 @@ namespace HurricaneVR.Framework.Weapons.Guns
                     return;
                 }
 
-                var pullDirection = (Grabbable.HandGrabbers[0].TrackedController.position - _grabbedPositionTracker.transform.position);
+                var pullDirection = (Grabbable.HandGrabbers[0].TrackedController.position - _grabbedPositionTracker.position);
                 var backDirection = (MaxPositionWorld - ForwardPositionWorld).normalized * 10;
                 var amount = Vector3.Dot(pullDirection, backDirection);
 
                 if (amount > 0)
                 {
                     UpdatePosition(amount);
-
-                    var distance = Vector3.Distance(transform.position, ForwardPositionWorld);
-
-                    CheckEject(distance);
-                    CheckChamberDistance(distance);
-                    ClampPullBack(distance, BackDirectionWorld);
-                    MoveBolt();
-                    AnimateParts();
-                    CheckLock(distance);
                 }
                 else
                 {
                     transform.localPosition = ForwardPosition;
                 }
+                
+                var distance = Vector3.Distance(transform.position, ForwardPositionWorld);
+
+                CheckEject(distance);
+                CheckChamberDistance(distance);
+                ClampPullBack(distance, BackDirectionWorld);
+                MoveBolt();
+                AnimateParts();
+                CheckLock(distance);
             }
         }
 
@@ -350,11 +350,11 @@ namespace HurricaneVR.Framework.Weapons.Guns
             _previousVelocity = Vector3.zero;
             if (Type == HVRCockingHandleType.Pump)
             {
-                _grabbedPositionTracker.transform.position = grabber.GrabPoint.position;
+                _grabbedPositionTracker.position = grabber.GrabPoint.position;
             }
             else
             {
-                _grabbedPositionTracker.transform.localPosition = transform.parent.InverseTransformPoint(_previousHandPosition);
+                _grabbedPositionTracker.localPosition = transform.parent.InverseTransformPoint(_previousHandPosition);
             }
         }
 

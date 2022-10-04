@@ -22,8 +22,16 @@ namespace HurricaneVR.Editor
         private const string URLPatreon = "https://www.patreon.com/user?u=46531723&fan_landing=true";
 
         private const string URLBasicGrabbableWithPose = "https://www.youtube.com/watch?v=HZQ6QdMmZ34";
-        private const string URLVRIKIntegrationSetup = "https://www.youtube.com/watch?v=PgfULQ-Zp_E";
+        private const string URLVRIKIntegrationSetup = "https://cloudwalker2020.github.io/HurricaneVR-Docs/manual/integrations/finalik.html";
         private const string LatestNotes = "HVRLatestReleaseNotes";
+
+        private const string URLManual = "https://cloudwalker2020.github.io/HurricaneVR-Docs/manual/intro.html";
+        private const string URLHandGrabber = "https://cloudwalker2020.github.io/HurricaneVR-Docs/manual/hands.html";
+        private const string URLSockets = "https://cloudwalker2020.github.io/HurricaneVR-Docs/manual/sockets.html";
+        private const string URLSetup = "https://cloudwalker2020.github.io/HurricaneVR-Docs/manual/setup.html";
+        private const string URLCustomHand = "https://cloudwalker2020.github.io/HurricaneVR-Docs/manual/hand_setup.html";
+        private const string URLDoor = "https://cloudwalker2020.github.io/HurricaneVR-Docs/manual/components/door.html";
+        private const string URLDiscord = "https://discord.com/invite/7QUXEcuwKY";
 
         private const string DEFINESteamVR = "HVR_STEAMVR";
         private const string DEFINEOculus = "HVR_OCULUS";
@@ -39,6 +47,7 @@ namespace HurricaneVR.Editor
         {
             _window = GetWindow<HVRSetupWindow>(true);
             _window.titleContent = new GUIContent("Hurricane v" + HVREditorManager.Version);
+            _window.minSize = new Vector2(800f, 600f);
         }
 
 #if CLOUDWALKER
@@ -63,15 +72,11 @@ namespace HurricaneVR.Editor
             _root.Add(visualTree.CloneTree());
 
             var projectSetupPanel = _root.Q<VisualElement>("ProjectSetupPanel");
-            var debugPanel = _root.Q<VisualElement>("DebugPanel");
             var notesPanel = _root.Q<VisualElement>("ReleaseNotesPanel");
-            var tutPanel = _root.Q<VisualElement>("TutorialsPanel");
             var aboutPanel = _root.Q<VisualElement>("AboutPanel");
 
             _panels.Add(projectSetupPanel);
-            _panels.Add(debugPanel);
             _panels.Add(notesPanel);
-            _panels.Add(tutPanel);
             _panels.Add(aboutPanel);
 
             _root.Q<Button>("BtnProjectSetup").clickable.clicked += () =>
@@ -79,10 +84,6 @@ namespace HurricaneVR.Editor
                 UpdatePanel(projectSetupPanel);
             };
 
-            //_root.Q<Button>("BtnDiagnostics").clickable.clicked += () =>
-            //{
-            //    UpdatePanel(debugPanel);
-            //};
 
             _root.Q<Button>("BtnAbout").clickable.clicked += () =>
             {
@@ -92,11 +93,6 @@ namespace HurricaneVR.Editor
             _root.Q<Button>("BtnReleaseNotes").clickable.clicked += () =>
             {
                 UpdatePanel(notesPanel);
-            };
-
-            _root.Q<Button>("BtnTutorials").clickable.clicked += () =>
-            {
-                UpdatePanel(tutPanel);
             };
 
 
@@ -116,7 +112,14 @@ namespace HurricaneVR.Editor
 
             SetupUrl("BtnReview", URLHurricaneReview);
             SetupUrl("BtnKofi", URLKofi);
-            SetupUrl("BtnPatreon", URLPatreon);
+            SetupUrl("btnDocs", URLManual);
+            SetupUrl("btnSockets", URLSockets);
+            SetupUrl("btnHandGrabber", URLHandGrabber);
+            SetupUrl("btnDiscord", URLDiscord);
+            SetupUrl("btnSetup", URLSetup);
+            SetupUrl("btnCustomHand", URLCustomHand);
+            SetupUrl("btnDoorSetup", URLDoor);
+            //SetupUrl("BtnPatreon", URLPatreon);
 
             UpdatePanel(notesPanel);
 
@@ -178,7 +181,7 @@ namespace HurricaneVR.Editor
                 prop.intValue = 2;
 
                 prop = so.FindProperty("m_DefaultMaxAngularSpeed");
-                prop.floatValue = 100f;
+                prop.floatValue = 30f;
 
                 so.ApplyModifiedProperties();
                 so.Update();

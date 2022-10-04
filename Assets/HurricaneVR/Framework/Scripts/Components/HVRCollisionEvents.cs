@@ -4,6 +4,9 @@ using UnityEngine.Events;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Helper component used to propogate a collision if a force or velocity threshold was met.
+    /// </summary>
     public class HVRCollisionEvents : MonoBehaviour
     {
         [Header("Settings")]

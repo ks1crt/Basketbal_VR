@@ -148,7 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c20151e078b7ac4a9673ee89501f652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 2
   HoldType: 1
   GrabControl: 0
@@ -184,7 +185,6 @@ MonoBehaviour:
   RequireOverlapClearance: 0
   OverlapTimeout: 0.1
   FinalJointMaxAngle: 3
-  FinalJointQuick: 1
   FinalJointTimeout: 2
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
@@ -194,8 +194,11 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -353,12 +356,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 1
     IndexType: 1
     MiddleType: 1
@@ -540,7 +537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 0
   HoldType: 1
   GrabControl: 0
@@ -548,7 +546,7 @@ MonoBehaviour:
   GrabTrigger: 0
   RequireLineOfSight: 1
   PoseImmediately: 0
-  ParentHandModel: 1
+  ParentHandModel: 0
   BreakDistance: 1
   RemainsKinematic: 1
   Stationary: 0
@@ -575,8 +573,7 @@ MonoBehaviour:
   AutoApplyLayer: 1
   RequireOverlapClearance: 0
   OverlapTimeout: 0.1
-  FinalJointMaxAngle: 3
-  FinalJointQuick: 1
+  FinalJointMaxAngle: 15
   FinalJointTimeout: 0
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
@@ -586,8 +583,11 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -825,12 +825,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 1
     IndexType: 1
     MiddleType: 1

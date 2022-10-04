@@ -6,51 +6,30 @@ using UnityEngine;
 
 namespace HurricaneVR.Editor
 {
-    [InitializeOnLoad]
     public class HVREditorManager
     {
         private const string HurricaneVRUploader = "HurricaneVRUploader";
-        public const string Version = "2.7.1.1";
+        public const string Version = "2.9";
 
-
-        static HVREditorManager()
+        [InitializeOnLoadMethod]
+        private static void Hook()
         {
-            EditorApplication.update -= OnEditorUpdate;
-            EditorApplication.update += OnEditorUpdate;
-
-            EditorApplication.update -= CheckShowUpdate;
-            EditorApplication.update += CheckShowUpdate;
-
-            EditorApplication.playModeStateChanged -= EditorApplicationOnplayModeStateChanged;
-            EditorApplication.playModeStateChanged += EditorApplicationOnplayModeStateChanged;
+            EditorApplication.delayCall += CheckUpdate;
         }
 
-        private static void EditorApplicationOnplayModeStateChanged(PlayModeStateChange obj)
-        {
-            EditorApplication.update -= CheckShowUpdate;
-        }
 
-        private static void OnEditorUpdate()
+        private static void CheckUpdate()
         {
             if (Application.productName != HurricaneVRUploader)
             {
                 var kickit = HVRSettings.Instance;
-            }
-        }
 
-        private static void CheckShowUpdate()
-        {
-            if (Application.productName != HurricaneVRUploader)
-            {
                 if (HVREditorPreferences.UpdateDisplayedVersion != Version)
                 {
+                    HVREditorPreferences.UpdateDisplayedVersion = Version;
                     HVRSetupWindow.ShowWindow();
                 }
-
-                HVREditorPreferences.UpdateDisplayedVersion = Version;
             }
-
-            EditorApplication.update -= CheckShowUpdate;
         }
     }
 }

@@ -6,7 +6,9 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
-
+    /// <summary>
+    /// Depecrecated and left in for older projects, superceded by HVRPhysicsLever and HVRRotationTracker
+    /// </summary>
     [RequireComponent(typeof(HVRGrabbable))]
     [RequireComponent(typeof(HingeJoint))]
     public class HVRLever : MonoBehaviour

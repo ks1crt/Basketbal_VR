@@ -2,6 +2,9 @@
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Specialized hover behaviour that scales this transform over time when a hand or force grabber is hovering it.
+    /// </summary>
     public class HVRScaleHighlight : HVRGrabbableHoverBase
     {
         public Vector3 HoverScale = new Vector3(1.3f, 1.3f, 1.3f);

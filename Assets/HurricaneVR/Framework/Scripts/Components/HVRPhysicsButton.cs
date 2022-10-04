@@ -7,13 +7,24 @@ using UnityEngine.Events;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Creates a joint constrained along one axis with limits based on start and end points defined in the inspector editor.
+    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class HVRPhysicsButton : MonoBehaviour
     {
         [Header("Settings")]
+
+        [Tooltip("Axis the button will travel on in local space.")]
         public HVRAxis Axis;
+
+        [Tooltip("Rigidbody this button will connect to with a joint.")]
         public Rigidbody ConnectedBody;
+
+        [Tooltip("Spring value of the joint")]
         public float Spring = 1000f;
+
+        [Tooltip("Damper of the joint")]
         public float Damper = 50f;
 
 

@@ -26,22 +26,22 @@ namespace HurricaneVR.Framework.Weapons
         public bool HasAmmo => CurrentCount > 0;
         public bool IsEmpty => CurrentCount <= 0;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             CurrentCount = StartingCount;
         }
 
-        public void AddBullet()
+        public virtual void AddBullet()
         {
             CurrentCount++;
         }
 
-        public bool CanAddBullet()
+        public virtual bool CanAddBullet()
         {
             return CurrentCount < MaxCount;
         }
 
-        public bool TryAddBullet()
+        public virtual bool TryAddBullet()
         {
             if (CanAddBullet())
             {
@@ -51,14 +51,14 @@ namespace HurricaneVR.Framework.Weapons
             return false;
         }
 
-        public void RemoveBullet()
+        public virtual void RemoveBullet()
         {
             CurrentCount--;
             if (CurrentCount < 0)
                 CurrentCount = 0;
         }
 
-        public void StartDestroy()
+        public virtual void StartDestroy()
         {
             Destroy(gameObject, EmptyDestroyTimer);
         }

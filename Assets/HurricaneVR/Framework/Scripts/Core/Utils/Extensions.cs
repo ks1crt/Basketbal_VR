@@ -84,6 +84,19 @@ namespace HurricaneVR.Framework.Core.Utils
             yield return new WaitForSeconds(timeout);
             transform.SetLayerRecursive(layer);
         }
+        
+        /// <summary>
+        /// Locates a component by checking the collider first, then the collider's rigidbody, then finally uses GetComponentInParent.
+        /// </summary>
+        public static T FindComponent<T>(this Collider collider, bool tryParent = true) where T : Component
+        {
+            if (collider.TryGetComponent(out T c) || collider.attachedRigidbody && collider.attachedRigidbody.TryGetComponent(out c))
+            {
+                return c;
+            }
+
+            return tryParent ? collider.GetComponentInParent<T>() : default(T);
+        }
     }
 }
 

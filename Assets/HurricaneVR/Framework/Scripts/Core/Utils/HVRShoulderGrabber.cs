@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Core.Utils
 {
+
+    /// <summary>
+    /// Specialized shoulder inventory collector that will check the hand's velocity to prevent grabbing when we feel like the player is throwing something
+    /// </summary>
     public class HVRShoulderGrabber : HVRSocketContainerGrabber
     {
         public override bool CanHover(HVRGrabbable grabbable)

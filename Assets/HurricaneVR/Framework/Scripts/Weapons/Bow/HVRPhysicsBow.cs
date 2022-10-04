@@ -112,7 +112,7 @@ namespace HurricaneVR.Framework.Weapons.Bow
             var rot = Arrow.transform.rotation;
 
             //the joints are preventing the arrow from shooting in the same frame perhaps???
-            this.ExecuteNextFixedUpdate(() =>
+            this.ExecuteAfterFixedUpdate(() =>
             {
                 Arrow.transform.SetPositionAndRotation(pos, rot);
                 base.ShootArrow(direction);

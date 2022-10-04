@@ -1,4 +1,5 @@
-﻿using HurricaneVR.Framework.Core.Utils;
+﻿using System.Collections.Generic;
+using HurricaneVR.Framework.Core.Utils;
 using HurricaneVR.Framework.Shared;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace HurricaneVR.Framework.Core.Stabbing
         public Vector3 StabExitPosition { get; private set; }
 
         public GameObject StabbedObject { get; private set; }
-        public Collider[] StabbedColliders { get; private set; }
+        public List<Collider> StabbedColliders { get; private set; }
 
         internal bool ManuallyLocked => Stabber.ManuallyLocked;
 
@@ -307,7 +308,7 @@ namespace HurricaneVR.Framework.Core.Stabbing
         }
 
         public HVRStabTracker(HVRStabber stabber, HVRStabbable stabbable, HVRStabbableSettings settings,
-            ConfigurableJoint joint, GameObject stabbedObject, Vector3 stabDirection, Transform tip, Collider[] stabbedColliders)
+            ConfigurableJoint joint, GameObject stabbedObject, Vector3 stabDirection, Transform tip, List<Collider> stabbedColliders)
         {
             Stabber = stabber;
             Stabbable = stabbable;
@@ -334,7 +335,7 @@ namespace HurricaneVR.Framework.Core.Stabbing
             }
         }
 
-        private void TryFindExitPoint(Vector3 stabDirection, Collider[] stabbedColliders)
+        private void TryFindExitPoint(Vector3 stabDirection, List<Collider> stabbedColliders)
         {
 
             Vector3 point = StabEntryPosition;

@@ -5,6 +5,10 @@ using UnityEngine.Events;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Basic button check for travel along a defined axis, requires the user to have setup their own constraint system.
+    /// Superceded by the new HVRPhysicsButton component which helps create joints and limits for you
+    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class HVRButton : MonoBehaviour
     {
@@ -36,11 +40,6 @@ namespace HurricaneVR.Framework.Components
             }    
           
             Rigidbody = GetComponent<Rigidbody>();
-        }
-
-        void Update()
-        {
-
         }
 
         private void FixedUpdate()

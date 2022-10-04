@@ -18,7 +18,7 @@ namespace HurricaneVR.Framework.Core
 
         public void SetupColliders()
         {
-            HandColliders = GetComponentsInChildren<Collider>().Where(e => !e.isTrigger).ToArray();
+            HandColliders = GetComponentsInChildren<Collider>().Where(e => !e.isTrigger && e.enabled).ToArray();
         }
 
         public void DisableCollision()

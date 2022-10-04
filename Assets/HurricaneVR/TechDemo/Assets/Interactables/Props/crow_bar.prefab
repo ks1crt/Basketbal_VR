@@ -194,7 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 2
+  PoseType: 0
   TrackingType: 0
   HoldType: 2
   GrabControl: 0
@@ -229,9 +230,8 @@ MonoBehaviour:
   AutoApplyLayer: 1
   RequireOverlapClearance: 0
   OverlapTimeout: 0.5
-  FinalJointMaxAngle: 3
-  FinalJointQuick: 1
-  FinalJointTimeout: 2
+  FinalJointMaxAngle: 15
+  FinalJointTimeout: 0.25
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
   GrabColliders: []
@@ -240,8 +240,11 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -358,15 +361,15 @@ MonoBehaviour:
   OverrideRotation: 0
   OverrideTensor: 0
   OverrideAngularSpeed: 1
-  OverrideMaxDepenetration: 0
+  OverrideMaxDepenetration: 1
   CenterOfMass: {x: 0, y: 0, z: 0}
   InertiaTensorRotation: {x: 0, y: 0, z: 0}
   InertiaTensor: {x: 0, y: 0, z: 0}
-  MaxAngularVelocity: 35
-  MaxDepenetration: 0
+  MaxAngularVelocity: 20
+  MaxDepenetration: 10
   COMGizmoSize: {x: 0.02, y: 0.02, z: 0.02}
   LiveUpdate: 0
-  Rigidbody: {fileID: 0}
+  Rigidbody: {fileID: 3251810846684579824}
 --- !u!1 &2999292471114838945
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,12 +522,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 1
     IndexType: 1
     MiddleType: 1

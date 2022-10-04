@@ -215,7 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 0
   HoldType: 1
   GrabControl: 0
@@ -223,7 +224,7 @@ MonoBehaviour:
   GrabTrigger: 0
   RequireLineOfSight: 1
   PoseImmediately: 0
-  ParentHandModel: 1
+  ParentHandModel: 0
   BreakDistance: 1
   RemainsKinematic: 1
   Stationary: 0
@@ -240,8 +241,7 @@ MonoBehaviour:
   JointOverride: {fileID: 0}
   OneHandJointSettings: {fileID: 0}
   TwoHandJointSettings: {fileID: 0}
-  PullingSettingsOverride: {fileID: 11400000, guid: 3bf470cf49b32cf4f85c594818727f64,
-    type: 2}
+  PullingSettingsOverride: {fileID: 0}
   PalmCenterOfMass: 0
   HandGrabbedClip: {fileID: 0}
   StartingSocket: {fileID: 0}
@@ -251,9 +251,8 @@ MonoBehaviour:
   AutoApplyLayer: 1
   RequireOverlapClearance: 0
   OverlapTimeout: 0.1
-  FinalJointMaxAngle: 3
-  FinalJointQuick: 1
-  FinalJointTimeout: 2
+  FinalJointMaxAngle: 15
+  FinalJointTimeout: 0.25
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
   GrabColliders: []
@@ -262,8 +261,11 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -319,9 +321,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4239680606358691228}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 0.3
+  m_Drag: 0.1
+  m_AngularDrag: 0.1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -492,12 +494,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 0
     IndexType: 0
     MiddleType: 0

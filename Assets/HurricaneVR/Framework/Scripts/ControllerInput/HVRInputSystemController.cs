@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using HurricaneVR.Framework.Core;
 using HurricaneVR.Framework.Shared;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -142,6 +143,8 @@ namespace HurricaneVR.Framework.ControllerInput
 
         public override void Vibrate(float amplitude, float duration = 1, float frequency = 1)
         {
+            if (HVRSettings.Instance.DisableHaptics) return;
+
 #if USING_OPENXR
 
             if (IsOpenXR)

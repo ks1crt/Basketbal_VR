@@ -1,9 +1,11 @@
 ﻿using HurricaneVR.Framework.Shared;
+using UnityEngine;
 
 namespace HurricaneVR.Framework.Core.Sockets
 {
     public class HVRTagSocketable : HVRSocketable
     {
+        [Header("Socketable Tags")]
         public HVRSocketableTag Tags;
 
 
@@ -18,9 +20,8 @@ namespace HurricaneVR.Framework.Core.Sockets
                 UnityEditor.EditorUtility.SetDirty(this);
 
 #endif
+                Tags.Tags = HVRSettings.Instance.DefaultSocketableTags;
             }
-            
-            Tags.Tags = HVRSettings.Instance.DefaultSocketableTags;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace HurricaneVR.Framework.Core.HandPoser
         None = 0, Hand = 1, Thumb = 2, Index = 4, Middle = 8, Ring = 16, Pinky = 32
     }
 
+    [HelpURL("https://cloudwalker2020.github.io/HurricaneVR-Docs/manual/hand_posing.html")]
     public class HVRHandPoser : MonoBehaviour
     {
         #region EditorState 
@@ -47,7 +48,6 @@ namespace HurricaneVR.Framework.Core.HandPoser
         public HVRHandPoseBlend PrimaryPose;
         public List<HVRHandPoseBlend> Blends = new List<HVRHandPoseBlend>();
 
-        public HVRHandPose ReferencePose;
         public MirrorAxis MirrorAxis = MirrorAxis.X;
 
         private void Awake()
@@ -65,6 +65,12 @@ namespace HurricaneVR.Framework.Core.HandPoser
             {
                 Destroy(RightHandPreview);
                 Debug.Log($"Right hand preview was still active. Destroyed.");
+            }
+
+            if (BodyPreview)
+            {
+                Destroy(BodyPreview);
+                Debug.Log($"Full Body Preview was still active. Destroyed.");
             }
         }
     }

@@ -290,6 +290,7 @@ MonoBehaviour:
   GrabDetectionType: 1
   CheckHandOverlap: 0
   ReleasesOnHover: 0
+  InstantHandPose: 0
   HoldType: 0
   AutoSpawnPrefab: {fileID: 0}
   GrabTimeout: 0
@@ -310,6 +311,8 @@ MonoBehaviour:
   SocketFilters: []
   FilterCondition: 0
   DistanceSource: {fileID: 0}
+  PoseTag: 
+  DisableCollision: 1
   SpawnedPrefab:
     m_PersistentCalls:
       m_Calls: []
@@ -632,7 +635,6 @@ MonoBehaviour:
     MiddleStart: 0
     RingStart: 0
     PinkyStart: 0
-  ReferencePose: {fileID: 0}
   MirrorAxis: 0
 --- !u!114 &2185565597001287778
 MonoBehaviour:
@@ -750,7 +752,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 0
   HoldType: 0
   GrabControl: 0
@@ -760,7 +763,7 @@ MonoBehaviour:
   PoseImmediately: 1
   ParentHandModel: 1
   BreakDistance: 1
-  RemainsKinematic: 1
+  BreakDistanceSource: 0
   Stationary: 1
   ReleasedAngularConversionFactor: 1
   ReleasedVelocityFactor: 1
@@ -774,7 +777,7 @@ MonoBehaviour:
   ForcePullOverride: {fileID: 0}
   JointOverride: {fileID: 0}
   OneHandJointSettings: {fileID: 0}
-  TwoHandJointSettings: {fileID: 11400000, guid: 984d36eac3c1854408dbc8f5493acd6d,
+  TwoHandJointSettings: {fileID: 11400000, guid: f4fc40462bb4bb041b5964be99f85368,
     type: 2}
   PullingSettingsOverride: {fileID: 0}
   PalmCenterOfMass: 0
@@ -787,7 +790,6 @@ MonoBehaviour:
   RequireOverlapClearance: 0
   OverlapTimeout: 1
   FinalJointMaxAngle: 3
-  FinalJointQuick: 1
   FinalJointTimeout: 2
   CollisionParents: []
   ExtraIgnoreCollisionParents:
@@ -798,8 +800,11 @@ MonoBehaviour:
   DisableHandCollision: 1
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 2185565597631821703}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -1572,7 +1577,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 0
   HoldType: 1
   GrabControl: 0
@@ -1582,7 +1588,7 @@ MonoBehaviour:
   PoseImmediately: 0
   ParentHandModel: 1
   BreakDistance: 1
-  RemainsKinematic: 1
+  BreakDistanceSource: 0
   Stationary: 0
   ReleasedAngularConversionFactor: 1
   ReleasedVelocityFactor: 1
@@ -1596,7 +1602,8 @@ MonoBehaviour:
   ForcePullOverride: {fileID: 0}
   JointOverride: {fileID: 0}
   OneHandJointSettings: {fileID: 0}
-  TwoHandJointSettings: {fileID: 0}
+  TwoHandJointSettings: {fileID: 11400000, guid: 561dfd33fe0af7e408e6ac5f5e30a3f1,
+    type: 2}
   PullingSettingsOverride: {fileID: 0}
   PalmCenterOfMass: 0
   HandGrabbedClip: {fileID: 0}
@@ -1608,7 +1615,6 @@ MonoBehaviour:
   RequireOverlapClearance: 0
   OverlapTimeout: 0.1
   FinalJointMaxAngle: 3
-  FinalJointQuick: 1
   FinalJointTimeout: 2
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
@@ -1618,8 +1624,12 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables:
+  - {fileID: 2185565597151407063}
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -1681,6 +1691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 2
   Force: 10
+  Player: {fileID: 0}
   TriggerPullThreshold: 0.7
   TriggerResetThreshold: 0.6
   Cooldown: 0.06666667
@@ -1701,6 +1712,8 @@ MonoBehaviour:
   UseAmmoProperties: 0
   NoAmmoRange: 40
   AddForceOnHit: 1
+  Haptics: {fileID: 0}
+  HapticGrabbables: []
   MuzzleFlashObject: {fileID: 0}
   MuzzleSmoke: {fileID: 0}
   ChamberedRound: {fileID: 1863332843391283941}
@@ -1726,6 +1739,9 @@ MonoBehaviour:
     type: 3}
   BulletLife: 5
   Fired:
+    m_PersistentCalls:
+      m_Calls: []
+  Hit:
     m_PersistentCalls:
       m_Calls: []
   IsTriggerReset: 0
@@ -1804,6 +1820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 25
   Force: 0
+  Player: {fileID: 0}
   StartingCount: 1
   MaxCount: 5
   MaxRange: 40
@@ -1822,13 +1839,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10345b4efa150014fb756a02715a4231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SocketOrientation: {fileID: 450431391906017913}
-  SocketScale: 1
+  Poses: []
   CounterScale: {x: 1, y: 1, z: 1}
+  UseRendererBounds: 1
+  ScaleSize: 0
+  SocketScale: 1
   ScaleOverride: {fileID: 0}
   SocketedClip: {fileID: 0}
   UnsocketedClip: {fileID: 0}
   LinkedGrabbables: []
+  SocketOrientation: {fileID: 450431391906017913}
   Tags:
     Tags: {fileID: 11400000, guid: 0e83bcde818c784468e6c9a69d44702f, type: 2}
     _data: 1
@@ -2018,14 +2038,14 @@ MonoBehaviour:
   ForwardPosition: {x: -0.000000027190627, y: 0.011739711, z: 0.3279345}
   BackwardPosition: {x: -0.000000027190627, y: 0.0117, z: 0.2449}
   ForwardSpeed: 10
-  Difficulty: 0.05
+  Difficulty: 0.3
   ImmediateReleaseWhenOpen: 1
   LockBackOverride: 0
   Type: 2
   LocksForward: 1
-  TriggerUnlocks: 1
+  TriggerUnlocks: 0
   TriggerThreshold: 0.7
-  AccelerationThreshold: 2
+  AccelerationThreshold: 0.5
   Grabbable: {fileID: 2185565597151407063}
   Bolt: {fileID: 2185565597355653631}
   EjectPosition: {x: -0.000000027190627, y: 0.0117, z: 0.251}
@@ -2190,7 +2210,6 @@ MonoBehaviour:
     RingStart: 0
     PinkyStart: 0
   Blends: []
-  ReferencePose: {fileID: 0}
   MirrorAxis: 0
 --- !u!114 &2185565598176096802
 MonoBehaviour:

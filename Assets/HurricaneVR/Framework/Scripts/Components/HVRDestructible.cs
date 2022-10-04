@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Helper component that spawns a prefab game object when the Destroy function is called.
+    /// If the spawned game object has a rigidbodies then they will have force added to them based on the
+    /// fields provided.
+    /// </summary>
     public class HVRDestructible : MonoBehaviour
     {
         public GameObject DestroyedVersion;
@@ -17,8 +22,12 @@ namespace HurricaneVR.Framework.Components
 
         public bool IgnorePlayerCollision = true;
 
+        public bool Destroyed { get; protected set; }
+
         public virtual void Destroy()
         {
+            if (Destroyed) return;
+
             if (DestroyedVersion)
             {
                 var destroyed = Instantiate(DestroyedVersion, transform.position, transform.rotation);
@@ -59,6 +68,7 @@ namespace HurricaneVR.Framework.Components
                 }
             }
 
+            Destroyed = true;
             Destroy(gameObject);
         }
     }

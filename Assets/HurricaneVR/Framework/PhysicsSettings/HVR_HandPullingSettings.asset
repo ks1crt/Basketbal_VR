@@ -12,35 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e581938f8c0341839ae0a0294479b8d3, type: 3}
   m_Name: HVR_HandPullingSettings
   m_EditorClassIdentifier: 
-  DamperDelayPower: 0
-  CriticalDampPosition: 1
-  DampConnectedBody: 0
-  RotationDriveMode: 1
   XMaster: 1
   XDrive:
-    Spring: 5000
-    Damper: 2000
-    MaxForce: 100
-  YDrive:
-    Spring: 360000
-    Damper: 120000
-    MaxForce: 1200
-  ZDrive:
-    Spring: 360000
-    Damper: 120000
-    MaxForce: 1200
+    Spring: 4500
+    Damper: 300
+    MaxForce: 3000
   SlerpDrive:
-    Spring: 40000
-    Damper: 1000
-    MaxForce: 50
+    Spring: 1000
+    Damper: 50
+    MaxForce: 200
+  ApplyMode: 0
+  EnableCollision: 0
+  EnablePreprocessing: 1
+  BreakForce: Infinity
+  BreakTorque: Infinity
+  MassScale: 1
+  ConnectedMassScale: 1
+  ProjectionMode: 0
+  ProjectionDistance: 0.1
+  ProjectionAngle: 180
+  CriticalDampPosition: 0
+  DampConnectedBody: 0
+  RotationDriveMode: 1
+  YDrive:
+    Spring: 0
+    Damper: 0
+    MaxForce: 0
+  ZDrive:
+    Spring: 0
+    Damper: 0
+    MaxForce: 0
   AngularXDrive:
-    Spring: 40000
-    Damper: 1000
-    MaxForce: 1000
+    Spring: 0
+    Damper: 0
+    MaxForce: 0
   AngularYZDrive:
-    Spring: 40000
-    Damper: 1000
-    MaxForce: 1000
+    Spring: 0
+    Damper: 0
+    MaxForce: 0
   LinearLimit:
     Limit: 0
     Bounciness: 0
@@ -76,9 +85,3 @@ MonoBehaviour:
   AngularYZLimitSpring:
     Spring: 0
     Damper: 0
-  EnableCollision: 0
-  EnablePreprocessing: 1
-  BreakForce: Infinity
-  BreakTorque: Infinity
-  MassScale: 1
-  ConnectedMassScale: 1

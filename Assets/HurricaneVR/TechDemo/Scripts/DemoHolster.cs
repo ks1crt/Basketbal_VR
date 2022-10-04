@@ -6,20 +6,32 @@ namespace HurricaneVR.TechDemo.Scripts
 {
     public class DemoHolster : HVRSocket
     {
-        protected override Quaternion GetRotationOffset(HVRGrabbable grabbable)
+        protected override Vector3 GetTargetPosition(HVRGrabbable grabbable)
         {
-            var orientation = grabbable.GetComponent<DemoHolsterOrientation>();
-            if (orientation && orientation.Orientation)
-                return orientation.Orientation.localRotation;
-            return base.GetRotationOffset(grabbable);
+            if (grabbable.TryGetComponent(out DemoHolsterOrientation orientation))
+            {
+                var offSet = -orientation.Orientation.localPosition;
+                var delta = Quaternion.Inverse(orientation.Orientation.localRotation);
+                offSet = delta * offSet;
+
+                offSet.x *= grabbable.transform.localScale.x;
+                offSet.y *= grabbable.transform.localScale.y;
+                offSet.z *= grabbable.transform.localScale.z;
+
+                return offSet;
+            }
+
+            return base.GetTargetPosition(grabbable);
         }
 
-        protected override Vector3 GetPositionOffset(HVRGrabbable grabbable)
+        protected override Quaternion GetTargetRotation(HVRGrabbable grabbable)
         {
-            var orientation = grabbable.GetComponent<DemoHolsterOrientation>();
-            if (orientation && orientation.Orientation)
-                return orientation.Orientation.localPosition;
-            return base.GetPositionOffset(grabbable);
+            if (grabbable.TryGetComponent(out DemoHolsterOrientation orientation))
+            {
+                return Quaternion.Inverse(orientation.Orientation.localRotation);
+            }
+            
+            return base.GetTargetRotation(grabbable);
         }
     }
 }

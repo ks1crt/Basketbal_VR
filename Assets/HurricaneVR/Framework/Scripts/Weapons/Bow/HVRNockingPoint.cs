@@ -1,4 +1,5 @@
-﻿using HurricaneVR.Framework.Core.Grabbers;
+﻿using HurricaneVR.Framework.Core;
+using HurricaneVR.Framework.Core.Grabbers;
 using UnityEngine;
 
 namespace HurricaneVR.Framework.Weapons.Bow
@@ -18,10 +19,21 @@ namespace HurricaneVR.Framework.Weapons.Bow
 
         protected override void OnGrabbed(HVRGrabArgs args)
         {
-            Debug.Log($"nocked");
+            //Debug.Log($"nocked");
             args.Cancel = true;
             Grabbed.Invoke(this, args.Grabbable);
-            ForceRelease();
+            //ForceRelease();
+        }
+
+        protected override void OnReleased(HVRGrabbable grabbable)
+        {
+        }
+
+        protected override void OnHoverEnter(HVRGrabbable grabbable)
+        {
+            if (grabbable.LeftHandGrabber) grabbable.LeftHandGrabber.IgnoreNextCollisionCheck = true;
+            if (grabbable.RightHandGrabber) grabbable.RightHandGrabber.IgnoreNextCollisionCheck = true;
+            base.OnHoverEnter(grabbable);
         }
     }
 }

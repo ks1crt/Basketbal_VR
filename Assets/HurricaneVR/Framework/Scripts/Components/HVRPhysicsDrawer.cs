@@ -6,16 +6,28 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Helper component to constrain a drawer along the desired movement axis handling the joint creation and limiting for you.
+    /// Joint is constrained between the start and end position which is defined in the component inspector.
+    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class HVRPhysicsDrawer : MonoBehaviour
     {
         [Header("Settings")]
+        [Tooltip("Axis the drawer will travel on in local space.")]
         public HVRAxis Axis;
+
+        [Tooltip("Rigidbody to joint to.")]
         public Rigidbody ConnectedBody;
+
+        [Tooltip("Optional spring that will return to the starting position")]
         public float Spring = 0;
+
+        [Tooltip("Damper to provide 'friction' to the drawer.")]
         public float Damper = 10;
 
-        [Header("SFX")] public float SFXResetThreshold = .02f;
+        [Header("SFX")]
+        public float SFXResetThreshold = .02f;
         public AudioClip SFXOpened;
         public AudioClip SFXClosed;
 

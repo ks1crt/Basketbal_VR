@@ -8,6 +8,10 @@ using UnityEngine.InputSystem;
 
 namespace HurricaneVR.Framework.ControllerInput
 {
+    /// <summary>
+    /// Used by the player controller, teleporter, and hand grabbing systems to drive their actions.
+    /// Subclass and override the virtual methods if you wish to customize inputs per device.
+    /// </summary>
     public class HVRPlayerInputs : MonoBehaviour
     {
         [Header("Grab Settings")]
@@ -82,7 +86,6 @@ namespace HurricaneVR.Framework.ControllerInput
         {
             UpdateInput();
             AfterInputUpdate();
-            
         }
 
         protected virtual void UpdateInput()
@@ -296,7 +299,6 @@ namespace HurricaneVR.Framework.ControllerInput
             {
                 if (RightController.ControllerType == HVRControllerType.Vive)
                 {
-                    
                     if (RightController.TrackpadButtonState.Active)
                         return RightController.TrackpadAxis;
                     return Vector2.zero;

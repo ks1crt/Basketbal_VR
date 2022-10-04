@@ -85,7 +85,7 @@ namespace HurricaneVR.Framework.Weapons.Guns
         protected override void OnReleased(HVRGrabbable grabbable)
         {
             base.OnReleased(grabbable);
-            if (AnimateEject)
+            if (AnimateEject && gameObject.activeInHierarchy)
             {
                 StartCoroutine(EjectAnimationRoutine(grabbable));
             }

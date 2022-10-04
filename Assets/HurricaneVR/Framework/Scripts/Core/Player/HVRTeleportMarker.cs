@@ -6,15 +6,13 @@ namespace HurricaneVR.Framework.Core.Player
     {
         public GameObject Arrow;
         public GameObject Ring;
-        public GameObject Cylinder;
 
         public bool UseTeleporterColors = true;
         public Color ValidColor;
         public Color InvalidColor;
 
-        private Material RingMaterial;
-        private Material ArrowMaterial;
-        private Material CylinderMaterial;
+        protected Material RingMaterial;
+        protected Material ArrowMaterial;
 
 
         public Color Color
@@ -34,40 +32,34 @@ namespace HurricaneVR.Framework.Core.Player
         {
             base.Awake();
 
-            RingMaterial = Ring?.GetComponent<MeshRenderer>()?.material;
-            ArrowMaterial = Arrow?.GetComponent<MeshRenderer>()?.material;
-            CylinderMaterial = Cylinder?.GetComponent<MeshRenderer>()?.material;
+            if (Ring && Ring.TryGetComponent(out MeshRenderer ringRenderer)) RingMaterial = ringRenderer.material;
+            if (Arrow && Arrow.TryGetComponent(out MeshRenderer arrowRenderer)) ArrowMaterial = arrowRenderer.material;
         }
 
 
         protected override void OnActivated()
         {
-            Arrow?.SetActive(true);
-            Ring?.SetActive(true);
-            Cylinder?.SetActive(true);
+            if (Arrow) Arrow.SetActive(true);
+            if (Ring) Ring.SetActive(true);
         }
 
         protected override void OnDeactivated()
         {
-            Arrow?.SetActive(false);
-            Ring?.SetActive(false);
-            Cylinder?.SetActive(false);
+            if (Arrow) Arrow.SetActive(false);
+            if (Ring) Ring.SetActive(false);
         }
 
         public override void OnValidTeleportChanged(bool isTeleportValid)
         {
             base.OnValidTeleportChanged(isTeleportValid);
+
             UpdateMaterials();
         }
 
         protected virtual void UpdateMaterials()
         {
-            if (RingMaterial)
-                RingMaterial.color = Color;
-            if (ArrowMaterial)
-                ArrowMaterial.color = Color;
-            if (CylinderMaterial)
-                CylinderMaterial.SetColor("_TintColor", Color);
+            if (RingMaterial) RingMaterial.color = Color;
+            if (ArrowMaterial) ArrowMaterial.color = Color;
         }
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Used to define center of mass of the controller relative to the hand for bonus throwing velocity calculations
+    /// </summary>
     public class HVRThrowingCenterOfMass : MonoBehaviour
     {
         public HVRHandSide HandSide;

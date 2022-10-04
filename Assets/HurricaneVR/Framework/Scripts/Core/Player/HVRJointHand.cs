@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Assets.HurricaneVR.Framework.Shared.Utilities;
 using HurricaneVR.Framework.Core.Grabbers;
 using HurricaneVR.Framework.Core.ScriptableObjects;
 using HurricaneVR.Framework.Core.Utils;
@@ -12,28 +13,83 @@ namespace HurricaneVR.Framework.Core.Player
     [RequireComponent(typeof(Rigidbody))]
     public class HVRJointHand : MonoBehaviour
     {
+        /// <summary>
+        /// Default hand strength settings.
+        /// </summary>
         [Header("Settings")]
+        [Tooltip("Default hand strength settings.")]
         public HVRJointSettings JointSettings;
+
+        [Tooltip("Physx constraint iterations")]
         public int SolverIterations = 10;
+
+        [Tooltip("Physx constraint iterations")]
         public int SolverVelocityIterations = 10;
+
+        /// <summary>
+        /// The speed at which the hand returns to the controller when the MaxDistanceBehaviour is not set to HandSweep
+        /// </summary>
+        [Tooltip("Speed at which the hand returns to the controller when the max limit is breached, does not work in HandSweep mode.")]
         public float ReturnSpeed = 5f;
+
+
+        /// <summary>
+        /// The max distance the hand is allowed to stray from it's target.
+        /// </summary>
         [FormerlySerializedAs("MaxDistance")]
+        [Tooltip("Max distance between the hand and the controller target.")]
         public float MaxTargetDistance = .8f;
+
+        /// <summary>
+        /// Defines the action taken after max distance from the controller is exceeeded.
+        /// </summary>
+        [Tooltip("Behaviour when arm length is exceeded, or distance from the hand to the controller is exceeded.")]
         public MaxDistanceBehaviour MaxDistanceBehaviour = MaxDistanceBehaviour.HandSweep;
 
+        /// <summary>
+        /// Optional anchor point to test distance to the hand, could the shoulder of an arm or full body avatar. Works in tandem with the ArmLength field to limit the distance of the hand.
+        /// </summary>
         [Header("Arm Limit")]
+        [Tooltip("Optional 'Shoulder', if populated the hand and it's object will snap back based on the MaxDistanceBehaviour assigned.")]
         public Transform Anchor;
+
+        /// <summary>
+        /// Max distance allowed from the Anchor point if supplied.
+        /// </summary>
+        [Tooltip("Max allowed length from the Anchor to the hand.")]
         public float ArmLength = .75f;
 
+        /// <summary>
+        /// This hand will chase after the supplied transform, usually set to the offset child of the tracked device transform.
+        /// </summary>
         [Header("Components")]
         [Tooltip("Target transform for position and rotation tracking")]
         public Transform Target;
+
+        /// <summary>
+        /// Kinematic rigidbody that will hold the joint for stability.
+        /// </summary>
         public Rigidbody ParentRigidBody;
+
+        /// <summary>
+        /// This component manages the strength overrides that come from grabbable override fields.
+        /// </summary>
         public HVRHandStrengthHandler StrengthHandler;
+
+        /// <summary>
+        /// Referenced to keep track of a recent teleport to prevent the Max Distance behaviour from executing after a teleport.
+        /// </summary>
         public HVRTeleporter Teleporter;
 
+        /// <summary>
+        /// Invoked once the max distance is reached from the controller target.
+        /// </summary>
         [Header("Events")]
         public UnityEvent MaxDistanceReached = new UnityEvent();
+
+        /// <summary>
+        /// If the max distance behaviour in effect is not a HandSweep, this will invoke after the hand has returned to the controller.
+        /// </summary>
         public UnityEvent ReturnedToController = new UnityEvent();
 
         [Header("Debug")]
@@ -190,7 +246,6 @@ namespace HurricaneVR.Framework.Core.Player
 
                 if (reached)
                 {
-                    IsReturningToController = true;
                     OnMaxDistanceReached();
                 }
             }
@@ -209,28 +264,36 @@ namespace HurricaneVR.Framework.Core.Player
         protected virtual void OnReturned()
         {
             RigidBody.detectCollisions = true;
-            if (Grabber.CollisionHandler)
-                Grabber.CollisionHandler.SweepHand(Grabber);
+            //sweep in case controller is inside something
+            if (Grabber.CollisionHandler && MaxDistanceBehaviour != MaxDistanceBehaviour.HandSweep)
+                Grabber.CollisionHandler.Sweep(Grabber, Target.position);
             ReturnedToController.Invoke();
+        }
+
+        protected MaxDistanceBehaviour GetBehaviour()
+        {
+            if (Grabber.GrabbedTarget && Grabber.GrabbedTarget.OverrideMaxDistanceBehaviour)
+                return Grabber.GrabbedTarget.MaxDistanceBehaviour;
+            return MaxDistanceBehaviour;
         }
 
         protected virtual void OnMaxDistanceReached()
         {
-            if (MaxDistanceBehaviour == MaxDistanceBehaviour.GrabbablePrevents && Grabber.IsGrabbing)
+            var behaviour = GetBehaviour();
+
+            if (behaviour == MaxDistanceBehaviour.GrabbablePrevents && Grabber.GrabbedTarget)
                 return;
 
-            if (MaxDistanceBehaviour == MaxDistanceBehaviour.GrabbableDrops && Grabber.GrabbedTarget)
+            if (behaviour == MaxDistanceBehaviour.GrabbableDrops && Grabber.GrabbedTarget)
                 Grabber.ForceRelease();
 
-            if (MaxDistanceBehaviour == MaxDistanceBehaviour.HandSweep && Grabber.CollisionHandler)
+            if (behaviour == MaxDistanceBehaviour.HandSweep && Grabber.CollisionHandler)
             {
-                if (!Grabber.CollisionHandler.SweepHand(Grabber, Grabber.GrabbedTarget, (Grabber.CollisionHandler.ResetTarget.position - Target.position)))
-                {
-                    transform.position = RigidBody.position = Target.position;
-                }
+                this.ExecuteAfterFixedUpdate(() => Grabber.CollisionHandler.Sweep(Grabber, Target.position));
                 return;
             }
 
+            IsReturningToController = true;
             MaxDistanceReached.Invoke();
             RigidBody.detectCollisions = false;
         }

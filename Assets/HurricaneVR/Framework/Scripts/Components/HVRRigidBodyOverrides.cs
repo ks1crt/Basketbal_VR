@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Helper component to override various rigidbody properties
+    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class HVRRigidBodyOverrides : MonoBehaviour
     {
@@ -22,7 +25,7 @@ namespace HurricaneVR.Framework.Components
         [Header("Debug")]
         public Vector3 COMGizmoSize = new Vector3(.02f, .02f, .02f);
         public bool LiveUpdate;
-
+        public bool ShowCOMGizmo;
         public Rigidbody Rigidbody;
 
         void Awake()
@@ -33,6 +36,11 @@ namespace HurricaneVR.Framework.Components
             }
             
             this.ExecuteNextUpdate(ApplyOverrides);
+        }
+
+        protected virtual void OnValidate()
+        {
+            if (!Rigidbody) TryGetComponent(out Rigidbody);
         }
 
         public void ApplyOverrides()
@@ -70,7 +78,7 @@ namespace HurricaneVR.Framework.Components
 
         void OnDrawGizmosSelected()
         {
-            //if (OverrideCOM)
+            if (ShowCOMGizmo)
             {
                 Gizmos.color = Color.yellow;
                 if (OverrideCOM)

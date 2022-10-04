@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using HurricaneVR.Framework.Core;
+using HurricaneVR.Framework.Core.Grabbers;
+using UnityEngine;
 
 namespace HurricaneVR.Framework.Weapons.Guns
 {
@@ -31,6 +33,16 @@ namespace HurricaneVR.Framework.Weapons.Guns
             {
                 EjectCasing();
             }
+        }
+
+        protected override void OnAmmoSocketed(HVRGrabberBase grabber, HVRGrabbable grabbable)
+        {
+            AmmoSocketedHaptics();
+        }
+
+        protected override void OnAmmoSocketReleased(HVRGrabberBase arg0, HVRGrabbable arg1)
+        {
+            
         }
     }
 }

@@ -34,6 +34,7 @@ namespace HurricaneVR.Editor
             get { return Instance._updatedDisplayedVersion; }
             set
             {
+                if (Instance._updatedDisplayedVersion == value) return;
                 Instance._updatedDisplayedVersion = value;
                 Save();
             }
@@ -41,6 +42,7 @@ namespace HurricaneVR.Editor
 
         public static void Save()
         {
+            //Debug.Log($"saved");
             EditorUtility.SetDirty(instance);
             HVRSettings.Instance.AddAssetToResource(instance, "HVREditorPreferences");
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using HurricaneVR.Framework.Components;
@@ -36,7 +37,7 @@ namespace HurricaneVR.Framework.Weapons.Guns
 
         [Tooltip("Is chambering required to shoot")]
         public bool RequiresChamberedBullet = true;
-        public FireType FireType = FireType.Single;
+        public GunFireType FireType = GunFireType.Single;
 
         [Tooltip("Speed of the bullet prefab")]
         public float BulletSpeed = 40f;
@@ -126,7 +127,7 @@ namespace HurricaneVR.Framework.Weapons.Guns
         private Coroutine _animationRoutine;
 
         public UnityEvent Fired = new UnityEvent();
-        public GunHitEvent Hit = new GunHitEvent();
+        public HVRGunHitEvent Hit = new HVRGunHitEvent();
 
         protected float TimeOfLastShot { get; set; }
 
@@ -554,7 +555,7 @@ namespace HurricaneVR.Framework.Weapons.Guns
                 return;
             }
 
-            if (FireType == FireType.Single)
+            if (FireType == GunFireType.Single)
             {
                 if (Time.time - TimeOfLastShot < Cooldown)
                     return;
@@ -565,7 +566,7 @@ namespace HurricaneVR.Framework.Weapons.Guns
                 return;
             }
 
-            if (IsFiring && FireType == FireType.ThreeRoundBurst)
+            if (IsFiring && FireType == GunFireType.ThreeRoundBurst)
                 return;
 
             IsFiring = true;
@@ -574,7 +575,7 @@ namespace HurricaneVR.Framework.Weapons.Guns
 
         public virtual void TriggerReleased()
         {
-            if (FireType == FireType.Automatic)
+            if (FireType == GunFireType.Automatic)
             {
                 IsFiring = false;
             }
@@ -708,7 +709,7 @@ namespace HurricaneVR.Framework.Weapons.Guns
             TimeOfLastShot = Time.time;
             RoundsFired++;
 
-            if (FireType == FireType.ThreeRoundBurst && RoundsFired == 3)
+            if (FireType == GunFireType.ThreeRoundBurst && RoundsFired == 3)
             {
                 IsFiring = false;
             }
@@ -1020,7 +1021,7 @@ namespace HurricaneVR.Framework.Weapons.Guns
                 hit.collider.attachedRigidbody.AddForceAtPosition(direction.normalized * Force, hit.point, ForceMode.Impulse);
             }
 
-            Hit.Invoke(damageHandler);
+            Hit.Invoke(new GunHitArgs(this, hit.point, hit.normal, direction));
         }
 
         public virtual void EjectBullet()
@@ -1125,5 +1126,34 @@ namespace HurricaneVR.Framework.Weapons.Guns
                 }
             }
         }
+    }
+    
+    [Serializable]
+    public class HVRGunHitEvent : UnityEvent<GunHitArgs>
+    {
+
+    }
+
+    public struct GunHitArgs
+    {
+        public HVRGunBase Gun;
+        public Vector3 HitPoint;
+        public Vector3 Normal;
+        public Vector3 Direction;
+
+        public GunHitArgs(HVRGunBase gun, Vector3 hitPoint, Vector3 normal, Vector3 direction)
+        {
+            Gun = gun;
+            HitPoint = hitPoint;
+            Normal = normal;
+            Direction = direction;
+        }
+    }
+    
+    public enum GunFireType
+    {
+        Single,
+        ThreeRoundBurst,
+        Automatic
     }
 }

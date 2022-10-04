@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Core.Bags
 {
+    /// <summary>
+    /// Used by the hand to detect sockets for removing objects from them
+    /// </summary>
     public class HVRSocketBag : MonoBehaviour, IComparer<HVRSocket>
     {
         private readonly Dictionary<HVRSocket, HashSet<Collider>> _map = new Dictionary<HVRSocket, HashSet<Collider>>();
@@ -53,6 +56,9 @@ namespace HurricaneVR.Framework.Core.Bags
             Calculate();
         }
 
+        /// <summary>
+        /// Causes the bag to ignore the provided socket when it's trigger collider overlaps ours.
+        /// </summary>
         public void IgnoreSocket(HVRSocket socket)
         {
             if (_ignoredSockets == null)
@@ -61,6 +67,14 @@ namespace HurricaneVR.Framework.Core.Bags
             }
 
             _ignoredSockets.Add(socket);
+        }
+
+        /// <summary>
+        /// Stops ignoring the provided socket
+        /// </summary>
+        public void UnIgnoreSocket(HVRSocket socket)
+        {
+            _ignoredSockets.Remove(socket);
         }
 
         protected void AddSocket(HVRSocket socket)
@@ -132,7 +146,8 @@ namespace HurricaneVR.Framework.Core.Bags
             }
 
             // x->y ascending sort
-            ValidSockets.Sort(this);
+            //ValidSockets.Sort(this);
+            SortHelper.Sort(ValidSockets, 0, ValidSockets.Count, this);
 
             ClosestSocket = ValidSockets.FirstOrDefault();
         }

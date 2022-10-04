@@ -7,6 +7,9 @@ namespace HurricaneVR.Framework.Components
         public float Damage = 25f;
         public float Force;
 
+        [Tooltip("Player transform for ai frameworks like emerald ai")]
+        public Transform Player;
+
         protected virtual void Start()
         {
         

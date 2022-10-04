@@ -1,6 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <ui:BindableElement name="BlendEditorRoot" style="height: auto; flex-grow: 1;">
+    <ui:BindableElement name="BlendEditorRoot" class="unity-box" style="height: auto; flex-grow: 1;">
         <Style src="HVRBlendEditor.uss" />
+        <ui:VisualElement style="margin-top: 4px;">
+            <ui:Label text="Label" name="lblSelectedPose" style="font-size: 20px; -unity-font-style: bold; margin-left: 8px;" />
+        </ui:VisualElement>
         <ui:VisualElement class="HandsContainer">
             <ui:VisualElement name="CurlContainer" class="unity-box CurlContainer" style="flex-grow: 1;">
                 <ui:Label text="Finger Curls:" class="HandLabel" />

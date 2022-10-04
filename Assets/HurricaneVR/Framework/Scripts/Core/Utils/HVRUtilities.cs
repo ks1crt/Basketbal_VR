@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using HurricaneVR.Framework.Shared;
 using UnityEngine;
 
@@ -54,6 +55,11 @@ namespace HurricaneVR.Framework.Core.Utils
             return axis * (angle / Time.fixedDeltaTime);
         }
 
+        public static List<Collider> GetColliders(this GameObject go, bool includedTriggers = false)
+        {
+            return go.GetComponentsInChildren<Collider>().Where(e => !e.isTrigger || includedTriggers).ToList();
+        }
+
         public static IEnumerable<Collider> GetColliders(this Rigidbody rigidbody, bool includeTriggers = false)
         {
             return GetColliders(rigidbody, rigidbody.transform, includeTriggers);
@@ -68,6 +74,7 @@ namespace HurricaneVR.Framework.Core.Utils
 
             foreach (var c in transform.GetComponents<Collider>())
             {
+                if (!c.enabled) continue;
                 if (!c.isTrigger || (c.isTrigger && includeTriggers))
                     yield return c;
             }
@@ -135,11 +142,16 @@ namespace HurricaneVR.Framework.Core.Utils
         public static Bounds GetColliderBounds(this Collider[] colliders)
         {
             var bounds = new Bounds();
+            var first = true;
             for (var i = 0; i < colliders.Length; i++)
             {
                 var collider = colliders[i];
-                if (i == 0)
+
+                if (!collider.enabled) continue;
+
+                if (first)
                 {
+                    first = false;
                     bounds = collider.bounds;
                 }
                 else
@@ -249,11 +261,12 @@ namespace HurricaneVR.Framework.Core.Utils
 
         public static T EnsureComponent<T>(this GameObject obj) where T : UnityEngine.Component
         {
-            var temp = obj.GetComponent<T>();
-            if (temp)
-                return temp;
+            if (!obj.TryGetComponent(out T component))
+            {
+                component = obj.AddComponent<T>();
+            }
 
-            return obj.AddComponent<T>();
+            return component;
         }
 
         public static T EnsureComponent<T>(this Transform t) where T : UnityEngine.Component
@@ -326,6 +339,70 @@ namespace HurricaneVR.Framework.Core.Utils
             }
 
             return v2;
+        }
+
+        /// <summary>
+        /// return the position and rotation of target relative to relativeTo
+        /// </summary>
+        public static void GetRelativeValues(this Transform relativeTo, Transform target, out Vector3 pos, out Quaternion rot)
+        {
+            pos = relativeTo.InverseTransformPoint(target.position);
+            rot = Quaternion.Inverse(relativeTo.rotation) * target.rotation;
+        }
+
+        /// <summary>
+        /// return the position and rotation of target relative to relativeTo
+        /// </summary>
+        public static void GetRelativeValues(this Component relativeTo, Transform target, out Vector3 pos, out Quaternion rot)
+        {
+            pos = Vector3.zero;
+            rot = Quaternion.identity;
+            if (!relativeTo || !target) return;
+
+            pos = relativeTo.transform.InverseTransformPoint(target.position);
+            rot = Quaternion.Inverse(relativeTo.transform.rotation) * target.transform.rotation;
+        }
+
+        /// <summary>
+        /// return the position and rotation of target relative to relativeTo
+        /// </summary>
+        public static void GetRelativeValues(this Component relativeTo, Component target, out Vector3 pos, out Quaternion rot)
+        {
+            pos = Vector3.zero;
+            rot = Quaternion.identity;
+            if (!relativeTo || !target) return;
+
+            pos = relativeTo.transform.InverseTransformPoint(target.transform.position);
+            rot = Quaternion.Inverse(relativeTo.transform.rotation) * target.transform.rotation;
+        }
+
+        /// <summary>
+        /// returns the rotation of rotation relative to 'relativeTo'
+        /// </summary>
+        public static Quaternion GetRelativeRotation(this Component relativeTo, Quaternion rotation) => Quaternion.Inverse(relativeTo.transform.rotation) * rotation;
+
+        /// <summary>
+        /// Is any component NaN
+        /// </summary>
+        public static bool IsNaN(this Vector3 v)
+        {
+            return float.IsNaN(v.x) || float.IsNaN(v.y) || float.IsNaN(v.z);
+        }
+
+        /// <summary>
+        /// Is any component infinity
+        /// </summary>
+        public static bool IsInfinity(this Vector3 v)
+        {
+            return float.IsInfinity(v.x) || float.IsInfinity(v.y) || float.IsInfinity(v.z);
+        }
+
+        /// <summary>
+        /// Is any component nan or infinity
+        /// </summary>
+        public static bool IsInvalid(this Vector3 v)
+        {
+            return float.IsNaN(v.x) || float.IsNaN(v.y) || float.IsNaN(v.z) || float.IsInfinity(v.x) || float.IsInfinity(v.y) || float.IsInfinity(v.z);
         }
     }
 }

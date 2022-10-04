@@ -30,6 +30,11 @@ namespace HurricaneVR.Framework.Core.Player
             _stoppedDrive.maximumForce = 0f;
             _stoppedDrive.positionSpring = 0f;
             _stoppedDrive.positionDamper = 0f;
+
+            if (AlwaysUpdateJoint)
+            {
+                Debug.LogWarning($"AlwaysUpdateJoint is enabled on {name}, was this intentional?");
+            }
         }
 
         public void Initialize(HVRJointSettings defaultSettings)

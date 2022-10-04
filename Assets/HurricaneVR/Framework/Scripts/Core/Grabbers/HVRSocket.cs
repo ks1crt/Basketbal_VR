@@ -15,7 +15,6 @@ namespace HurricaneVR.Framework.Core.Grabbers
 {
     public class HVRSocket : HVRGrabberBase
     {
-
         [Header("Grab Settings")]
         public HVRGrabControls GrabControl = HVRGrabControls.GripOrTrigger;
 
@@ -26,6 +25,9 @@ namespace HurricaneVR.Framework.Core.Grabbers
 
         [Tooltip("Releases the current grabbable if another valid one is in range")]
         public bool ReleasesOnHover;
+
+        [Tooltip("If true, the hand grabbing an object out of this will instantly bring the object to pose orientation.")]
+        public bool InstantHandPose;
 
         public SocketHoldType HoldType = SocketHoldType.Kinematic;
 
@@ -57,7 +59,7 @@ namespace HurricaneVR.Framework.Core.Grabbers
         public bool CanRemoveGrabbable = true;
 
         [Tooltip("Scales the grabbable down to fit based on Size and the model bounds.")]
-        public bool ScaleGrabbable = true;
+        public bool ScaleGrabbable;
 
         [Tooltip("Grabbable scales down to this size along its longest extent.")]
         public float Size;
@@ -74,6 +76,7 @@ namespace HurricaneVR.Framework.Core.Grabbers
 
         [Tooltip("Fallback grabbed sfx to play if the socketable doesn't have one.")]
         public AudioClip AudioGrabbedFallback;
+
         [Tooltip("Fallback released sfx to play if the socketable doesn't have one.")]
         public AudioClip AudioReleasedFallback;
 
@@ -89,6 +92,12 @@ namespace HurricaneVR.Framework.Core.Grabbers
         [Tooltip("If supplied the hand will use this point when sorting distance to the closest socket instead of the socket position")]
         public Transform DistanceSource;
 
+        [Tooltip("Used by the socketable to decide which saved pose to use.")]
+        public string PoseTag;
+
+        [Tooltip("If false, the socketed object colliders remain active, only works for static or kinematic rb sockets.")]
+        public bool DisableCollision = true;
+
         [Tooltip("Fires when an AutoSpawnedPrefab is instantiated.")]
         public SocketSpawnEvent SpawnedPrefab = new SocketSpawnEvent();
 
@@ -98,7 +107,6 @@ namespace HurricaneVR.Framework.Core.Grabbers
 
         protected Transform _previousParent;
         protected Vector3 _previousScale;
-        protected Bounds _modelBounds;
         protected bool _appQuitting;
         protected HVRGrabbable _timeoutGrabbable;
         protected float _mass;
@@ -118,6 +126,8 @@ namespace HurricaneVR.Framework.Core.Grabbers
 
         public override bool IsSocket => true;
 
+        public int? PoseHash { get; set; }
+
         public bool CanAddGrabbable
         {
             get
@@ -134,13 +144,18 @@ namespace HurricaneVR.Framework.Core.Grabbers
         {
             base.Start();
 
-            if (HoldType == SocketHoldType.RemoveRigidbody)
+            if (!Rigidbody)
             {
-                if (!Rigidbody)
-                {
-                    Rigidbody = GetComponentInParent<Rigidbody>();
-                }
+                Rigidbody = GetComponentInParent<Rigidbody>();
             }
+
+            if (Rigidbody && !Rigidbody.isKinematic && !DisableCollision)
+            {
+                Debug.LogWarning($"Sockets with a non kinematic rigidbody should not disable DisableCollision");
+            }
+
+            if (!string.IsNullOrWhiteSpace(PoseTag))
+                PoseHash = Animator.StringToHash(PoseTag);
 
             //if (!Rigidbody && HoldType == SocketHoldType.RemoveRigidbody)
             //{
@@ -273,6 +288,7 @@ namespace HurricaneVR.Framework.Core.Grabbers
                     return false;
                 }
             }
+
             return base.CanHover(grabbable);
         }
 
@@ -298,7 +314,6 @@ namespace HurricaneVR.Framework.Core.Grabbers
             }
 
             grabbable.Released.AddListener(OnHoverGrabbableReleased);
-
 
 
             base.OnHoverEnter(grabbable);
@@ -350,7 +365,6 @@ namespace HurricaneVR.Framework.Core.Grabbers
 
             if (CanAddGrabbable && TryGrab(grabbable))
             {
-
             }
         }
 
@@ -362,7 +376,7 @@ namespace HurricaneVR.Framework.Core.Grabbers
             {
                 foreach (var action in HoverActions)
                 {
-                    if(action)
+                    if (action)
                         action.OnHoverExit(this, grabbable, IsValid(grabbable));
                 }
             }
@@ -467,30 +481,8 @@ namespace HurricaneVR.Framework.Core.Grabbers
             _previousParent = grabbable.transform.parent;
             _previousScale = grabbable.transform.localScale;
 
-            if (grabbable.Socketable && grabbable.Socketable.ScaleOverride)
-            {
-                var scaleBox = grabbable.Socketable.ScaleOverride;
 
-                var temp = scaleBox.enabled;
-
-                if (!scaleBox.enabled)
-                {
-                    scaleBox.enabled = true;
-                }
-
-                _modelBounds = scaleBox.bounds;
-
-                if (!temp)
-                {
-                    scaleBox.enabled = false;
-                }
-            }
-            else
-            {
-                _modelBounds = grabbable.ModelBounds;
-            }
-
-            grabbable.transform.parent = transform;
+            AttachGrabbable(grabbable);
             OnGrabbableParented(grabbable);
             HandleRigidBodyGrab(grabbable);
             PlaySocketedSFX(grabbable.Socketable);
@@ -501,44 +493,45 @@ namespace HurricaneVR.Framework.Core.Grabbers
             }
         }
 
-        protected virtual Vector3 GetPositionOffset(HVRGrabbable grabbable)
+        protected virtual void AttachGrabbable(HVRGrabbable grabbable)
         {
-            if (!grabbable || !grabbable.Socketable || !grabbable.Socketable.SocketOrientation)
-                return Vector3.zero;
-            return grabbable.Socketable.SocketOrientation.localPosition;
-        }
-
-        protected virtual Quaternion GetRotationOffset(HVRGrabbable grabbable)
-        {
-            if (!grabbable || !grabbable.Socketable || !grabbable.Socketable.SocketOrientation)
-                return Quaternion.identity;
-            return grabbable.Socketable.SocketOrientation.localRotation;
+            grabbable.transform.parent = transform;
         }
 
         protected virtual Vector3 GetTargetPosition(HVRGrabbable grabbable)
         {
-            var offSet = -GetPositionOffset(grabbable);
-            var delta = Quaternion.Inverse(GetRotationOffset(grabbable));
-            offSet = delta * offSet;
+            var socketable = grabbable.Socketable;
+            if (!grabbable || !socketable)
+                return Vector3.zero;
 
-            offSet.x *= grabbable.transform.localScale.x;
-            offSet.y *= grabbable.transform.localScale.y;
-            offSet.z *= grabbable.transform.localScale.z;
+            if (socketable.SocketOrientation)
+            {
+                var offSet = -socketable.SocketOrientation.localPosition;
+                var delta = Quaternion.Inverse(socketable.SocketOrientation.localRotation);
+                offSet = delta * offSet;
 
-            return offSet;
+                offSet.x *= grabbable.transform.localScale.x;
+                offSet.y *= grabbable.transform.localScale.y;
+                offSet.z *= grabbable.transform.localScale.z;
+
+                return offSet;
+            }
+
+            return socketable.GetPositionOffset(this);
         }
 
         protected virtual Quaternion GetTargetRotation(HVRGrabbable grabbable)
         {
             var socketable = grabbable.Socketable;
+            if (!socketable)
+                return Quaternion.identity;
 
             if (socketable.SocketOrientation)
             {
-                var rotationOffset = GetRotationOffset(grabbable);
-                return Quaternion.Inverse(rotationOffset);
+                return Quaternion.Inverse(socketable.SocketOrientation.localRotation);
             }
 
-            return Quaternion.identity;
+            return socketable.GetRotationOffset(this);
         }
 
         protected virtual void OnGrabbableParented(HVRGrabbable grabbable)
@@ -563,41 +556,41 @@ namespace HurricaneVR.Framework.Core.Grabbers
             if (!grabbable.Rigidbody)
                 return;
 
-            
+            grabbable.SaveRigidBodyState();
 
             switch (HoldType)
             {
                 case SocketHoldType.Kinematic:
-                    {
-                        grabbable.Rigidbody.useGravity = false;
-                        grabbable.Rigidbody.velocity = Vector3.zero;
-                        grabbable.Rigidbody.angularVelocity = Vector3.zero;
-                        grabbable.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-                        grabbable.Rigidbody.isKinematic = true;
-                        grabbable.Rigidbody.interpolation = RigidbodyInterpolation.None;
-                        grabbable.SetAllToTrigger();
-                    }
+                {
+                    grabbable.Rigidbody.useGravity = false;
+                    grabbable.Rigidbody.velocity = Vector3.zero;
+                    grabbable.Rigidbody.angularVelocity = Vector3.zero;
+                    grabbable.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+                    grabbable.Rigidbody.isKinematic = true;
+                    grabbable.Rigidbody.interpolation = RigidbodyInterpolation.None;
+                    if (DisableCollision) grabbable.SetAllToTrigger();
+                }
                     break;
                 case SocketHoldType.RemoveRigidbody:
+                {
+                    _hadRigidBody = true;
+
+                    if (Rigidbody)
                     {
-                        _hadRigidBody = true;
-
-                        if (Rigidbody)
-                        {
-                            _mass = Rigidbody.mass;
-                            Rigidbody.mass += grabbable.Rigidbody.mass;
-                        }
-
-                        Destroy(grabbable.Rigidbody);
-                        if (_fixPositionRoutine != null)
-                        {
-                            StopCoroutine(_fixPositionRoutine);
-                        }
-                        _fixPositionRoutine = StartCoroutine(SetPositionNextFrame(grabbable));
+                        _mass = Rigidbody.mass;
+                        Rigidbody.mass += grabbable.Rigidbody.mass;
                     }
+
+                    Destroy(grabbable.Rigidbody);
+                    if (_fixPositionRoutine != null)
+                    {
+                        StopCoroutine(_fixPositionRoutine);
+                    }
+
+                    _fixPositionRoutine = StartCoroutine(SetPositionNextFrame(grabbable));
+                }
                     break;
             }
-
         }
 
         protected virtual void CleanupRigidBody(HVRGrabbable grabbable)
@@ -609,6 +602,11 @@ namespace HurricaneVR.Framework.Core.Grabbers
                 {
                     Rigidbody.mass = _mass;
                 }
+            }
+
+            if (grabbable.Rigidbody)
+            {
+                grabbable.Rigidbody.isKinematic = false;
             }
 
             grabbable.ResetRigidBody();
@@ -665,24 +663,30 @@ namespace HurricaneVR.Framework.Core.Grabbers
 
         protected virtual void PlaySFX(AudioClip clip)
         {
-            if(SFXPlayer.Instance) SFXPlayer.Instance.PlaySFX(clip, transform.position);
+            if (SFXPlayer.Instance) SFXPlayer.Instance.PlaySFX(clip, transform.position);
         }
 
-
+        protected virtual float GetSocketableScaleSize(HVRSocketable socketable)
+        {
+            return socketable.GetSocketScaleSize(this);
+        }
 
         protected virtual void UpdateScale(HVRGrabbable grabbable)
         {
             if (!grabbable || !ScaleGrabbable)
                 return;
-            var extents = _modelBounds.extents;
-            var axis = extents.x;
-            if (extents.y > axis) axis = extents.y;
-            if (extents.z > axis) axis = extents.z;
-            axis *= 2;
+
+            var finalScale = ComputeScale(grabbable.Socketable);
+            grabbable.transform.localScale = finalScale;
+        }
+
+        public virtual Vector3 ComputeScale(HVRSocketable socketable)
+        {
+            var axis = GetSocketableScaleSize(socketable);
             var ratio = Size / axis;
-            ratio *= grabbable.Socketable.SocketScale;
-            var counterScale = grabbable.Socketable.CounterScale;
-            grabbable.transform.localScale = new Vector3(ratio * counterScale.x, ratio * counterScale.y, ratio * counterScale.z);
+            ratio *= socketable.SocketScale;
+            var counterScale = socketable.CounterScale;
+            return new Vector3(ratio * counterScale.x, ratio * counterScale.y, ratio * counterScale.z);
         }
 
         protected override void OnReleased(HVRGrabbable grabbable)
@@ -735,8 +739,6 @@ namespace HurricaneVR.Framework.Core.Grabbers
         }
 
 
-      
-
         protected virtual IEnumerator GrabTimeoutRoutine(HVRGrabbable grabbable)
         {
             _timeoutGrabbable = grabbable;
@@ -781,7 +783,6 @@ namespace HurricaneVR.Framework.Core.Grabbers
     [Serializable]
     public class SocketSpawnEvent : UnityEvent<HVRSocket, GameObject>
     {
-
     }
 
     public enum SocketCondition

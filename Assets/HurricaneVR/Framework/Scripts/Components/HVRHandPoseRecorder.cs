@@ -46,10 +46,10 @@ namespace HurricaneVR.Framework.Components
         {
             Folder = DateTime.Now.ToString("yyyyMMdd_HH_mm");
         }
-
+#if UNITY_EDITOR
         void Update()
         {
-#if UNITY_EDITOR
+
 
             if (DisablePhysics && !_previousDisable)
             {
@@ -79,9 +79,9 @@ namespace HurricaneVR.Framework.Components
             _previousDisable = DisablePhysics;
 
             CheckSnapshot();
-#endif
-        }
 
+        }
+#endif
         private void CheckSnapshot()
         {
             HVRPosableHand hand = null;

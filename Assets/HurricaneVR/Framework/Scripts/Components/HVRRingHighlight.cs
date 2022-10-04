@@ -10,17 +10,22 @@ namespace HurricaneVR.Framework.Components
         public Transform Camera;
 
         [Header("Settings")]
+        
         [Tooltip("Ring must be within this distance from the camera to be displayed")]
         public float Distance = 5f;
         
 
         [Header("Line of Sight Settings")]
+        
         [Tooltip("Use ray cast to the camera collider to determine if we should show")]
         public bool RequireLineOfSight = true;
+        
         [Tooltip("Layer mask for checking line of sight, include the layer of the camera(default is Player)")]
         public LayerMask LayerMask;
+        
         [Tooltip("Check line of sight only if distance greater than this")]
         public float LineOfSightThreshold = 1.5f;
+        
         [Tooltip("Timeout to check line of sight")]
         public float Delay = 1f;
 
@@ -30,7 +35,7 @@ namespace HurricaneVR.Framework.Components
 
         protected override void Start()
         {
-            if (!Camera)
+            if (!Camera && HVRManager.Instance)
             {
                 Camera = HVRManager.Instance.Camera;
             }

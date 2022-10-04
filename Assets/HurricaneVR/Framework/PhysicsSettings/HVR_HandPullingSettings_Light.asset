@@ -31,7 +31,7 @@ MonoBehaviour:
   ProjectionMode: 0
   ProjectionDistance: 0.1
   ProjectionAngle: 180
-  CriticalDampPosition: 1
+  CriticalDampPosition: 0
   DampConnectedBody: 0
   RotationDriveMode: 1
   YDrive:

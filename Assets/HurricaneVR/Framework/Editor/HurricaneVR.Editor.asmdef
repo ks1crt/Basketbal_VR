@@ -1,8 +1,7 @@
 {
     "name": "HurricaneVR.Editor",
     "references": [
-        "GUID:f7a333d2b0b31b44f84b6d72c27911b5",
-        "GUID:d55e7dbb51eb1824ba366c6c892d969e"
+        "HurricaneVR.Framework"
     ],
     "includePlatforms": [
         "Editor"

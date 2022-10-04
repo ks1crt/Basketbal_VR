@@ -20,7 +20,7 @@ namespace HurricaneVR.Framework.Core.Player
         public HVRPlayerController Player;
 
         [Header("Teleport Disable Checks")]
-        
+
         [Tooltip("Should player rotation disable teleport aiming?")]
         public bool PlayerRotateCheck = true;
 
@@ -151,6 +151,7 @@ namespace HurricaneVR.Framework.Core.Player
         public bool IsOnlyDropDistanceInvalid;
         public bool IsOriginInLineOfSight;
         public bool IsJumpDistanceValid;
+        public bool DoesPlayerFit;
         public TeleportState TeleportState = TeleportState.None;
 
 
@@ -213,7 +214,7 @@ namespace HurricaneVR.Framework.Core.Player
         /// </summary>
         public int LastIndex { get; protected set; }
 
-        public Transform TeleportLineSource => TeleportHand == HVRHandSide.Left ? TeleportLineSourceLeft : TeleportLineSourceRight;
+        public virtual Transform TeleportLineSource => TeleportHand == HVRHandSide.Left ? TeleportLineSourceLeft : TeleportLineSourceRight;
 
         /// <summary>
         /// Did the forward raycast find a valid teleportable location
@@ -366,7 +367,7 @@ namespace HurricaneVR.Framework.Core.Player
                 return;
             }
 
-            if (PlayerRotateCheck && Player  && _timeSinceLastRotation < RotationTeleportThreshold && !IsAiming)
+            if (PlayerRotateCheck && Player && _timeSinceLastRotation < RotationTeleportThreshold && !IsAiming)
             {
                 Disable();
                 return;
@@ -408,7 +409,7 @@ namespace HurricaneVR.Framework.Core.Player
                 return;
             }
 
-            if (IsTeleportActivated())
+            if (!IsAiming && IsTeleportActivated())
             {
                 OnTeleportActivated();
             }
@@ -580,6 +581,9 @@ namespace HurricaneVR.Framework.Core.Player
             return CanTeleport && !IsTeleporting;
         }
 
+        /// <summary>
+        /// Determine if the origin of the teleport is in line of sight of the player's hmd.
+        /// </summary>
         protected virtual bool CheckOriginLineOfSight()
         {
             IsOriginInLineOfSight = true;
@@ -596,12 +600,19 @@ namespace HurricaneVR.Framework.Core.Player
             return true;
         }
 
+        /// <summary>
+        /// Determine if the player is allowed to teleport to a destination.
+        /// </summary>
+        /// <param name="hitObject">The object hit by the raycast</param>
+        /// <param name="destination">The position of the final ray cast hit</param>
+        /// <param name="surfaceNormal">The normal of the ray cast hit, useful for ground angle validation</param>
+        /// <returns></returns>
         protected virtual bool CheckValidDestination(GameObject hitObject, Vector3 destination, Vector3 surfaceNormal)
         {
             if (!CheckDestinationAllowed(hitObject, destination))
                 return false;
 
-            if (!CheckCanReachDestination(destination))
+            if (!CheckDestinationLineOfSight(destination))
                 return false;
 
             if (!CheckPlayerFits(destination))
@@ -616,11 +627,9 @@ namespace HurricaneVR.Framework.Core.Player
             return true;
         }
 
-        protected virtual bool CheckCanReachDestination(Vector3 destination)
-        {
-            return CheckDestinationLineOfSight(destination);
-        }
-
+        /// <summary>
+        /// Determine if the player is allowed to teleport to a destination lower than the current position.
+        /// </summary>
         protected virtual bool CheckFallDistance(Vector3 destination)
         {
             if (CapsuleBottom.y > destination.y && CapsuleBottom.y - destination.y > MaxDropDistance && CheckDropDistance)
@@ -633,6 +642,9 @@ namespace HurricaneVR.Framework.Core.Player
             return true;
         }
 
+        /// <summary>
+        /// Determine if the destination is in line of sight, by default the Camera is the origin of the ray cast.
+        /// </summary>
         protected virtual bool CheckDestinationLineOfSight(Vector3 destination)
         {
             if (!RequireDestinationLineOfSight || !Camera)
@@ -657,7 +669,10 @@ namespace HurricaneVR.Framework.Core.Player
         }
 
 
-
+        /// <summary>
+        /// Determines if the player is allowed to land at the provided destination
+        /// </summary>
+        /// <param name="hitObject">The gameobject that the final ray cast hit.</param>
         protected virtual bool CheckDestinationAllowed(GameObject hitObject, Vector3 destination)
         {
             if (hitObject.TryGetComponent(out _dummyInvalid))
@@ -666,20 +681,41 @@ namespace HurricaneVR.Framework.Core.Player
             return (TeleportableLayers & (1 << hitObject.layer)) != 0;
         }
 
+
+        /// <summary>
+        /// Determines if the player is allowed to land at the provided destination
+        /// </summary>
         protected virtual bool CheckPlayerFits(Vector3 destination)
         {
-            return CheckCapsuleFits(destination);
+            DoesPlayerFit = CheckCapsuleFits(destination);
+            return DoesPlayerFit;
         }
 
+        /// <summary>
+        /// Determines if the player is allowed to land at the provided destination using a capsule overlap check.
+        /// </summary>
         protected virtual bool CheckCapsuleFits(Vector3 destination)
         {
-            GetCapsuleData(out var p1, out var p2, out var radius);
-            p1 += destination;
-            p2 += destination;
+            GetCapsuleData(out var height, out var radius, out var offset);
+            var p1 = destination + Vector3.up * (height - radius + offset);
+            var p2 = destination + Vector3.up * (radius + offset);
 
-            return Physics.OverlapCapsuleNonAlloc(p1, p2 + Vector3.up * .01f, radius, _dummy, ~0 & ~PlayerFitIgnoreLayerMask, QueryTriggerInteraction.Ignore) == 0;
+            var fits = Physics.OverlapCapsuleNonAlloc(p1, p2, radius, _dummy, ~0 & ~PlayerFitIgnoreLayerMask, QueryTriggerInteraction.Ignore) == 0;
+
+            //if (!fits)
+            //{
+            //    Debug.DrawLine(destination, destination + Vector3.right * .3f, Color.magenta);
+            //    Debug.DrawLine(p1, p2, Color.red);
+            //    Debug.DrawLine(p1, p1 + Vector3.up * radius, Color.blue);
+            //    Debug.DrawLine(p2, p2 - Vector3.up * radius, Color.cyan);
+            //}
+
+            return fits;
         }
 
+        /// <summary>
+        /// Determine if the player is allowed to reach a destination above the player's current position.
+        /// </summary>
         protected virtual bool CheckVerticalDistance(Vector3 destination)
         {
             IsJumpDistanceValid = true;
@@ -698,6 +734,9 @@ namespace HurricaneVR.Framework.Core.Player
             return true;
         }
 
+        /// <summary>
+        /// Determine if the surface angle is too steep using the raycast hit normal.
+        /// </summary>
         protected virtual bool CheckSurfaceAngle(Vector3 normal)
         {
             var angle = Vector3.Angle(Vector3.up, normal);
@@ -705,24 +744,26 @@ namespace HurricaneVR.Framework.Core.Player
             return IsSurfaceAngleValid;
         }
 
-        protected virtual void GetCapsuleData(out Vector3 p1, out Vector3 p2, out float radius)
+        /// <summary>
+        /// Gathers the height, radius, and collider width offset that will be used for the overlap fits check
+        /// </summary>
+        /// <param name="height">Height of the capsule</param>
+        /// <param name="radius">Radius of the capsule</param>
+        /// <param name="offset">Y offset (buffer) above the destination point to start the overlap check</param>
+        protected virtual void GetCapsuleData(out float height, out float radius, out float offset)
         {
-            float height;
-
             if (Capsule)
             {
                 height = Capsule.height;
                 radius = Capsule.radius;
+                offset = Capsule.contactOffset;
             }
             else
             {
                 height = CharacterController.height;
                 radius = CharacterController.radius;
+                offset = CharacterController.skinWidth;
             }
-
-            var distanceToSphereCenter = height * .5f - radius;
-            p1 = Vector3.up * (height - radius);
-            p2 = Vector3.up * distanceToSphereCenter;
         }
 
         protected virtual bool ProjectForwardRay(Vector3 origin, Vector3 target, out RaycastHit hit)
@@ -955,7 +996,7 @@ namespace HurricaneVR.Framework.Core.Player
         protected virtual void OnBeforeDashTeleport()
         {
         }
-        
+
         protected virtual void OnAfterDashTeleport()
         {
         }
@@ -975,6 +1016,9 @@ namespace HurricaneVR.Framework.Core.Player
             AfterTeleport.Invoke();
             if (CharacterController)
                 CharacterController.enabled = true;
+
+            if (LeftHand) LeftHand.BreakDistanceCooldown();
+            if (RightHand) RightHand.BreakDistanceCooldown();
         }
 
         public virtual bool Teleport(Vector3 position)
@@ -993,9 +1037,52 @@ namespace HurricaneVR.Framework.Core.Player
             if (!Teleport(position))
                 return;
 
-            if (Player)
+            if (!Player) return;
+
+            var leftRot = Quaternion.identity;
+            var leftPos = Vector3.zero;
+            var rightRot = Quaternion.identity;
+            var rightPos = Vector3.zero;
+            var leftGrabRot = Quaternion.identity;
+            var leftGrabPos = Vector3.zero;
+            var rightGrabRot = Quaternion.identity;
+            var rightGrabPos = Vector3.zero;
+
+            //snapshot relative values and then reapply after rotating the player
+
+            if (LeftHand)
             {
-                Player.FaceDirection(direction);
+                Player.GetRelativeValues(LeftHand, out leftPos, out leftRot);
+                if (LeftHand.GrabbedTarget)
+                {
+                    LeftHand.GetRelativeValues(LeftHand.GrabbedTarget, out leftGrabPos, out leftGrabRot);
+                }
+            }
+
+            if (RightHand)
+            {
+                Player.GetRelativeValues(RightHand, out rightPos, out rightRot);
+                if (RightHand.GrabbedTarget) RightHand.GetRelativeValues(RightHand.GrabbedTarget, out rightGrabPos, out rightGrabRot);
+            }
+
+            Player.FaceDirection(direction);
+
+            if (LeftHand)
+            {
+                LeftHand.transform.SetPositionAndRotation(Player.transform.TransformPoint(leftPos), Player.transform.rotation * leftRot);
+                if (LeftHand.GrabbedTarget)
+                {
+                    LeftHand.GrabbedTarget.transform.SetPositionAndRotation(LeftHand.transform.TransformPoint(leftGrabPos), LeftHand.transform.rotation * leftGrabRot);
+                }
+            }
+
+            if (RightHand)
+            {
+                RightHand.transform.SetPositionAndRotation(Player.transform.TransformPoint(rightPos), Player.transform.rotation * rightRot);
+                if (RightHand.GrabbedTarget)
+                {
+                    RightHand.GrabbedTarget.transform.SetPositionAndRotation(RightHand.transform.TransformPoint(rightGrabPos), RightHand.transform.rotation * rightGrabRot);
+                }
             }
         }
 

@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 1953161208123307838}
   - component: {fileID: 1665790615552952479}
   - component: {fileID: 7427359377583458585}
-  - component: {fileID: 5596430768570030567}
   - component: {fileID: 1468026948974480799}
   - component: {fileID: 2713947739643972780}
+  - component: {fileID: 1925150971373072863}
   m_Layer: 0
   m_Name: HurricaneFreshener
   m_TagString: Untagged
@@ -37,8 +37,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 5804629216139462869}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,7 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 1
+  GrabBehaviour: 0
+  PoseType: 1
   TrackingType: 0
   HoldType: 2
   GrabControl: 0
@@ -140,8 +140,9 @@ MonoBehaviour:
   GrabTrigger: 0
   RequireLineOfSight: 1
   PoseImmediately: 0
-  ParentHandModel: 1
+  ParentHandModel: 0
   BreakDistance: 1
+  BreakDistanceSource: 0
   RemainsKinematic: 1
   Stationary: 0
   ReleasedAngularConversionFactor: 1
@@ -167,9 +168,8 @@ MonoBehaviour:
   AutoApplyLayer: 1
   RequireOverlapClearance: 0
   OverlapTimeout: 0.2
-  FinalJointMaxAngle: 3
-  FinalJointQuick: 1
-  FinalJointTimeout: 2
+  FinalJointMaxAngle: 15
+  FinalJointTimeout: 0.25
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
   GrabColliders: []
@@ -178,8 +178,11 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -295,19 +298,6 @@ MonoBehaviour:
   LastVelocity: 0
   MaxImpulse: 0
   MaxVelocity: 0
---- !u!114 &5596430768570030567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1464822872742855183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 080f217f0d7e4c3da0276fee3b98630d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CenterOfMass: {fileID: 5804629216139462869}
 --- !u!114 &1468026948974480799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,9 +310,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10345b4efa150014fb756a02715a4231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SocketOrientation: {fileID: 5804629216139462869}
-  SocketScale: 1
+  SocketOrientation: {fileID: 0}
   CounterScale: {x: 1, y: 1, z: 1}
+  UseRendererBounds: 1
+  ScaleSize: 0
+  SocketScale: 1
   ScaleOverride: {fileID: 0}
   SocketedClip: {fileID: 0}
   UnsocketedClip: {fileID: 0}
@@ -345,33 +337,29 @@ MonoBehaviour:
   Data: {fileID: 0}
   Force: 0
   Grabbable: {fileID: 0}
---- !u!1 &8977962215509934435
-GameObject:
+--- !u!114 &1925150971373072863
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5804629216139462869}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5804629216139462869
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8977962215509934435}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0916, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2242731079729731765}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1464822872742855183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a0e712065e5ec4484d6ca15e0f4563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OverrideCOM: 1
+  OverrideRotation: 0
+  OverrideTensor: 0
+  OverrideAngularSpeed: 0
+  OverrideMaxDepenetration: 0
+  CenterOfMass: {x: 0, y: -0.08, z: 0}
+  InertiaTensorRotation: {x: 0, y: 0, z: 0}
+  InertiaTensor: {x: 0, y: 0, z: 0}
+  MaxAngularVelocity: 0
+  MaxDepenetration: 0
+  COMGizmoSize: {x: 0.02, y: 0.02, z: 0.02}
+  LiveUpdate: 0
+  ShowCOMGizmo: 0
+  Rigidbody: {fileID: 1771446779070378870}

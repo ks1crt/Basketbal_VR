@@ -7,15 +7,26 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Used to limit rotations beyond the default Physx limit of 177 degrees. Joint is recreated at certain thresholds to allow the wider
+    /// range of motion, only use this if you need range of motion beyond 177 degrees.
+    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(HVRRotationTracker))]
     public class HVRRotationLimiter : MonoBehaviour
     {
         public const float PhysxMaxLimit = 177f;
 
+        [Tooltip("Connected Body of the Joint")]
         public Rigidbody ConnectedBody;
+
+        [Tooltip("Minimum angle of rotation")]
         public int MinAngle;
+
+        [Tooltip("Maximum angle of rotation")]
         public int MaxAngle;
+
+        [Tooltip("Distance traveled before the joint is recreated with new limits")]
         public float JointResetThreshold = 90f;
 
 

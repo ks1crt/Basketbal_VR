@@ -64,12 +64,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 1
     IndexType: 1
     MiddleType: 1
@@ -136,6 +130,7 @@ GameObject:
   - component: {fileID: 8049107146561653288}
   - component: {fileID: 2662767794824241676}
   - component: {fileID: 8845672520808510394}
+  - component: {fileID: 3485198054752962806}
   m_Layer: 0
   m_Name: mjolnir
   m_TagString: Untagged
@@ -173,7 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 0
   HoldType: 1
   GrabControl: 0
@@ -181,7 +177,7 @@ MonoBehaviour:
   GrabTrigger: 0
   RequireLineOfSight: 1
   PoseImmediately: 0
-  ParentHandModel: 1
+  ParentHandModel: 0
   BreakDistance: 1
   RemainsKinematic: 1
   Stationary: 0
@@ -209,10 +205,9 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   AutoApplyLayer: 1
   RequireOverlapClearance: 0
-  OverlapTimeout: 5
-  FinalJointMaxAngle: 40
-  FinalJointQuick: 1
-  FinalJointTimeout: 0.5
+  OverlapTimeout: 0.2
+  FinalJointMaxAngle: 15
+  FinalJointTimeout: 0.25
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
   GrabColliders: []
@@ -221,8 +216,11 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints:
@@ -327,6 +325,31 @@ MonoBehaviour:
   Data: {fileID: 0}
   Force: 0
   Grabbable: {fileID: 0}
+--- !u!114 &3485198054752962806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862063408027050708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a0e712065e5ec4484d6ca15e0f4563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OverrideCOM: 0
+  OverrideRotation: 0
+  OverrideTensor: 0
+  OverrideAngularSpeed: 1
+  OverrideMaxDepenetration: 1
+  CenterOfMass: {x: 0, y: 0, z: 0}
+  InertiaTensorRotation: {x: 0, y: 0, z: 0}
+  InertiaTensor: {x: 0, y: 0, z: 0}
+  MaxAngularVelocity: 10
+  MaxDepenetration: 10
+  COMGizmoSize: {x: 0.02, y: 0.02, z: 0.02}
+  LiveUpdate: 0
+  Rigidbody: {fileID: 8049107146561653288}
 --- !u!1 &1722043424274926634
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,12 +531,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 1
     IndexType: 1
     MiddleType: 1

@@ -657,7 +657,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 0
   HoldType: 1
   GrabControl: 0
@@ -693,8 +694,7 @@ MonoBehaviour:
   RequireOverlapClearance: 0
   OverlapTimeout: 0.1
   FinalJointMaxAngle: 3
-  FinalJointQuick: 1
-  FinalJointTimeout: 2
+  FinalJointTimeout: 0.25
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
   GrabColliders: []
@@ -703,8 +703,11 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []

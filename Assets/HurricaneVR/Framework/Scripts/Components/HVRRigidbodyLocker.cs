@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Helps constrain loose joints on the desired axis.
+    /// </summary>
     public class HVRRigidbodyLocker : MonoBehaviour
     {
         public LockOptions Locks;

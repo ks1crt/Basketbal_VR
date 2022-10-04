@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Deprecated and left in for older projects. Superceded by HVRPhysicsDial and HVRRotationTracker
+    /// </summary>
     [RequireComponent(typeof(HVRGrabbable))]
     public class HVRDial : MonoBehaviour
     {

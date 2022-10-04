@@ -19,6 +19,7 @@ namespace HurricaneVR.Framework.Components
             Grabbable = GetComponent<HVRGrabbable>();
 
             Grabbable.HandGrabbed.AddListener(OnHandGrabbed);
+            Grabbable.HandReleased.AddListener(OnHandReleased);
 
             if (Others != null)
             {
@@ -33,6 +34,11 @@ namespace HurricaneVR.Framework.Components
             }
         }
 
+        private void OnHandReleased(HVRHandGrabber arg0, HVRGrabbable arg1)
+        {
+            Grabbable.ForceTwoHandSettings = false;
+        }
+
         private void OnHandGrabbed(HVRHandGrabber arg0, HVRGrabbable arg1)
         {
             foreach (var other in Others)
@@ -45,9 +51,22 @@ namespace HurricaneVR.Framework.Components
             }
         }
 
-        private void OnOtherGrabbableHandReleased(HVRHandGrabber arg0, HVRGrabbable arg1)
+        private void OnOtherGrabbableHandReleased(HVRHandGrabber arg0, HVRGrabbable g)
         {
-            Grabbable.ForceTwoHandSettings = false;
+            //handle scenario if two "others" are held, then one was released.
+            var force = false;
+            for (int i = 0; i < Others.Length; i++)
+            {
+                var other = Others[i];
+                if (other == g || other.HandGrabbers.Count == 0)
+                    continue;
+
+                force = true;
+                break;
+            }
+
+            if (!force)
+                Grabbable.ForceTwoHandSettings = false;
         }
 
         private void OnOtherGrabbableHandGrabbed(HVRHandGrabber arg0, HVRGrabbable arg1)

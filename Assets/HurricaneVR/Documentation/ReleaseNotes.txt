@@ -1,3 +1,136 @@
+2.9
+
+Fixed grab indicators showing up even if they were marked disabled on the HVRGrabbable.
+Fixed issue where CockingHandle would not lock forward if the controller was too far forward of the grab point.
+
+Added HVRPoseZone: Uses a provided HVRHandPoser to pose the hand when the hand enters the overlap zone.
+	Demo KeyPad updated with a pose zone example.
+HVRSocket: New 'PoseTag' field which links with HVRSocketable Poses field for saving orientation when socketed.
+HVRSocketable: New Poses field with inspector interface to help save orientations for different socket types.
+HVRGunBase: Added Hit event which passes the gun, hitpoint, normal, and direction variables.
+HVRHandAnimator: Added 'HandOverride' transform field, allows HVRPosableHand component to be on a different component. VRIK IK targets is one example.
+Bow: Fixed hand collision being re-enabled to early with the arrow.
+Hand Prefabs: Added trigger collider with HVRHandTrigger component for easy hand detection by other components (HVRPoseZone).
+Example Shotgun: modified two hand hold strengths to prevent forehand from moving the shotgun backward to easily.
+
+
+2.8.7-2.8.8
+
+Fixed hands ignoring collision with each other on the tech demo rig.
+Fixed knuckles controllers grip hand animation when using OpenXR.
+Fixed physics door not checking if second handle exists.
+Fixed socketable throwing null error if instantiated and socketed in the same frame.
+Fixed Camera Rig ignoring debug setting for up/down arrow if only the new input system was enabled.
+
+Removed RemainsKinematic from HVRGrabbable and snapshotting/restoring of IsKinematic during the grab procedure. Users should use
+	grabbed and released events for this from now on for full control of this field without framework interference.
+	
+Auto Posing in editor mode randomly has issues when colliders are attached to a rigidbody, the hand poser editor will warn users of this now.
+
+2.8.6
+
+Fixed wheel collider line of sight check and dynamic pose
+Fixed bug where force pull would not re-enable collision with the hand if dropped before it reached the hand.
+Fixed IsBeingForcedGrabbed not being set to false on a successfull force pull to the hand.
+Fixed HVRPhysicsDoor joint anchor not being set to zero sometimes
+Fixed null coroutine error on HVRGrabbable if object was disabled prior to being released.
+Fixed obsolete api call in hand poser editor in 2021.2 and up.
+
+HVRPhysicsDoor upgraded to allow two door handles. Example scene swinging door updated with two separate handles. Web Docs updated.
+Custom Hand Setup Wizard completed with tutorial in the web docs.
+Virtualized HVRUIPointer methods.
+Hand Posing now only works in scene view, prefab mode has issues when posing, a warning will display to alert the user.
+Added new demo scene showing how to use hand animation parameters - 'scene_hand_squeeze'
+Added commentary and tooltips to several helper components that were missing them.
+
+2.8.5
+
+Fixed an issue where socketed objects would scale differently based on it's rotation prior to being socketed due to AABB sizing.
+Fixed trigger colliders being deleted on the ClonedHandModel process.
+CloneHandModel defaulted to false on included hand prefabs as ParentHandModel is defaulted to false on new grabbable objects.
+
+2.8.4
+
+Fixed an issue with the version update check logic that was refreshing the asset database after compiles.
+
+Distance Grab Updates:
+	Force Pull logic re-worked using kinematics that takes into account mass, gravity, and hand velocity.
+	Force Pull Settings updated with Max Acceleration Force, Max Speed, Damping speed parameters to control behaviour.
+	
+Hand Grab "Pull" sequence is improved and should be smoother, especially after a distance grab is executed.
+
+HVRGrabbable : Added 'BreakDistanceSource' [NoDistanceCheck, Hand, Controller] to control the distance check against the object, or to prevent dropping from distance altogether.
+	
+2.8.3.1
+
+OpenXR - added package check and update helper if 1.3 and higher version isn't detected.
+VRIK Setup - fix IK solve at setup end when avatar spine isn't using normal forward / right vectors.
+Adjust force grab default max force (was too strong for hexabody)
+
+
+2.8.3
+
+Fixed GC alloc in the socket detection
+HVRControllerOffset will smoothly move / rotate to the grab points offset value instead of immediately snapping.
+Tweaked force grabber to bring the object closer to the hand before the hand takes over.
+Updated Hand Setup Wizard instructions to be more clear.
+
+2.8.2
+
+Fix HVRStabber when the tip / base transforms aren't directly a child of the stabber
+Fix HVRTeleporter capsule overlap check math that was failing at small capsule sizes.
+Fix grabbing when the hand was set to toggle grab mode but the grabbable was set to Active mode.
+Improved post teleport hand / held object positioning if the user rotated the player to a new direction.
+HVRSocket - scale grabbable defaulted to false
+Added basic EmeraldAI (v3) integration scene
+HVRSettings - new DisableHaptics toggle 
+HVRPhysicsDial - fixed anchor to start at 0,0,0
+
+
+2.8.1
+
+Fix Hexa Integration with 2.8 changes
+
+2.8
+
+
+Fixed socket container grabber (example scene chest uses this)
+Fixed impact component when rigidbody is missing 
+Fixed socket hover scale not completely hitting it's target scale size.
+Fixed post teleport grabbable dropping due to the break distance check triggering
+Fixed hand rotation post manual teleport
+Fixed hand animator bug where finger curls were not properly applied to secondary poses.
+Fixed hand animator to respect individual blend pose speeds.
+Fixed gravity gloves adding Y force after a auto catch.
+Fixed bug in custom hand setup wizard if hand didn't have tip transforms already.
+Greatly improved post teleport collision handling
+Improved post collision sweep after hand max distance reached
+HandPoser blends with Speed of 0 will immediately lerp and not use smoothing to the target pose.
+Demo SMG and Pistol trigger poses updated with speed of 0.
+Suggested default MaxAngularSpeed reduced to 30.
+HVRStabber Optimized GC allocation by caching stabbable colliders on start for reuse
+
+HVRHandGrabber
+	Pusher [Box Collider] & PushoutTime [float] : optional box collider (generated automatically if not supplied) that will grow from zero to max size over PushoutTime.
+		Used when Hand goes to retrieve an object to ensure the hand doesn't get stuck in collision geometry.
+		Used after overlap clearance with a dropped object times out and is still overlapping to push the stuck object out of the hand.
+		Used after release if collisions were disabled on the hand while holding an object.
+		Users can start the push sequence by calling StartPushing if desired.
+	Pull Sequence Changes:
+		If pulling a grabbed object to the hand times out while trying to orient to the pose position, the hand will go retrieve
+		the object if the remaining angle difference is greater than "Move Threshold". This should help prevent objects getting stuck
+		when the fixed joint is created with the hand.
+		
+HVRSocket: InstantHandPose: If true, the removed object will instantly be orienated based on it's pose. Large sockets in demo scene enabled.
+
+HVRGrabbable:
+	OverrideMaxDistanceBehaviour & MaxDistanceBehaviour to override what happens after the hand gets to far from the controller.
+	LinkedGrabbables: additional grabbables that might be on the same rigidbody to consider it a two hand grab.
+	
+	GrabBehaviour: override the Hand's "Pull or Hand Grab's" behaviour. (Default, PullToHand, HandRetrieves)
+	FinalJointMaxAngle defaulted to 15.
+	FinalJointTimeout defaulted to .25 seconds.
+	
 2.7.1.1
 
 Fix Gravity Gloves to rotate object to pose rotation correctly.

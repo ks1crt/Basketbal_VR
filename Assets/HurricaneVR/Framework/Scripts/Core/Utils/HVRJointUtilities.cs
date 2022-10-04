@@ -48,6 +48,24 @@ namespace HurricaneVR.Framework.Core.Utils
             joint.highAngularXLimit = ll;
         }
 
+        public static void SetAngularYLimit(this ConfigurableJoint joint, float limit, float bounciness = 0f, float contactDistance = 0f)
+        {
+            joint.angularYLimit = new SoftJointLimit() { bounciness = bounciness, contactDistance = contactDistance, limit = limit };
+        }
+
+        public static void SetAngularZLimit(this ConfigurableJoint joint, float limit, float bounciness = 0f, float contactDistance = 0f)
+        {
+            joint.angularZLimit = new SoftJointLimit() { bounciness = bounciness, contactDistance = contactDistance, limit = limit };
+        }
+
+        public static void SetAngularLimits(this ConfigurableJoint joint, float xLow, float xHigh, float y, float z)
+        {
+            joint.SetAngularXLowLimit(xLow);
+            joint.SetAngularXHighLimit(xHigh);
+            joint.SetAngularYLimit(y);
+            joint.SetAngularZLimit(z);
+        }
+
         public static void LimitXMotion(this ConfigurableJoint joint)
         {
             joint.xMotion = ConfigurableJointMotion.Limited;
@@ -63,11 +81,30 @@ namespace HurricaneVR.Framework.Core.Utils
             joint.zMotion = ConfigurableJointMotion.Limited;
         }
 
+        public static void FreeLinearMotion(this ConfigurableJoint joint)
+        {
+            joint.xMotion = joint.yMotion = joint.zMotion = ConfigurableJointMotion.Free;
+        }
+
+        public static void LimitLinearMotion(this ConfigurableJoint joint)
+        {
+            joint.LimitXMotion();
+            joint.LimitYMotion();
+            joint.LimitZMotion();
+        }
+
         public static void LockLinearMotion(this ConfigurableJoint joint)
         {
             joint.LockXMotion();
             joint.LockYMotion();
             joint.LockZMotion();
+        }
+
+        public static void LimitAngularMotion(this ConfigurableJoint joint)
+        {
+            joint.LimitAngularXMotion();
+            joint.LimitAngularYMotion();
+            joint.LimitAngularZMotion();
         }
 
         public static void LimitAngularXMotion(this ConfigurableJoint joint)

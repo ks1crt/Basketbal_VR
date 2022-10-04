@@ -3,11 +3,18 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Used in conjunction with the HVRRotationTracker to play SFX based on rotation amount.
+    /// </summary>
     public class HVRRotationSFX : MonoBehaviour
     {
+        [Tooltip("Tracker required to know how far something has rotated")]
         public HVRRotationTracker Tracker;
 
+        [Tooltip("Clip chosen at random from this list when rotated beyond 'AngleThreshold'")]
         public AudioClip[] SFX;
+
+        [Tooltip("Rotation distance must exceed this to play another sfx clip")]
         public float AngleThreshold = 30f;
 
         [Header("Debug")]
@@ -39,11 +46,6 @@ namespace HurricaneVR.Framework.Components
                     PlaySFX(sfx);
                 }
             }
-        }
-
-        public void Update()
-        {
-
         }
 
         protected virtual void PlaySFX(AudioClip sfx)

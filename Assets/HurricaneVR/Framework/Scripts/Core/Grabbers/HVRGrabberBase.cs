@@ -40,6 +40,7 @@ namespace HurricaneVR.Framework.Core.Grabbers
             }
         }
 
+        public HVRGrabbable HeldObject => GrabbedTarget;
 
         public HVRGrabbable GrabbedTarget
         {
@@ -74,7 +75,6 @@ namespace HurricaneVR.Framework.Core.Grabbers
 
 
         public virtual Vector3 JointAnchorWorldPosition { get; }
-        public Vector3 Velocity { get; protected set; }
 
         public virtual bool IsMine { get; set; } = true;
         public virtual bool PerformUpdate { get; set; } = true;
@@ -100,10 +100,15 @@ namespace HurricaneVR.Framework.Core.Grabbers
             HVRManager.Instance?.UnregisterGrabber(this);
         }
 
+        protected virtual void Awake()
+        {
+            Rigidbody = GetComponent<Rigidbody>();
+        }
+
         protected virtual void Start()
         {
             HVRManager.Instance?.RegisterGrabber(this);
-            Rigidbody = GetComponent<Rigidbody>();
+         
             AllowGrabbing = true;
             AllowHovering = true;
 
@@ -160,12 +165,36 @@ namespace HurricaneVR.Framework.Core.Grabbers
             }
         }
 
-        public virtual void HandSwapRelease()
+        /// <summary>
+        /// Returns true if this object should be released from it's existing grabber prior to be grabbed by another.
+        /// </summary>
+        protected virtual bool CheckSwapReleaseRequired(HVRGrabbable grabbable)
         {
-            ReleaseGrabbable(this, GrabbedTarget, true, true);
+            return grabbable.IsBeingForcedGrabbed || grabbable.PrimaryGrabber && grabbable.PrimaryGrabber.AllowSwap;
         }
 
-        internal static void ReleaseGrabbable(HVRGrabberBase grabber, HVRGrabbable grabbable, bool raiseEvents = true, bool isHandSwap = false)
+        /// <summary>
+        /// Will check if this object should be released from it's primary grabber and release it if so.
+        /// </summary>
+        protected virtual void CheckSwapRelease(HVRGrabbable grabbable)
+        {
+            if (CheckSwapReleaseRequired(grabbable))
+                SwapRelease(grabbable);
+        }
+
+        /// <summary>
+        /// Releases the grabbable from it's current grabber, this is prior to being grabbed by another grabber.
+        /// </summary>
+        protected virtual void SwapRelease(HVRGrabbable grabbable)
+        {
+            grabbable.PrimaryGrabber.ForceRelease();
+        }
+
+        /// <summary>
+        /// Executes the release sequence on the provided grabber and grabbable.
+        /// </summary>
+        /// <param name="raiseEvents">If true the Released Unity events on the grabber and grabbable will execute.</param>
+        public static void ReleaseGrabbable(HVRGrabberBase grabber, HVRGrabbable grabbable, bool raiseEvents = true, bool isHandSwap = false)
         {
             grabber.OnReleased(grabbable);
             grabbable.InternalOnReleased(grabber);
@@ -255,7 +284,6 @@ namespace HurricaneVR.Framework.Core.Grabbers
         {
             if (force || CanGrab(grabbable))
             {
-                CheckForceRelease(grabbable);
                 GrabGrabbable(this, grabbable);
                 return true;
             }
@@ -267,7 +295,6 @@ namespace HurricaneVR.Framework.Core.Grabbers
         {
             if (force || CanGrab(grabbable))
             {
-                CheckForceRelease(grabbable);
                 GrabGrabbable(this, grabbable, false);
                 return true;
             }
@@ -275,25 +302,12 @@ namespace HurricaneVR.Framework.Core.Grabbers
             return false;
         }
 
-        public virtual void CheckForceRelease(HVRGrabbable grabbable)
-        {
-            if (grabbable.IsBeingForcedGrabbed ||
-                grabbable.PrimaryGrabber && grabbable.PrimaryGrabber.AllowSwap)
-            {
-                grabbable.PrimaryGrabber.ForceRelease();
-                return;
-            }
 
-            var handSwap = grabbable.HoldType == HVRHoldType.AllowSwap && grabbable.PrimaryGrabber is HVRHandGrabber && this is HVRHandGrabber;
-
-            if (handSwap)
-            {
-                grabbable.PrimaryGrabber.HandSwapRelease();
-            }
-        }
 
         protected virtual void GrabGrabbable(HVRGrabberBase grabber, HVRGrabbable grabbable, bool raiseEvents = true)
         {
+            CheckSwapRelease(grabbable);
+
             if (raiseEvents)
             {
                 grabber.BeforeGrabbed.Invoke(grabber, grabbable);
@@ -334,7 +348,7 @@ namespace HurricaneVR.Framework.Core.Grabbers
 
         protected virtual void OnBeforeGrabbed(HVRGrabArgs args)
         {
-
+            
         }
 
         protected virtual void OnGrabbed(HVRGrabArgs args)
@@ -575,7 +589,8 @@ namespace HurricaneVR.Framework.Core.Grabbers
                 if (!grabbableCollider)
                     continue;
 
-                if (!useClosestPoint || grabbable.HasConcaveColliders && grabbableCollider is MeshCollider meshCollider && !meshCollider.convex)
+                if (!useClosestPoint || grabbable.HasConcaveColliders && grabbableCollider is MeshCollider meshCollider && !meshCollider.convex ||
+                    grabbable.HasWheelCollider && grabbableCollider is WheelCollider)
                 {
                     _lineOfSightRay.direction = grabbableCollider.bounds.center - _lineOfSightRay.origin;
                 }

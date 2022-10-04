@@ -7,6 +7,9 @@ using UnityEngine.Serialization;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Stores Unity SDK and Device offset combinations to handle the differences between SDK's and the position and rotation values they report.
+    /// </summary>
     [CreateAssetMenu(menuName = "HurricaneVR/Controller Offsets", fileName = "ControllerOffset")]
     public class HVRControllerOffsets : ScriptableObject
     {

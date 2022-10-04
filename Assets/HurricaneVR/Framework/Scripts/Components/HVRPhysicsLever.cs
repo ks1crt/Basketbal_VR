@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Lever behaves similar to the dial in rigidbody joint behaviour at this time...
+    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class HVRPhysicsLever : HVRPhysicsDial
     {

@@ -21,6 +21,7 @@ namespace HurricaneVR.Framework.Core.Player
         public bool CanSprint = true;
         public bool CanCrouch = true;
         public PlayerDirectionMode DirectionStyle = PlayerDirectionMode.Camera;
+
         [Tooltip("If true the player will ignore the first HMD movement on detection. " +
                  "If the HMD is not centered the player would move away from it's placed position to where the HMD is.")]
         public bool InitialHMDAdjustment = true;
@@ -97,6 +98,9 @@ namespace HurricaneVR.Framework.Core.Player
         public float MaxLean = .5f;
         [Tooltip("Screen fades when leaning to far into something.")]
         public bool FadeFromLean = true;
+
+
+
 
         [Header("Debugging")]
         public bool MouseTurning;
@@ -184,6 +188,8 @@ namespace HurricaneVR.Framework.Core.Player
                     ScreenFader = finder.gameObject.GetComponent<HVRScreenFade>();
                 }
             }
+
+            PreviousPosition = transform.position;
         }
 
 
@@ -303,6 +309,7 @@ namespace HurricaneVR.Framework.Core.Player
             delta.y = 0f;
             CameraRig.transform.position -= delta;
             _waitingForCameraMovement = false;
+            PreviousPosition = transform.position;
         }
 
         protected virtual void CheckGrounded()
@@ -554,8 +561,18 @@ namespace HurricaneVR.Framework.Core.Player
             LeftJointHand.RigidBody.AddForce(acceler * LeftJointHand.RigidBody.mass, ForceMode.Force);
             RightJointHand.RigidBody.AddForce(acceler * RightJointHand.RigidBody.mass, ForceMode.Force);
 
-            var leftRB = LeftHand.GrabbedTarget?.Rigidbody;
-            var rightRb = RightHand.GrabbedTarget?.Rigidbody;
+            Rigidbody leftRB = null;
+            Rigidbody rightRb = null;
+
+            if (LeftHand.GrabbedTarget && LeftHand.GrabbedTarget.Rigidbody)
+            {
+                leftRB = LeftHand.GrabbedTarget.Rigidbody;
+            }
+
+            if (RightHand.GrabbedTarget && RightHand.GrabbedTarget.Rigidbody)
+            {
+                rightRb = RightHand.GrabbedTarget.Rigidbody;
+            }
 
             if (leftRB && rightRb && leftRB == rightRb)
             {

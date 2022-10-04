@@ -11,14 +11,12 @@ namespace HurricaneVR.Framework.Weapons
     
     public class HVRAmmoReleaseAction : HVRInputAction
     {
-        public HVRRayCastGun HVRRayCastGun { get; private set; }
         public HVRGunBase Gun { get; private set; }
 
 
         protected override void Awake()
         {
             base.Awake();
-            HVRRayCastGun = GetComponent<HVRRayCastGun>();
             Gun = GetComponent<HVRGunBase>();
         }
 
@@ -41,10 +39,9 @@ namespace HurricaneVR.Framework.Weapons
                 release = controller.PrimaryButtonState.JustActivated;
             }
 
-            if (release)
+            if (release && Gun)
             {
-                HVRRayCastGun?.ReleaseAmmo();
-                Gun?.ReleaseAmmo();
+                Gun.ReleaseAmmo();
             }
         }
     }

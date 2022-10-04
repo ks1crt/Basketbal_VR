@@ -123,7 +123,7 @@ namespace HurricaneVR.Framework.Core.Utils
             m_UsedSource = m_UsedSource + 1;
             if (m_UsedSource >= m_SFXSourcePool.Length) m_UsedSource = 0;
 
-            if (SetClipName && !Application.isEditor)
+            if (SetClipName && Application.isEditor)
             {
                 audioSource.name = clip.name;
             }

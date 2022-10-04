@@ -293,12 +293,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 0
     IndexType: 0
     MiddleType: 0
@@ -417,12 +411,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 0
     IndexType: 0
     MiddleType: 0
@@ -443,12 +431,6 @@ MonoBehaviour:
     ButtonParameter: 1
     Button: 1
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 1
     IndexType: 0
     MiddleType: 1
@@ -565,12 +547,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 0
     IndexType: 0
     MiddleType: 0
@@ -670,7 +646,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 0
   HoldType: 0
   GrabControl: 0
@@ -681,7 +658,7 @@ MonoBehaviour:
   ParentHandModel: 1
   BreakDistance: 1
   RemainsKinematic: 1
-  Stationary: 1
+  Stationary: 0
   ReleasedAngularConversionFactor: 1
   ReleasedVelocityFactor: 1
   ReleasedAngularFactor: 1
@@ -707,7 +684,6 @@ MonoBehaviour:
   RequireOverlapClearance: 0
   OverlapTimeout: 0.1
   FinalJointMaxAngle: 3
-  FinalJointQuick: 1
   FinalJointTimeout: 2
   CollisionParents: []
   ExtraIgnoreCollisionParents:
@@ -718,8 +694,11 @@ MonoBehaviour:
   DisableHandCollision: 1
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 5276702847809236134}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -1466,6 +1445,7 @@ MonoBehaviour:
   GrabDetectionType: 1
   CheckHandOverlap: 0
   ReleasesOnHover: 0
+  InstantHandPose: 0
   HoldType: 0
   AutoSpawnPrefab: {fileID: 0}
   GrabTimeout: 2
@@ -1487,6 +1467,7 @@ MonoBehaviour:
   SocketFilters: []
   FilterCondition: 0
   DistanceSource: {fileID: 0}
+  DisableCollision: 1
   SpawnedPrefab:
     m_PersistentCalls:
       m_Calls: []
@@ -1690,7 +1671,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 2
   HoldType: 0
   GrabControl: 0
@@ -1726,7 +1708,6 @@ MonoBehaviour:
   RequireOverlapClearance: 0
   OverlapTimeout: 0.1
   FinalJointMaxAngle: 3
-  FinalJointQuick: 1
   FinalJointTimeout: 2
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
@@ -1736,8 +1717,11 @@ MonoBehaviour:
   DisableHandCollision: 1
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -1869,7 +1853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 0
   HoldType: 1
   GrabControl: 0
@@ -1877,7 +1862,7 @@ MonoBehaviour:
   GrabTrigger: 0
   RequireLineOfSight: 1
   PoseImmediately: 0
-  ParentHandModel: 1
+  ParentHandModel: 0
   BreakDistance: 1
   RemainsKinematic: 1
   Stationary: 0
@@ -1904,9 +1889,8 @@ MonoBehaviour:
   AutoApplyLayer: 1
   RequireOverlapClearance: 0
   OverlapTimeout: 1
-  FinalJointMaxAngle: 3
-  FinalJointQuick: 1
-  FinalJointTimeout: 2
+  FinalJointMaxAngle: 15
+  FinalJointTimeout: 0.25
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
   GrabColliders: []
@@ -1915,8 +1899,12 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables:
+  - {fileID: 5276702846866937411}
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -2298,12 +2286,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 0
     IndexType: 0
     MiddleType: 0
@@ -2656,6 +2638,7 @@ MonoBehaviour:
   GrabDetectionType: 1
   CheckHandOverlap: 0
   ReleasesOnHover: 0
+  InstantHandPose: 0
   HoldType: 0
   AutoSpawnPrefab: {fileID: 0}
   GrabTimeout: 0
@@ -2676,6 +2659,7 @@ MonoBehaviour:
   SocketFilters: []
   FilterCondition: 0
   DistanceSource: {fileID: 0}
+  DisableCollision: 1
   SpawnedPrefab:
     m_PersistentCalls:
       m_Calls: []
@@ -2740,7 +2724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc937e678155e4d86feeb9248cca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabType: 0
+  GrabBehaviour: 0
+  PoseType: 0
   TrackingType: 0
   HoldType: 1
   GrabControl: 0
@@ -2776,7 +2761,6 @@ MonoBehaviour:
   RequireOverlapClearance: 0
   OverlapTimeout: 0.1
   FinalJointMaxAngle: 3
-  FinalJointQuick: 1
   FinalJointTimeout: 2
   CollisionParents: []
   ExtraIgnoreCollisionParents: []
@@ -2786,8 +2770,11 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 0
+  OverrideMaxDistanceBehaviour: 0
+  MaxDistanceBehaviour: 0
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []

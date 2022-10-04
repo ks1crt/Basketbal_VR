@@ -427,8 +427,11 @@ MonoBehaviour:
   DisableHandCollision: 0
   AllowMultiplayerSwap: 0
   MasterGrabbable: {fileID: 0}
+  LinkedGrabbables: []
   CollisionDetection: 2
   PhysicsPoserFallback: 1
+  OverrideMaxDistanceBehaviour: 1
+  MaxDistanceBehaviour: 1
   ShowBoundingBox: 0
   DrawCenterOfMass: 0
   GrabPoints: []
@@ -853,12 +856,6 @@ MonoBehaviour:
     ButtonParameter: 0
     Button: 0
     Disabled: 0
-    Test:
-      Type: 0
-      Vive: 0
-      Oculus: 0
-      Knuckles: 0
-      WMR: 0
     ThumbType: 0
     IndexType: 0
     MiddleType: 0

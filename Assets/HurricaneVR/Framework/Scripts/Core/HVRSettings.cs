@@ -55,7 +55,6 @@ namespace HurricaneVR.Framework.Core
         public string LocalEditorRootDirectory;
         public string LocalRootDirectory;
         public string LocalResourcesDirectory;
-        public string LocalReferencePoseDirectory;
         public string LocalRuntimePosesDirectory;
         public string LocalPosesDirectory;
 
@@ -69,7 +68,6 @@ namespace HurricaneVR.Framework.Core
         public const string DefaultLeftHand = "HVR_left_hand";
         public const string DefaultRightHand = "HVR_right_hand";
 
-        public const string ReferencePoses = "ReferencePoses";
         public const string RuntimePoses = "RuntimePoses";
 
         [Header("Misc Settings")]
@@ -96,16 +94,11 @@ namespace HurricaneVR.Framework.Core
         public HVRFingerType RingCurlType = HVRFingerType.Static;
         public HVRFingerType PinkyCurlType = HVRFingerType.Static;
 
-        [Range(0f, 1f)]
-        public float ThumbStart = .75f;
-        [Range(0f, 1f)]
-        public float IndexStart = 1f;
-        [Range(0f, 1f)]
-        public float MiddleStart;
-        [Range(0f, 1f)]
-        public float RingStart;
-        [Range(0f, 1f)]
-        public float PinkyStart;
+        [Range(0f, 1f)] public float ThumbStart = 1f;
+        [Range(0f, 1f)] public float IndexStart = 1f;
+        [Range(0f, 1f)] public float MiddleStart = 1f;
+        [Range(0f, 1f)] public float RingStart = 1f;
+        [Range(0f, 1f)] public float PinkyStart = 1f;
 
         [Header("Grab Detection")]
         public bool UseAttachedRigidBody;
@@ -125,6 +118,7 @@ namespace HurricaneVR.Framework.Core
         [Header("Debugging")]
         public bool VerboseGrabbableEvents;
         public bool VerboseHandGrabberEvents;
+        public bool DisableHaptics;
 
         public GameObject GetPoserHand(HVRHandSide side)
         {
@@ -155,7 +149,6 @@ namespace HurricaneVR.Framework.Core
                 Debug.LogException(e);
             }
 
-            TryCreateReferencePoseFolder();
             TryCreateRuntimePoseFolder();
 
             SetupDefaultHands(settings);
@@ -209,9 +202,8 @@ namespace HurricaneVR.Framework.Core
             var rootPath = UnityEditor.AssetDatabase.GetAssetPath(rootScript);
             var rootFileInfo = new FileInfo(rootPath);
 
-            //todo - path with another Shared fails
-
-            return rootFileInfo.Directory.FullName.Replace("Shared", "");
+            return rootFileInfo.Directory.FullName.Replace($"HurricaneVR{Path.DirectorySeparatorChar}Framework{Path.DirectorySeparatorChar}Scripts",
+                $"HurricaneVR{Path.DirectorySeparatorChar}Framework{Path.DirectorySeparatorChar}");
         }
 
         private string GetResourcesDirectory()
@@ -221,10 +213,6 @@ namespace HurricaneVR.Framework.Core
             return path;
         }
 
-        private string GetDefaultReferencePoseDirectory()
-        {
-            return Path.Combine(GetResourcesDirectory(), ReferencePoses);
-        }
 
         private string GetDefaultRuntimePosesDirectory()
         {
@@ -286,26 +274,7 @@ namespace HurricaneVR.Framework.Core
                 Debug.LogException(e);
             }
         }
-
-
-        private void TryCreateReferencePoseFolder()
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(LocalResourcesDirectory)) return;
-
-                if (string.IsNullOrEmpty(LocalReferencePoseDirectory))
-                {
-                    LocalReferencePoseDirectory = LocalResourcesDirectory + "ReferencePoses" + Path.DirectorySeparatorChar;
-                }
-
-                Directory.CreateDirectory(GetDefaultReferencePoseDirectory());
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-        }
+      
 
         private void TryCreateRuntimePoseFolder()
         {
@@ -329,9 +298,6 @@ namespace HurricaneVR.Framework.Core
         [InspectorButton("ShowPosesFolderChooser")]
         public string ChosePosesDirectory = "Choose Pose Directory";
 
-        [InspectorButton("ShowReferencePosesFolderChooser", 300)]
-        public string ChoseReferencePosesDirectory = "Choose Reference Poses Directory";
-
         [InspectorButton("ShowRuntimePosesFolderChooser", 300)]
         public string ChoseRunTimePosesDirectory = "Choose RunTime Poses Directory";
 
@@ -352,15 +318,7 @@ namespace HurricaneVR.Framework.Core
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
-
-        public void ShowReferencePosesFolderChooser()
-        {
-            var ReferencePoseDirectory = EditorUtility.OpenFolderPanel("Choose Pose Directory", null, null);
-            LocalReferencePoseDirectory = ReferencePoseDirectory.Substring(Application.dataPath.IndexOf("Assets"));
-            EditorUtility.SetDirty(this);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-        }
+      
 
         [InspectorButton("ReloadGlobalsMethod")]
         public string ReloadGlobals = "Reload Globals";
@@ -461,25 +419,6 @@ namespace HurricaneVR.Framework.Core
             }
 
             return null;
-        }
-
-        public void SaveReferencePose(HVRHandPose pose, string name)
-        {
-            try
-            {
-                if (!name.EndsWith(".asset"))
-                {
-                    name += ".asset";
-                }
-
-                var path = Path.Combine(LocalReferencePoseDirectory, name);
-                AssetUtils.CreateOrReplaceAsset(pose, path);
-                Debug.Log($"Saved {name} to {LocalReferencePoseDirectory}");
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
         }
 
         public void AddAssetToResource<T>(T asset, string name) where T : Object

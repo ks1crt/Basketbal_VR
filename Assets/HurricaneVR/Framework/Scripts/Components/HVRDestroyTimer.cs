@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace HurricaneVR.Framework.Components
 {
+    /// <summary>
+    /// Destroys this game object after a timeout
+    /// </summary>
     public class HVRDestroyTimer : MonoBehaviour
     {
         public void StartTimer(float timeout)

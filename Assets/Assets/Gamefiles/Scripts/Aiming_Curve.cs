@@ -31,7 +31,7 @@ namespace VR.Basketball.Core
         // Start is called before the first frame update
         void Start()
         {
-
+          
         }
 
         // Update is called once per frame
@@ -39,15 +39,14 @@ namespace VR.Basketball.Core
         {
 
         }
-        public void OnActivated(GameObject grabbedBall)
+        public void Activate()
         {
             throw new System.NotImplementedException();
         }
 
-        public void OnDeactivated(GameObject releasedBall)
+        public void Deactivate()
         {
-          var rigi =  releasedBall.GetComponent<Rigidbody>();
-            rigi.drag = 1;
+            throw new System.NotImplementedException();
         }
     }
 }

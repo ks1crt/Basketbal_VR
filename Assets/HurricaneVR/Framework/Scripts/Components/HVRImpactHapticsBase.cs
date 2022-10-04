@@ -29,7 +29,9 @@ namespace HurricaneVR.Framework.Components
 
         protected virtual void OnCollisionEnter(Collision other)
         {
-            if (Rb.velocity.sqrMagnitude < Data.SqrMagThreshold)
+            if (!Rb) TryGetComponent(out Rb);
+
+            if (!Rb || Rb.velocity.sqrMagnitude < Data.SqrMagThreshold)
                 return;
 
             if (Time.realtimeSinceStartup - _lastHaptic < Data.Timeout)

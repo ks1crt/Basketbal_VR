@@ -228,13 +228,16 @@ namespace HurricaneVR.Framework.Core.Utils
             var elapsed = 0f;
             while (elapsed < TimeToSlow)
             {
+                elapsed += Time.unscaledDeltaTime;
                 Time.timeScale = Mathf.Lerp(1f, scale, elapsed / TimeToSlow);
                 Time.fixedDeltaTime = 1f / RefreshRate * Time.timeScale;
                 if (SmoothFixedTimeStep)
                     ResetBuffer();
                 yield return null;
-                elapsed += Time.unscaledDeltaTime;
             }
+
+            Time.timeScale = scale;
+            Time.fixedDeltaTime = 1f / RefreshRate * Time.timeScale;
 
             _slowRoutine = null;
         }
@@ -245,14 +248,16 @@ namespace HurricaneVR.Framework.Core.Utils
             var start = Time.timeScale;
             while (elapsed < TimeToSlow)
             {
+                elapsed += Time.unscaledDeltaTime;
                 Time.timeScale = Mathf.Lerp(start, 1f, elapsed / TimeToResume);
                 Time.fixedDeltaTime = 1f / RefreshRate * Time.timeScale;
                 if (SmoothFixedTimeStep)
                     ResetBuffer();
                 yield return null;
-                elapsed += Time.unscaledDeltaTime;
             }
 
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 1f / RefreshRate;
             _resetRoutine = null;
         }
     }

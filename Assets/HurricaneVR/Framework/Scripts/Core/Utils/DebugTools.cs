@@ -40,11 +40,6 @@ namespace HurricaneVR.Framework.Core.Utils
             }
         }
 
-        void Update()
-        {
-
-        }
-
         private void OnCollisionEnter(Collision other)
         {
             //Debug.Log($"Impulse: {other.impulse}. Velocity: {other.relativeVelocity}");

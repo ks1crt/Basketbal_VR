@@ -20,13 +20,13 @@ namespace HurricaneVR.Framework.Core.UI
         public HVRController Controller => HVRInputManager.Instance.GetController(HandSide);
         public GameObject CurrentUIElement;// { get; internal set; }
 
-        private void Start()
+        protected virtual void Start()
         {
             Camera = GetComponent<Camera>();
             Pointer = GetComponent<LineRenderer>();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             Pointer.enabled = CurrentUIElement;
             if (Pointer.enabled)
@@ -36,7 +36,7 @@ namespace HurricaneVR.Framework.Core.UI
             }
         }
 
-        internal void Process()
+        public virtual void Process()
         {
             PointerEventData.Reset();
             PointerEventData.position = new Vector2(Camera.pixelWidth / 2, Camera.pixelHeight / 2);
